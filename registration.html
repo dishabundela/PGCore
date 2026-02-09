@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PGCore | Register</title>
+<link rel="stylesheet" href="css/register.css">
+</head>
+
+<body>
+
+<div class="main-card">
+
+    <div class="left-panel"></div>
+
+    <div class="right-panel">
+
+        <div class="brand">
+            <img src="images/logo.png"alt="PGCore Logo">
+            <span>PGCore</span>
+        </div>
+
+        <form id="registerForm" class="register-box">
+            <h2>Resident Registration</h2>
+
+            <div class="form-row">
+                <input type="text" placeholder="First Name" required>
+                <input type="text" placeholder="Last Name" required>
+            </div>
+
+            <input type="tel" placeholder="Phone Number" required>
+            <input type="email" placeholder="Email Address" required>
+
+            <div class="form-row">
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+            </div>
+
+            <input type="date" required>
+
+            <select required>
+                <option value="">Select Gender</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>
+
+            <textarea placeholder="Address" required></textarea>
+
+            <button type="submit">Register</button>
+
+            <div class="login-link">
+                Already have an account?
+                <a href="index.html">Login</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script src="js/register.js"></script>
+</body>
+</html>

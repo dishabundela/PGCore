@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PGCore | Booking Status</title>
+
+
+
+<style>
+
+.box{
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  margin-bottom:20px;
+}
+
+.page-title{
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.page-desc{
+  color:#555;
+  margin-bottom:20px;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.info-card{
+  background:#f7fbfd;
+  padding:15px;
+  border-radius:10px;
+  border-left:4px solid #0f3c4c;
+}
+
+.info-card b{
+  display:block;
+  margin-bottom:5px;
+}
+
+/* STATUS COLORS */
+.confirmed{ color:green; font-weight:600; }
+.pending{ color:orange; font-weight:600; }
+.cancelled{ color:red; font-weight:600; }
+
+/* TIMELINE */
+.timeline{
+  border-left:3px solid #0f3c4c;
+  padding-left:15px;
+}
+
+.step{
+  margin-bottom:12px;
+}
+
+.step b{
+  display:block;
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="user-area">
+      <span class="welcome-text">Welcome, Palak</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<section class="content active">
+
+<div class="page-title">Booking Status</div>
+<div class="page-desc">
+This section shows your room booking details, current status, and confirmation timeline.
+Please contact PG management for any booking related issues.
+</div>
+
+<!-- BOOKING DETAILS -->
+<div class="box">
+
+<h3>Booking Information</h3><br>
+
+<div class="info-grid">
+
+<div class="info-card">
+<b>Booking ID</b>
+BK102
+</div>
+
+<div class="info-card">
+<b>Room Number</b>
+101
+</div>
+
+<div class="info-card">
+<b>Room Type</b>
+Double Sharing
+</div>
+
+<div class="info-card">
+<b>Booking Date</b>
+01 Jan 2025
+</div>
+
+<div class="info-card">
+<b>Move-in Date</b>
+10 Jan 2025
+</div>
+
+<div class="info-card">
+<b>Payment Status</b>
+Paid
+</div>
+
+<div class="info-card">
+<b>Booking Status</b>
+<span class="confirmed">Confirmed</span>
+</div>
+
+<div class="info-card">
+<b>Security Deposit</b>
+₹5000
+</div>
+
+</div>
+
+</div>
+
+<!-- BOOKING TIMELINE -->
+<div class="box">
+
+<h3>Booking Timeline</h3><br>
+
+<div class="timeline">
+
+<div class="step">
+<b>✔ Booking Requested</b>
+01 Jan 2025
+</div>
+
+<div class="step">
+<b>✔ Payment Completed</b>
+02 Jan 2025
+</div>
+
+<div class="step">
+<b>✔ Booking Confirmed</b>
+03 Jan 2025
+</div>
+
+<div class="step">
+<b>✔ Room Allocated</b>
+05 Jan 2025
+</div>
+
+<div class="step">
+<b>✔ Move-in Completed</b>
+10 Jan 2025
+</div>
+
+</div>
+
+</div>
+
+</section>
+</div>
+
+
+
+</body>
+</html>

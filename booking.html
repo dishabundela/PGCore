@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PGCore | Room Booking</title>
+<link rel="stylesheet" href="css/booking.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-brand">
+    <img src="images/logo.png">
+    <span>PGCore</span>
+  </div>
+
+  <a href="home.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="services.html">Services</a>
+  <a href="booking.html" class="active">Book Now</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+<header>
+  <h1>Book Your Comfortable Stay</h1>
+  <p>Safe • Affordable • Premium PG Living</p>
+</header>
+
+<section>
+<h2 class="section-title">Available Rooms</h2>
+
+<div class="rooms-grid">
+
+  <!-- SINGLE SHARING -->
+  <div class="room-card">
+    <img src="images/sin2.jpg"
+      onclick="openRoom(
+        [
+          'images/s.jpg',
+          'images/single.jpg',
+          'images/b1.jpg',
+          'images/s2.jpg'
+        ],
+        'Single Sharing',
+        '₹8000 / month',
+        'Spacious single sharing room with bed, cupboard, study table, Wi-Fi and good ventilation.'
+      )">
+
+    <div class="room-content">
+      <h3>Single Sharing</h3>
+      <p class="price">₹8000 / month</p>
+      <button onclick="openForm('101','Single Sharing','8000')">Book Now</button>
+    </div>
+  </div>
+
+  <!-- DOUBLE SHARING -->
+  <div class="room-card">
+    <img src="images/d2.jpg"
+      onclick="openRoom(
+        [
+          'images/do4.jpg',
+          'images/tv.jpg',
+          'images/do2.jpg',
+          'images/do5.jpg'
+        ],
+        'Double Sharing',
+        '₹6000 / month',
+        'Comfortable double sharing room with storage, study area and Wi-Fi.'
+      )">
+
+    <div class="room-content">
+      <h3>Double Sharing</h3>
+      <p class="price">₹6000 / month</p>
+      <button onclick="openForm('102','Double Sharing','6000')">Book Now</button>
+    </div>
+  </div>
+
+  <!-- TRIPLE SHARING -->
+  <div class="room-card">
+    <img src="images/ro3.jpg"
+      onclick="openRoom(
+        [
+          'images/3r.jpg',
+          'images/w1.jpg',
+          'images/k (2).jpg',
+          'images/3rom.jpg'
+        ],
+        'Triple Sharing',
+        '₹5200 / month',
+        'Affordable triple sharing room with proper ventilation and study setup.'
+      )">
+
+    <div class="room-content">
+      <h3>Triple Sharing</h3>
+      <p class="price">₹5200 / month</p>
+      <button onclick="openForm('103','Triple Sharing','5200')">Book Now</button>
+    </div>
+  </div>
+
+  <!-- FOUR SHARING -->
+  <div class="room-card">
+    <img src="images/f1.jpg"
+      onclick="openRoom(
+        [
+          'images/f2.jpg',
+          'images/t3.jpg',
+          'images/four.jpg',
+          'images/fo5.jpg'
+        ],
+        'Four Sharing',
+        '₹4500 / month',
+        'Budget friendly four sharing room ideal for students.'
+      )">
+
+    <div class="room-content">
+      <h3>Four Sharing</h3>
+      <p class="price">₹4500 / month</p>
+      <button onclick="openForm('104','Four Sharing','4500')">Book Now</button>
+    </div>
+  </div>
+
+</div>
+</section>
+</div>
+
+<!-- IMAGE POPUP -->
+<div id="imgOverlay" class="img-overlay">
+  <div class="img-popup">
+    <span class="close" onclick="closeImg()">✖</span>
+    <span class="nav left" onclick="prevImg()">❮</span>
+    <span class="nav right" onclick="nextImg()">❯</span>
+
+    <img id="fullImg">
+
+    <div class="info">
+      <h3 id="roomTitle"></h3>
+      <p class="price" id="roomPrice"></p>
+      <p id="roomDesc"></p>
+    </div>
+  </div>
+</div>
+
+<section class="facilities-section">
+  <h2 class="section-title">Our Facilities</h2>
+
+  <div class="facilities-grid">
+    <div class="facility-card">
+      
+      <h4>High Speed Wi-Fi</h4>
+      <p>Uninterrupted internet access for study & work.</p>
+    </div>
+
+    <div class="facility-card">
+     
+      <h4>24×7 Security</h4>
+      <p>CCTV surveillance and secure entry system.</p>
+    </div>
+
+    <div class="facility-card">
+      
+      <h4>Healthy Meals</h4>
+      <p>Fresh, hygienic and nutritious food daily.</p>
+    </div>
+
+    <div class="facility-card">
+      <h4>Laundry Service</h4>
+      <p>Regular washing & drying facilities available.</p>
+    </div>
+
+    <div class="facility-card">
+      
+      <h4>Housekeeping</h4>
+      <p>Clean rooms & common areas maintained daily.</p>
+    </div>
+
+    <div class="facility-card">
+      
+      <h4>Power Backup</h4>
+      <p>24×7 electricity with power backup.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- BOOKING FORM -->
+<div class="overlay" id="overlay">
+<div class="booking-card">
+  <div class="close" onclick="closeForm()">❌</div>
+  <h1>Complete Your Booking</h1>
+
+  <div class="form-grid">
+    <input id="roomNo" readonly placeholder="Room No">
+    <input id="roomType" readonly placeholder="Room Type">
+    <input id="price" readonly placeholder="Price">
+
+    <input placeholder="Full Name">
+    <input placeholder="Email">
+    <input placeholder="Phone">
+
+    <label>Booking Date</label>
+    <input id="bookingDate" readonly>
+
+    <label>Move-in Date</label>
+    <input type="date" id="moveInDate">
+
+    <label>Payment Status</label>
+    <input id="paymentStatus" readonly>
+
+    <label>Booking Status</label>
+    <input id="bookingStatus" readonly>
+  </div>
+
+  <button class="btn" onclick="submitBooking()">Confirm Booking</button>
+</div>
+</div>
+
+
+<footer>
+    © 2026 PGCore | Safe Living for Every Girl
+</footer>
+
+<script src="js/booking.js"></script>
+</body>
+</html>

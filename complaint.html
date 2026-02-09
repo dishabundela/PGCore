@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PGCore | Complaint</title>
+
+
+
+<style>
+
+/* FORM BOX */
+.form-box{
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  max-width:100%;
+}
+
+.form-row{
+  margin-bottom:15px;
+}
+
+label{
+  font-weight:600;
+}
+
+input, select, textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  margin-top:5px;
+}
+
+button{
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  background:#0f3c4c;
+  color:#fff;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#14576b;
+}
+
+.success{
+  color:green;
+  font-weight:600;
+  margin-top:10px;
+  display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="user-area">
+      <span class="welcome-text">Welcome, Palak</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<section class="content active">
+<h3>Register Complaint</h3><br>
+
+<div class="form-box">
+
+<div class="form-row">
+<label>Complaint Title</label>
+<input type="text" id="title" placeholder="Ex: Water Leakage, Electricity Issue">
+</div>
+
+<div class="form-row">
+<label>Category</label>
+<select id="category">
+  <option>Electricity</option>
+  <option>Water</option>
+  <option>Food</option>
+  <option>Room Cleaning</option>
+  <option>Internet</option>
+  <option>Security</option>
+  <option>Other</option>
+</select>
+</div>
+
+<div class="form-row">
+<label>Priority</label>
+<select id="priority">
+  <option>Low</option>
+  <option>Medium</option>
+  <option>High</option>
+</select>
+</div>
+
+<div class="form-row">
+<label>Room Number</label>
+<input type="text" id="room" placeholder="Ex: 101">
+</div>
+
+<div class="form-row">
+<label>Date</label>
+<input type="date" id="date">
+</div>
+
+<div class="form-row">
+<label>Upload Image (optional)</label>
+<input type="file">
+</div>
+
+<div class="form-row">
+<label>Complaint Description</label>
+<textarea id="desc" rows="4" placeholder="Explain your problem clearly..."></textarea>
+</div>
+
+<button onclick="submitComplaint()">Submit Complaint</button>
+
+<div class="success" id="msg">✔ Complaint submitted successfully!</div>
+
+</div>
+
+</section>
+</div>
+
+
+
+<script>
+function submitComplaint(){
+
+let title = document.getElementById("title").value;
+let desc = document.getElementById("desc").value;
+let room = document.getElementById("room").value;
+
+if(title=="" || desc=="" || room==""){
+  alert("Please fill required fields");
+  return;
+}
+
+document.getElementById("msg").style.display="block";
+
+document.getElementById("title").value="";
+document.getElementById("desc").value="";
+document.getElementById("room").value="";
+}
+</script>
+
+
+</body>
+</html>

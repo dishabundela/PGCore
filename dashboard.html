@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PGCore | Resident Dashboard</title>
+<link rel="stylesheet" href="css/dashboard.css">
+
+
+
+</head>
+
+<body>
+ 
+
+
+
+
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar">
+    <div class="sidebar-brand">
+        <img src="images/logo.png" alt="PGCore Logo">
+        <span>PGCore</span>
+    </div>
+    
+  <a onclick="showSection('dashboard')">Dashboard</a>
+  <a onclick="showSection('profile')">My Profile</a>
+  <a onclick="showSection('room')">My Room</a>
+  <a onclick="showSection('payment')">Payments</a>
+  <a onclick="showSection('booking')">Booking Status</a>
+  <a onclick="showSection('food')">Food Menu</a>
+  <a onclick="showSection('complaint')">Complaints</a>
+  <a onclick="showSection('visitor')">Visitor Log</a>
+  <a onclick="showSection('rules')">PG Rules</a>
+  <a onclick="showSection('emergency')">Emergency</a>
+</div>
+
+  
+
+
+<!-- MAIN -->
+<div class="main">
+    <!-- TOP HEADER -->
+<div class="topbar">
+    <div class="topbar-right">
+        <span class="welcome-text">Welcome, Palak</span>
+        <button class="logout-btn">Logout</button>
+    </div>
+</div>
+
+<section id="dashboard" class="content active">
+  <h3>Resident Dashboard</h3><br>
+  <div class="cards">
+    <div class="card">Room No<br><b>101</b></div>
+    <div class="card">Rent<br><b>₹7000</b></div>
+    <div class="card">Payment<br><b class="paid">Paid</b></div>
+    <div class="card">Booking<br><b>Confirmed</b></div>
+  </div>
+</section>
+
+<section id="profile" class="content">
+  <h3>My Profile</h3><br>
+  <div class="box">
+    <p><b>Name:</b> Palak Patel</p>
+    <p><b>Email:</b> palak@gmail.com</p>
+    <p><b>Contact:</b> 9876543210</p>
+  </div>
+</section>
+
+<section id="room" class="content">
+  <h3>My Room</h3><br>
+  <div class="box">
+    <p>Room No: 101</p>
+    <p>Type: Double Sharing</p>
+    <p>Status: Occupied</p>
+  </div>
+</section>
+
+<section id="payment" class="content">
+  <h3>Rent & Payments</h3><br>
+  <table>
+    <tr><th>Month</th><th>Amount</th><th>Status</th></tr>
+    <tr><td>January</td><td>₹7000</td><td class="paid">Paid</td></tr>
+    <tr><td>February</td><td>₹7000</td><td class="pending">Pending</td></tr>
+  </table>
+</section>
+
+<section id="booking" class="content">
+  <h3>Booking Status</h3><br>
+  <div class="box">
+    <p><b>Booking ID:</b> BK102</p>
+    <p><b>Room Type:</b> Double Sharing</p>
+    <p><b>Status:</b> Confirmed</p>
+  </div>
+</section>
+
+<section id="food" class="content">
+  <h3>Weekly Food Menu</h3><br>
+  <table>
+    <tr><th>Day</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr>
+    <tr><td>Monday</td><td>Poha</td><td>Dal Rice</td><td>Roti Sabji</td></tr>
+    <tr><td>Tuesday</td><td>Idli</td><td>Rajma</td><td>Pulao</td></tr>
+    <tr><td>Wednesday</td><td>Upma</td><td>Kadhi</td><td>Veg Curry</td></tr>
+  </table>
+</section>
+
+<section id="complaint" class="content">
+  <h3>Register Complaint</h3><br>
+  <div class="box">
+    <textarea placeholder="Enter your complaint"></textarea><br><br>
+    <button>Submit</button>
+  </div>
+</section>
+
+<section id="visitor" class="content">
+  <h3>Visitor Log</h3><br>
+  <table>
+    <tr><th>Name</th><th>Date</th><th>In</th><th>Out</th></tr>
+    <tr><td>Mother</td><td>28-01-2026</td><td>10:00</td><td>12:00</td></tr>
+  </table>
+</section>
+
+<section id="rules" class="content">
+  <h3>PG Rules & Guidelines</h3><br>
+  <div class="box">
+    <ul>
+      <li>Entry allowed till 9 PM</li>
+      <li>Visitors only in common area</li>
+      <li>ID mandatory for visitors</li>
+    </ul>
+  </div>
+</section>
+
+<section id="emergency" class="content">
+  <h3>Emergency Contacts</h3><br>
+  <div class="box">
+    <p>Warden: 9876543210</p>
+    <p>Police: 100</p>
+    <p>Ambulance: 108</p>
+  </div>
+</section>
+
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

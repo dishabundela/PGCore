@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PGCore | My Room</title>
+
+
+
+<style>
+
+.box{
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  margin-bottom:20px;
+}
+
+.room-title{
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.room-desc{
+  color:#555;
+  margin-bottom:20px;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.info-card{
+  background:#f7fbfd;
+  padding:15px;
+  border-radius:10px;
+  border-left:4px solid #0f3c4c;
+}
+
+.info-card b{
+  display:block;
+  margin-bottom:5px;
+}
+
+ul{
+  padding-left:20px;
+}
+
+li{
+  margin-bottom:6px;
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="user-area">
+      <span class="welcome-text">Welcome, Palak</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<section class="content active">
+
+<div class="room-title">My Room Details</div>
+
+<div class="room-desc">
+This section provides complete information about your assigned PG room, facilities, and occupancy status.
+Please report any maintenance issues through the Complaint section.
+</div>
+
+<!-- ROOM BASIC INFO -->
+<div class="box">
+<h3>Room Information</h3><br>
+
+<div class="info-grid">
+
+<div class="info-card">
+<b>Room Number</b>
+101
+</div>
+
+<div class="info-card">
+<b>Room Type</b>
+Double Sharing
+</div>
+
+<div class="info-card">
+<b>Floor</b>
+1st Floor
+</div>
+
+<div class="info-card">
+<b>Status</b>
+Occupied
+</div>
+
+<div class="info-card">
+<b>Monthly Rent</b>
+₹7000
+</div>
+
+<div class="info-card">
+<b>Security Deposit</b>
+₹5000
+</div>
+
+<div class="info-card">
+<b>Joining Date</b>
+10 Jan 2025
+</div>
+
+<div class="info-card">
+<b>Room Condition</b>
+Good
+</div>
+
+</div>
+</div>
+
+<!-- ROOMMATE INFO -->
+<div class="box">
+<h3>Roommate Details</h3><br>
+
+<div class="info-grid">
+
+<div class="info-card">
+<b>Name</b>
+Riya Sharma
+</div>
+
+<div class="info-card">
+<b>Contact</b>
+9123456789
+</div>
+
+<div class="info-card">
+<b>Occupation</b>
+Student
+</div>
+
+<div class="info-card">
+<b>Stay Duration</b>
+6 Months
+</div>
+
+</div>
+</div>
+
+<!-- FACILITIES -->
+<div class="box">
+<h3>Room Facilities</h3>
+
+<ul>
+<li>Bed with Mattress</li>
+<li>Study Table & Chair</li>
+<li>Wardrobe</li>
+<li>Fan & Lighting</li>
+<li>Attached Bathroom</li>
+<li>24/7 Water Supply</li>
+<li>WiFi Internet</li>
+<li>Daily Cleaning</li>
+<li>Laundry Facility</li>
+<li>Power Backup</li>
+</ul>
+
+</div>
+
+</section>
+</div>
+
+
+
+</body>
+</html>

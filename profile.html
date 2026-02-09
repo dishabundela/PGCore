@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PGCore | My Profile</title>
+
+
+
+<style>
+
+/* PROFILE WRAPPER */
+.profile-wrapper{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+/* LEFT PROFILE CARD */
+.profile-card{
+  background:#0f3c4c;
+  color:#fff;
+  padding:25px;
+  border-radius:12px;
+  width:260px;
+  text-align:center;
+}
+
+.profile-card img{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  margin-bottom:10px;
+}
+
+.profile-card h3{
+  margin:5px 0;
+}
+
+.profile-card p{
+  font-size:14px;
+  opacity:0.9;
+}
+
+/* RIGHT INFO CARD */
+.info-card{
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  flex:1;
+  min-width:300px;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.info-box{
+  background:#f7fbfd;
+  padding:15px;
+  border-radius:10px;
+  border-left:4px solid #0f3c4c;
+}
+
+.info-box b{
+  display:block;
+  margin-bottom:5px;
+}
+
+.page-title{
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="user-area">
+      <span class="welcome-text">Welcome, Palak</span>
+      <button class="logout-btn">Logout</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<div class="page-title">My Profile</div>
+
+<div class="profile-wrapper">
+
+<!-- LEFT PROFILE -->
+<div class="profile-card">
+  <img src="images/user.png" alt="Profile">
+  <h3>Palak Patel</h3>
+  <p>Resident – Women PG</p>
+</div>
+
+<!-- RIGHT DETAILS -->
+<div class="info-card">
+
+<div class="info-grid">
+
+<div class="info-box">
+<b>Username</b>
+Palak Patel
+</div>
+
+<div class="info-box">
+<b>Join Date</b>
+10 January 2025
+</div>
+
+<div class="info-box">
+<b>Email</b>
+palak@gmail.com
+</div>
+
+<div class="info-box">
+<b>Contact</b>
+9876543210
+</div>
+
+<div class="info-box">
+<b>Address</b>
+Ahmedabad, Gujarat
+</div>
+
+<div class="info-box">
+<b>Room Number</b>
+101
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

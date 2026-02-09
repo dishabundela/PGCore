@@ -1,0 +1,153 @@
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body{
+  background:#f4f6f9;
+  overflow-x:hidden;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:220px;
+  height:100vh;
+  background:#0f3c4c;
+  padding:25px 20px;
+  z-index:1000;
+}
+
+.sidebar-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:40px;
+}
+
+.sidebar-brand img{
+  width:45px;
+  height:45px;
+}
+
+.sidebar-brand span{
+  color:#fff;
+  font-size:20px;
+  font-weight:600;
+}
+
+.sidebar a{
+  display:block;
+  color:#dfeef3;
+  text-decoration:none;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+.sidebar a:hover,
+.sidebar a.active{
+  background:#14576b;
+}
+
+/* ===== TOP HEADER ===== */
+.topbar{
+  position:fixed;
+  top:0;
+  left:220px;              /* ✅ SAME AS SIDEBAR */
+  right:0;
+  height:60px;
+  background:#0f3c4c;      /* sidebar theme */
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding:0 30px;
+  z-index:999;
+}
+
+/* ===== USER AREA ===== */
+.user-area{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.welcome-text{
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+}
+
+.logout-btn{
+  padding:6px 16px;
+  border:none;
+  border-radius:18px;
+  background:#dc2525;
+  color:#fff;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.logout-btn:hover{
+  background:#dc2525;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content{
+  margin-left:220px;       /* ✅ SAME AS SIDEBAR */
+  padding:80px 30px 30px;  /* header ke niche */
+}
+
+/* ===== SECTIONS ===== */
+.content{ display:none; }
+.content.active{ display:block; }
+
+/* ===== DASHBOARD CARDS ===== */
+.cards{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  min-width:160px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* ===== BOX / TABLE ===== */
+.box,
+table{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+table{
+  width:70%;
+  border-collapse:collapse;
+}
+
+th,td{
+  border:1px solid #ccc;
+  padding:10px;
+  text-align:center;
+}
+
+.paid{
+  color:green;
+  font-weight:bold;
+}
+
+.pending{
+  color:red;
+  font-weight:bold;
+}

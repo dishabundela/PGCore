@@ -1,0 +1,242 @@
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body{
+    background: 
+        linear-gradient(
+            rgba(255,255,255,0.85),
+            rgba(255,255,255,0.85)
+        ),
+        url("../images/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color:#333;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: #0f3c4c;
+    padding: 30px 20px;
+    z-index: 1000;
+}
+
+.sidebar a {
+    display: block;
+    color: #dfeef3;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #14576b;
+}
+.sidebar-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:45px;
+}
+
+.sidebar-brand img{
+    width:45px;
+    height:45px;
+    object-fit:contain;
+}
+
+.sidebar-brand span{
+    color:#fff;
+    font-size:20px;
+    font-weight:600;
+}
+
+/* ===== TOP HEADER ===== */
+.top-header{
+    position: fixed;
+    top: 0;
+    left: 220px;
+    right: 0;
+    height: 70px;
+    background: rgba(15,60,76,0.95);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 35px;
+    z-index: 1100;
+}
+
+
+
+/* LOGIN / REGISTER */
+.auth-buttons a{
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+.login-btn{
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    background: transparent;
+    font-weight: 600;
+}
+
+.login-btn:hover{
+    background: #ffffff;
+    color: #0f3c4c;
+}
+
+.register-btn{
+    background: #3bb3c3;
+    color: #fff;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+    margin-left: 220px;
+    padding-top: 70px;
+    width: calc(100% - 220px);
+}
+
+/* ===== HERO ===== */
+.hero-slider{
+    position: relative;
+    height: 75vh;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.slides{
+    position:absolute;
+    inset:0;
+    background-size:cover;
+    background-position:center;
+    opacity:0;
+    transition:opacity 1s ease;
+}
+
+.slides.active{
+    opacity:1;
+}
+
+/* overlay */
+.hero-slider::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(15,60,76,0.65);
+    z-index:1;
+}
+
+/* ✅ HERO TEXT — FINAL FIX */
+.hero-content{
+    position:absolute;
+    top:50%;
+    left:260px;              /* sidebar ke baad */
+    transform:translateY(-50%);
+    color:#fff;
+    z-index:2;
+    max-width:520px;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+    padding: 60px 35px;
+    margin-left: 220px;
+    width: calc(100% - 220px);
+}
+
+.section h3 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #0f3c4c;
+}
+
+/* ===== ROOMS ===== */
+.rooms {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card .content {
+    padding: 20px;
+}
+
+/* ===== FEATURES ===== */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.feature {
+    background: #fff;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+}
+
+/* ===== FAQ ===== */
+.faq-item {
+    background: #fff;
+    padding: 25px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    margin-left: 220px;
+    background: #0f3c4c;
+    color: #fff;
+    text-align: center;
+    padding: 18px;
+}
+.auth-buttons .login-btn{
+    border: 2px solid #ffffff !important;
+    color: #ffffff !important;
+    background: transparent !important;
+    font-weight: 600;
+}
+
+.auth-buttons .login-btn:hover{
+    background: #ffffff !important;
+    color: #0f3c4c !important;
+}
+

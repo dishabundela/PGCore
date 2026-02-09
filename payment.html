@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PGCore | Payments</title>
+
+
+
+<style>
+
+.box{
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  margin-bottom:20px;
+}
+
+.page-title{
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.page-desc{
+  color:#555;
+  margin-bottom:20px;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:15px;
+}
+
+.info-card{
+  background:#f7fbfd;
+  padding:15px;
+  border-radius:10px;
+  border-left:4px solid #0f3c4c;
+}
+
+.info-card b{
+  display:block;
+  margin-bottom:5px;
+}
+
+button{
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  background:#0f3c4c;
+  color:#fff;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#14576b;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th{
+  background:#0f3c4c;
+  color:#fff;
+}
+
+th,td{
+  border:1px solid #ccc;
+  padding:10px;
+  text-align:center;
+}
+
+.paid{
+  color:green;
+  font-weight:600;
+}
+
+.pending{
+  color:red;
+  font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="user-area">
+      <span class="welcome-text">Welcome, Palak</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<section class="content active">
+
+<div class="page-title">Rent & Payment Details</div>
+<div class="page-desc">
+This section shows your monthly rent, payment status, and complete transaction history.  
+Please ensure rent is paid before due date to avoid penalties.
+</div>
+
+<!-- PAYMENT SUMMARY -->
+<div class="box">
+
+<h3>Current Payment Summary</h3><br>
+
+<div class="info-grid">
+
+<div class="info-card">
+<b>Room Number</b>
+101
+</div>
+
+<div class="info-card">
+<b>Monthly Rent</b>
+₹7000
+</div>
+
+<div class="info-card">
+<b>Due Date</b>
+5th of Every Month
+</div>
+
+<div class="info-card">
+<b>Last Payment</b>
+January 2026
+</div>
+
+<div class="info-card">
+<b>Payment Status</b>
+<span class="pending">Pending</span>
+</div>
+
+<div class="info-card">
+<b>Late Fee</b>
+₹0
+</div>
+
+</div>
+
+<br>
+<button onclick="payRent()">Pay Rent</button>
+
+</div>
+
+<!-- PAYMENT HISTORY -->
+<div class="box">
+
+<h3>Payment History</h3><br>
+
+<table>
+<tr>
+<th>Month</th>
+<th>Amount</th>
+<th>Date</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>January 2026</td>
+<td>₹7000</td>
+<td>05-01-2026</td>
+<td class="paid">Paid</td>
+</tr>
+
+<tr>
+<td>December 2025</td>
+<td>₹7000</td>
+<td>05-12-2025</td>
+<td class="paid">Paid</td>
+</tr>
+
+<tr>
+<td>November 2025</td>
+<td>₹7000</td>
+<td>07-11-2025</td>
+<td class="paid">Paid</td>
+</tr>
+
+<tr>
+<td>October 2025</td>
+<td>₹7000</td>
+<td>Pending</td>
+<td class="pending">Pending</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+</div>
+
+
+<script>
+
+function payRent(){
+  alert("Payment Successful (Demo)");
+}
+
+</script>
+
+</body>
+</html>
