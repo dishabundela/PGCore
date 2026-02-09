@@ -4,71 +4,13 @@
 <meta charset="UTF-8">
 <title>PGCore | Complaint</title>
 
-
-
-<style>
-
-/* FORM BOX */
-.form-box{
-  background:#fff;
-  padding:25px;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
-  max-width:100%;
-}
-
-.form-row{
-  margin-bottom:15px;
-}
-
-label{
-  font-weight:600;
-}
-
-input, select, textarea{
-  width:100%;
-  padding:10px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  margin-top:5px;
-}
-
-button{
-  padding:10px 18px;
-  border:none;
-  border-radius:8px;
-  background:#0f3c4c;
-  color:#fff;
-  cursor:pointer;
-}
-
-button:hover{
-  background:#14576b;
-}
-
-.success{
-  color:green;
-  font-weight:600;
-  margin-top:10px;
-  display:none;
-}
-
-</style>
+<!-- ✅ CSS LINK -->
+<link rel="stylesheet" href="css/complaint.css">
 </head>
 
 <body>
 
 
-
-
-
-<!-- TOPBAR -->
-<div class="topbar">
-  <div class="user-area">
-      <span class="welcome-text">Welcome, Palak</span>
-      <button class="logout-btn" onclick="logout()">Logout</button>
-  </div>
-</div>
 
 <!-- MAIN -->
 <div class="main-content">
@@ -134,28 +76,7 @@ button:hover{
 </section>
 </div>
 
-
-
-<script>
-function submitComplaint(){
-
-let title = document.getElementById("title").value;
-let desc = document.getElementById("desc").value;
-let room = document.getElementById("room").value;
-
-if(title=="" || desc=="" || room==""){
-  alert("Please fill required fields");
-  return;
-}
-
-document.getElementById("msg").style.display="block";
-
-document.getElementById("title").value="";
-document.getElementById("desc").value="";
-document.getElementById("room").value="";
-}
-</script>
-
-
+<!-- ✅ JS LINK -->
+<script src="js/complaint.js"></script>
 </body>
 </html>

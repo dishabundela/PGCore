@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PGCore | Visitor Log</title>
+
+<!-- ✅ CSS LINK -->
+<link rel="stylesheet" href="css/visitor.css">
+</head>
+
+<body>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<section class="content active">
+<h3>Visitor Entry</h3><br>
+
+<!-- VISITOR FORM -->
+<div class="box">
+
+<div class="form-row">
+<label>Visitor Name</label>
+<input type="text" id="vname" placeholder="Enter visitor name">
+</div>
+
+<div class="form-row">
+<label>Relation</label>
+<select id="relation">
+  <option>Parent</option>
+  <option>Friend</option>
+  <option>Relative</option>
+  <option>Delivery</option>
+  <option>Other</option>
+</select>
+</div>
+
+<div class="form-row">
+<label>Contact Number</label>
+<input type="text" id="contact" placeholder="Enter phone number">
+</div>
+
+<div class="form-row">
+<label>Room Number</label>
+<input type="text" id="room" placeholder="Ex: 101">
+</div>
+
+<div class="form-row">
+<label>Date</label>
+<input type="date" id="date">
+</div>
+
+<div class="form-row">
+<label>In Time</label>
+<input type="time" id="in">
+</div>
+
+<div class="form-row">
+<label>Out Time</label>
+<input type="time" id="out">
+</div>
+
+<button onclick="addVisitor()">Add Visitor</button>
+
+</div>
+
+<!-- VISITOR TABLE -->
+<h3>Visitor History</h3><br>
+
+<div class="box">
+
+<table id="visitorTable">
+<tr>
+<th>Name</th>
+<th>Relation</th>
+<th>Contact</th>
+<th>Room</th>
+<th>Date</th>
+<th>In</th>
+<th>Out</th>
+</tr>
+</table>
+
+</div>
+
+</section>
+</div>
+
+<!-- ✅ JS LINK -->
+<script src="js/visitor.js"></script>
+</body>
+</html>

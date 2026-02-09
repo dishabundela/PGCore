@@ -1,0 +1,53 @@
+/* ===== PAGE HEADER ===== */
+.header{
+  background:#0f3c4c;
+  color:#fff;
+  padding:15px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:18px;
+  font-weight:600;
+}
+
+/* ===== BACK BUTTON ===== */
+.back-btn{
+  padding:6px 14px;
+  border:none;
+  border-radius:8px;
+  background:#dc2525;
+  color:#fff;
+  cursor:pointer;
+}
+.back-btn:hover{
+  background:#b81e1e;
+}
+
+/* ===== BOX ===== */
+.box{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* ===== TABLE ===== */
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th{
+  background:#0f3c4c;
+  color:#fff;
+}
+
+th,td{
+  border:1px solid #ccc;
+  padding:12px;
+  text-align:center;
+}
+
+tr:hover{
+  background:#f1f1f1;
+}

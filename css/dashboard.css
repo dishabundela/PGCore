@@ -151,3 +151,20 @@ th,td{
   color:red;
   font-weight:bold;
 }
+.main-content{
+  margin-left:240px; /* sidebar width */
+  padding:0;
+  height:100vh;
+}
+
+iframe{
+  border:none;
+  background:#f4f6f9;
+}
+.topbar{
+  height:60px;
+}
+
+.main-content iframe{
+  margin-top:60px;   /* 👈 ye main fix hai */
+}

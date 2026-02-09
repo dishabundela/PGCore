@@ -1,0 +1,31 @@
+.box{
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  margin-bottom:20px;
+}
+
+h2{
+  color:#0f3c4c;
+}
+
+ul{
+  padding-left:20px;
+}
+
+li{
+  margin-bottom:8px;
+}
+
+.contact-card{
+  background:#f7fbfd;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:10px;
+  border-left:4px solid #0f3c4c;
+}
+
+.contact-card b{
+  display:block;
+}
