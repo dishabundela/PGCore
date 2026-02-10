@@ -9,6 +9,11 @@
   font-size:18px;
   font-weight:600;
 }
+.main-content{
+    flex: 1;                    /* 👈 space le lega */
+    padding: 30px;
+    margin-top: 80px;           /* navbar ke niche */
+}
 
 /* ===== BACK BUTTON ===== */
 .back-btn{
@@ -50,4 +55,25 @@ th,td{
 
 tr:hover{
   background:#f1f1f1;
+}
+/* FOOTER */
+footer{
+    margin-top:60px;
+    background:#1f3c4a;
+    color:#fff;
+    text-align:center;
+    padding:22px;
+    border-radius:14px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+    .sidebar{display:none;}
+    .main{margin-left:0;}
+}
+
+@media(max-width:768px){
+    .contact-container{
+        grid-template-columns:1fr;
+    }
 }

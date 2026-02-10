@@ -1,0 +1,133 @@
+/* ===== RESET ===== */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Segoe UI, sans-serif;
+}
+
+/* ===== BODY ===== */
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background:#f4f7f9;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content{
+    margin-left: 240px;     /* EXACT sidebar width */
+    margin-top: 60px;       /* top navbar height */
+    padding: 30px;
+}
+
+/* ===== PAGE TITLE ===== */
+.page-title{
+    font-size:26px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+/* ===== PROFILE WRAPPER ===== */
+.profile-wrapper{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    align-items:flex-start;
+}
+
+/* ===== LEFT PROFILE CARD ===== */
+.profile-card{
+    background:#0f3c4c;
+    color:#fff;
+    padding:25px;
+    border-radius:12px;
+    width:260px;
+    text-align:center;
+}
+
+.profile-card img{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    margin-bottom:10px;
+}
+
+.profile-card h3{
+    margin:5px 0;
+}
+
+.profile-card p{
+    font-size:14px;
+    opacity:0.9;
+}
+
+/* ===== RIGHT INFO CARD ===== */
+.info-card{
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    flex:1;
+    min-width:300px;
+}
+
+/* ===== INFO GRID ===== */
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.info-box{
+    background:#f7fbfd;
+    padding:15px;
+    border-radius:10px;
+    border-left:4px solid #0f3c4c;
+}
+
+.info-box b{
+    display:block;
+    margin-bottom:5px;
+}
+
+/* ===== NAV PROFILE (TOP BAR) ===== */
+.nav-profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+}
+
+.nav-profile img{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    border:2px solid #fff;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    margin-top: auto;   /* 🔥 footer ko bottom me push karega */
+    background:#1f3c4a;
+    color:#fff;
+    text-align:center;
+    padding:22px;
+    border-radius:14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+    .sidebar{
+        display:none;
+    }
+    .main-content{
+        margin-left:0;
+    }
+}
+
+@media(max-width:600px){
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+}

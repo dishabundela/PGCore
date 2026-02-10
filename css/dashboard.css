@@ -54,6 +54,17 @@ body{
 .sidebar a.active{
   background:#14576b;
 }
+/* REMOVE DOTS FROM SIDEBAR NAV */
+.sidebar ul{
+    list-style: none;   /* ⬅️ main fix */
+    padding-left: 0;
+    margin: 0;
+}
+
+.sidebar ul li{
+    list-style: none;
+}
+
 
 /* ===== TOP HEADER ===== */
 .topbar{
