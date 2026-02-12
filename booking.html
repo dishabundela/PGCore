@@ -20,6 +20,7 @@
   <a href="contact.html">Contact Us</a>
   <a href="services.html">Services</a>
   <a href="booking.html" class="active">Book Now</a>
+  
 </div>
 
 <!-- MAIN CONTENT -->
@@ -189,7 +190,8 @@
 <!-- BOOKING FORM -->
 <div class="overlay" id="overlay">
 <div class="booking-card">
-  <div class="close" onclick="closeForm()">❌</div>
+  <span class="close-btn" onclick="closeBooking()">✖</span>
+
   <h1>Complete Your Booking</h1>
 
   <div class="form-grid">
@@ -219,9 +221,20 @@
 </div>
 
 
-<footer>
-    © 2026 PGCore | Safe Living for Every Girl
+<footer class="pg-footer">
+  <p>© 2026 PGCore | Safe Living for Every Girl</p>
 </footer>
+
+
+<script>
+function closeBooking(){
+    document.getElementById("overlay").style.display = "none";
+}
+
+function openBooking(){
+    document.getElementById("overlay").style.display = "flex";
+}
+</script>
 
 <script src="js/booking.js"></script>
 </body>

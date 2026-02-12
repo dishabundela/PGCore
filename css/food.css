@@ -1,69 +1,70 @@
-/* ===== PAGE HEADER ===== */
-.header{
-  background:#0f3c4c;
-  color:#fff;
-  padding:15px 25px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:18px;
-  font-weight:600;
-}
-.main-content{
-    flex: 1;                    /* 👈 space le lega */
-    padding: 30px;
-    margin-top: 80px;           /* navbar ke niche */
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:#ffffff;
 }
 
-/* ===== BACK BUTTON ===== */
-.back-btn{
-  padding:6px 14px;
-  border:none;
-  border-radius:8px;
-  background:#dc2525;
-  color:#fff;
-  cursor:pointer;
-}
-.back-btn:hover{
-  background:#b81e1e;
-}
 
-/* ===== BOX ===== */
-.box{
-  background:#fff;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
-}
 
-/* ===== TABLE ===== */
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th{
-  background:#0f3c4c;
-  color:#fff;
-}
-
-th,td{
-  border:1px solid #ccc;
-  padding:12px;
+.sub{
   text-align:center;
+  color:#555;
+  margin:10px 0 25px;
 }
 
-tr:hover{
-  background:#f1f1f1;
+/* GRID */
+.menu{
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  padding:20px;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  border-radius:12px;
+  padding:18px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  border-left:5px solid #0f3c4c;
+  transition:0.2s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+}
+
+/* DAY */
+.day{
+  font-size:18px;
+  font-weight:700;
+  color:#0f3c4c;
+  margin-bottom:10px;
+}
+
+/* MEAL */
+.meal{
+  font-size:14px;
+  margin:6px 0;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* ICON */
+.icon{
+  font-size:18px;
 }
 /* FOOTER */
 footer{
-    margin-top:60px;
+    margin-top:250px;
     background:#1f3c4a;
     color:#fff;
     text-align:center;
     padding:22px;
-    border-radius:14px;
+    border-radius:17px;
 }
 
 /* RESPONSIVE */

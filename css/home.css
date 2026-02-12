@@ -220,19 +220,38 @@ body{
     box-shadow: 0 10px 22px rgba(0,0,0,0.08);
 }
 
-/* FOOTER */
 footer{
-    background:#1f3c4a;
-    color:#fff;
-    text-align:center;
-    padding:22px;
-    border-radius:14px;
+    margin-left: 260px;
+    width: calc(100% - 300px);
+
+    background: #1f3c4a;
+    color: #fff;
+    text-align: center;
+
+    padding: 20px 32px;      /* thoda mota */
+    margin-top: 20px;
+    margin-bottom: 30px; 
+
+    border-radius: 12px;    /* 👈 square jesa, bas halka curve */
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+
+    font-size: 14px;
+    line-height: 1.6;
 }
 
-/* RESPONSIVE */
+footer p{
+    margin: 0;
+}
+
+
 @media(max-width:900px){
     .sidebar{display:none;}
-    .main{margin-left:0;}
+
+    footer{
+        margin-left: 0;
+        width: 100%;
+        border-radius: 0;
+    }
 }
 
 @media(max-width:768px){

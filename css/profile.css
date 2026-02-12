@@ -1,133 +1,121 @@
-/* ===== RESET ===== */
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Segoe UI, sans-serif;
-}
-
-/* ===== BODY ===== */
-body{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background:#f4f7f9;
-}
-
-/* ===== MAIN CONTENT ===== */
-.main-content{
-    margin-left: 240px;     /* EXACT sidebar width */
-    margin-top: 60px;       /* top navbar height */
-    padding: 30px;
-}
-
-/* ===== PAGE TITLE ===== */
-.page-title{
-    font-size:26px;
-    font-weight:700;
-    margin-bottom:20px;
-}
-
-/* ===== PROFILE WRAPPER ===== */
-.profile-wrapper{
+.profile-container{
     display:flex;
-    gap:20px;
-    flex-wrap:wrap;
+    gap:40px;
+    padding:40px;
     align-items:flex-start;
 }
 
-/* ===== LEFT PROFILE CARD ===== */
+/* LEFT CARD */
 .profile-card{
-    background:#0f3c4c;
+    width:280px;
+    background:#0f3d4c;
     color:#fff;
-    padding:25px;
-    border-radius:12px;
-    width:260px;
+    border-radius:18px;
+    padding:35px 25px;
     text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
-.profile-card img{
-    width:80px;
-    height:80px;
+.profile-avatar{
+    width:120px;
+    height:120px;
+    margin:0 auto 15px;
+    background:#fff;
+    color:#0f3d4c;
     border-radius:50%;
-    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:50px;
 }
 
-.profile-card h3{
-    margin:5px 0;
+.profile-card h2{
+    margin:10px 0 5px;
 }
 
 .profile-card p{
     font-size:14px;
-    opacity:0.9;
+    opacity:0.85;
 }
 
-/* ===== RIGHT INFO CARD ===== */
-.info-card{
-    background:#fff;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.08);
-    flex:1;
-    min-width:300px;
-}
-
-/* ===== INFO GRID ===== */
-.info-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-}
-
-.info-box{
-    background:#f7fbfd;
-    padding:15px;
-    border-radius:10px;
-    border-left:4px solid #0f3c4c;
-}
-
-.info-box b{
-    display:block;
-    margin-bottom:5px;
-}
-
-/* ===== NAV PROFILE (TOP BAR) ===== */
-.nav-profile{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.edit-btn{
+    margin-top:20px;
+    padding:10px 22px;
+    border:none;
+    border-radius:25px;
+    background:#dbe0e2;
+    color:#171616;
     cursor:pointer;
+    font-weight:500;
 }
 
-.nav-profile img{
-    width:36px;
-    height:36px;
-    border-radius:50%;
-    border:2px solid #fff;
+.edit-btn:hover{
+    background:#dae0e2;
 }
 
-/* ===== FOOTER ===== */
+/* RIGHT DETAILS */
+.profile-details{
+    flex:1;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:25px;
+}
+
+.detail-box{
+    background:#ffffff;
+    border-radius:16px;
+    padding:22px 25px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    position:relative;
+}
+
+.detail-box::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    height:100%;
+    width:6px;
+    background:#0f3d4c;
+    border-radius:16px 0 0 16px;
+}
+
+.detail-box label{
+    font-size:13px;
+    color:#777;
+}
+
+.detail-box span{
+    display:block;
+    margin-top:6px;
+    font-size:16px;
+    font-weight:600;
+    color:#333;
+}
+
+/* FOOTER */
 footer{
-    margin-top: auto;   /* 🔥 footer ko bottom me push karega */
+    margin-top:300px;
     background:#1f3c4a;
     color:#fff;
     text-align:center;
-    padding:22px;
-    border-radius:14px;
+    padding:7px;
+    border-radius:17px;
 }
 
-/* ===== RESPONSIVE ===== */
+
+
+/* RESPONSIVE */
 @media(max-width:900px){
-    .sidebar{
-        display:none;
-    }
-    .main-content{
-        margin-left:0;
-    }
+    .sidebar{display:none;}
+    .main{margin-left:0;}
 }
 
-@media(max-width:600px){
-    .info-grid{
+@media(max-width:768px){
+    .contact-container{
         grid-template-columns:1fr;
     }
 }
+
+
+
