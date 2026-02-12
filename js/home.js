@@ -1,25 +1,32 @@
 function checkLogin() {
-    // check login status
-    let isLoggedIn = localStorage.getItem("isLoggedIn");
-
-    if (isLoggedIn === "true") {
-        // already logged in → go to booking
-        window.location.href = "booking.html";
-    } else {
-        // not logged in → remember where to go
-        localStorage.setItem("redirectAfterLogin", "booking.html");
-        window.location.href = "login.html";
-    }
-
+    // Check login status via session
+    fetch('Backend/check_session.php')
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === "logged_in") {
+                // Already logged in → go to booking (Home Page 2)
+                window.location.href = "booking.html";
+            } else {
+                // Not logged in → go to login
+                localStorage.setItem("redirectAfterLogin", "booking.html");
+                window.location.href = "login.html";
+            }
+        })
+        .catch(error => {
+            console.error("Session check failed:", error);
+            localStorage.setItem("redirectAfterLogin", "booking.html");
+            window.location.href = "login.html";
+        });
 }
-// ✅ IMAGE SLIDER (auto run on page load)
+
+// IMAGE SLIDER
 let slides = document.querySelectorAll(".slides");
 let index = 0;
 
-setInterval(() => {
-    slides[index].classList.remove("active");
-
-    index = (index + 1) % slides.length;
-
-    slides[index].classList.add("active");
-}, 4000);
+if (slides.length > 0) {
+    setInterval(() => {
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+    }, 4000);
+}
