@@ -2,74 +2,301 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PGCore Food Menu</title>
+<title>PG Core Food Menu</title>
 
-<!-- CSS LINK -->
-<link rel="stylesheet" href="css/food.css">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:#f4f7f9;
+}
+
+/* ===== HEADING ===== */
+.main-heading{
+    text-align:center;
+    padding:25px 15px;
+    background:#0f3d4c;
+    color:#fff;
+}
+
+.main-heading h1{
+    font-size:32px;
+    margin-bottom:6px;
+}
+
+.main-heading p{
+    opacity:.85;
+    font-size:15px;
+}
+
+/* ===== GRID ===== */
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+    gap:20px;
+    padding:30px;
+}
+
+/* ===== DAY CARD ===== */
+.day-card{
+    position:relative;
+    height:320px;
+    border-radius:18px;
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    transition:transform .3s;
+}
+
+.day-card:hover{
+    transform:scale(1.03);
+}
+
+.day-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* overlay */
+.overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.2));
+    display:flex;
+    align-items:flex-end;
+    padding:20px;
+}
+
+.overlay h2{
+    color:#fff;
+    font-size:26px;
+}
+
+/* ===== MODAL ===== */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+
+.modal-content{
+    background:#fff;
+    width:90%;
+    max-width:460px;
+    border-radius:18px;
+    padding:25px;
+    animation:pop .3s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(.7);opacity:0}
+    to{transform:scale(1);opacity:1}
+}
+
+.modal h2{
+    margin-bottom:15px;
+    color:#0f3d4c;
+}
+
+.food-block{
+    margin-bottom:14px;
+}
+
+.food-block h4{
+    margin-bottom:4px;
+    color:#333;
+}
+
+.food-block p{
+    color:#555;
+    line-height:1.5;
+    font-size:14px;
+}
+
+.time{
+    font-size:13px;
+    color:#0f3d4c;
+    margin-bottom:6px;
+    font-weight:600;
+}
+
+.close-btn{
+    margin-top:15px;
+    background:#0f3d4c;
+    color:#fff;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    width:100%;
+    cursor:pointer;
+    font-size:15px;
+}
+/* FOOTER */
+footer{
+    background:#1f3c4a;
+    color:#fff;
+     margin-top: 50px;
+    text-align:center;
+    padding:22px;
+    border-radius:14px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+    .sidebar{display:none;}
+    .main{margin-left:0;}
+}
+
+@media(max-width:768px){
+    .about-container{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<div class="header">🍽️ PGCore Weekly Food Menu</div>
-<div class="sub">Healthy • Hygienic • Homemade</div>
+<!-- ===== HEADING ===== -->
+<div class="main-heading">
+    <h1>PG Core – Food Menu</h1>
+    <p>Healthy • Hygienic • Home Style Meals</p>
+</div>
 
-<div class="menu">
+<!-- ===== DAY CARDS ===== -->
+<div class="menu-grid">
 
-  <div class="card">
-    <div class="day">Monday</div>
-    <div class="meal"><span class="icon">🥪</span> Sandwich</div>
-    <div class="meal"><span class="icon">🍛</span> Dal Baati</div>
-    <div class="meal"><span class="icon">🥗</span> Roti + Mix Veg</div>
-  </div>
+    <div class="day-card" onclick="openMenu('Monday')">
+        <img src="images/fod1.jpg">
+        <div class="overlay"><h2>Monday</h2></div>
+    </div>
 
-  <div class="card">
-    <div class="day">Tuesday</div>
-    <div class="meal"><span class="icon">🍵</span> Poha + Tea</div>
-    <div class="meal"><span class="icon">🍲</span> Rajma Chawal</div>
-    <div class="meal"><span class="icon">🧀</span> Paneer Tikka</div>
-  </div>
+    <div class="day-card" onclick="openMenu('Tuesday')">
+        <img src="images/rajma.jpg">
+        <div class="overlay"><h2>Tuesday</h2></div>
+    </div>
 
-  <div class="card">
-    <div class="day">Wednesday</div>
-    <div class="meal"><span class="icon">🍞</span> Bread Butter</div>
-    <div class="meal"><span class="icon">🍛</span> Kadhi Khichdi</div>
-    <div class="meal"><span class="icon">🥘</span> Aloo Gobi</div>
-  </div>
+    <div class="day-card" onclick="openMenu('Wednesday')">
+        <img src="images/idli.jpg">
+        <div class="overlay"><h2>Wednesday</h2></div>
+    </div>
 
-  <div class="card">
-    <div class="day">Thursday</div>
-    <div class="meal"><span class="icon">🥯</span> Thepla</div>
-    <div class="meal"><span class="icon">🍲</span> Chole Rice</div>
-    <div class="meal"><span class="icon">🌶️</span> Paneer Butter Masala</div>
-  </div>
+    <div class="day-card" onclick="openMenu('Thursday')">
+        <img src="images/paner.jpg">
+        <div class="overlay"><h2>Thursday</h2></div>
+    </div>
 
-  <div class="card">
-    <div class="day">Friday</div>
-    <div class="meal"><span class="icon">🍌</span> Cornflakes + Banana</div>
-    <div class="meal"><span class="icon">🍛</span> Veg Biryani</div>
-    <div class="meal"><span class="icon">🥗</span> Dal Fry + Chapati</div>
-  </div>
+    <div class="day-card" onclick="openMenu('Friday')">
+        <img src="images/dal.jpg">
+        <div class="overlay"><h2>Friday</h2></div>
+    </div>
 
-  <div class="card">
-    <div class="day">Saturday</div>
-    <div class="meal"><span class="icon">🥟</span> Pakoda</div>
-    <div class="meal"><span class="icon">🍽️</span> Gujarati Thali</div>
-    <div class="meal"><span class="icon">🍔</span> Pav Bhaji</div>
-  </div>
+    <div class="day-card" onclick="openMenu('Saturday')">
+        <img src="images/bhji.jpg">
+        <div class="overlay"><h2>Saturday</h2></div>
+    </div>
 
-  <div class="card">
-    <div class="day">Sunday</div>
-    <div class="meal"><span class="icon">🥞</span> Masala Dosa</div>
-    <div class="meal"><span class="icon">🍛</span> Jeera Rice + Dal</div>
-    <div class="meal"><span class="icon">🍕</span> Special Dinner</div>
-  </div>
+    <div class="day-card" onclick="openMenu('Sunday')">
+        <img src="images/sandw.jpg">
+        <div class="overlay"><h2>Sunday</h2></div>
+    </div>
 
 </div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal" id="menuModal">
+    <div class="modal-content">
+        <h2 id="dayTitle"></h2>
+
+        <div class="food-block">
+            <div class="time">⏰ 8:00 AM – 9:30 AM</div>
+            <h4>🍽 Breakfast</h4>
+            <p id="breakfastText"></p>
+        </div>
+
+        <div class="food-block">
+            <div class="time">⏰ 1:00 PM – 2:30 PM</div>
+            <h4>🍛 Lunch</h4>
+            <p id="lunchText"></p>
+        </div>
+
+        <div class="food-block">
+            <div class="time">⏰ 8:00 PM – 9:30 PM</div>
+            <h4>🍽 Dinner</h4>
+            <p id="dinnerText"></p>
+        </div>
+
+        <button class="close-btn" onclick="closeMenu()">Close</button>
+    </div>
+</div>
+
+<!-- ===== JS ===== -->
+<script>
+const foodMenu = {
+  Monday:{
+    breakfast:"Dhokla <br><b>Beverage (Compulsory):</b> Chai / Doodh",
+    lunch:"Dal Tadka, Roti, Jeera Rice, Salad",
+    dinner:"Paneer Butter Masala, Roti"
+  },
+  Tuesday:{
+    breakfast:"Poha <br><b>Beverage (Compulsory):</b> Chai / Doodh",
+    lunch:"Rajma, Rice, Roti, Onion Salad",
+    dinner:"Aloo Gobhi, Dal, Roti"
+  },
+  Wednesday:{
+    breakfast:"Idli Sambhar <br><b>Beverage (Compulsory):</b> Chai / Doodh",
+    lunch:"Kadhi, Rice, Roti",
+    dinner:"Mix Veg, Dal Fry, Roti"
+  },
+  Thursday:{
+    breakfast:"Upma <br><b>Beverage (Compulsory):</b> Chai / Doodh",
+    lunch:"Chole, Rice, Roti",
+    dinner:"Paneer Bhurji, Roti"
+  },
+  Friday:{
+    breakfast:"Paratha <br><b>Beverage (Compulsory):</b> Chai / Doodh",
+    lunch:"Dal Makhani, Rice, Roti",
+    dinner:"Veg Kofta, Roti"
+  },
+  Saturday:{
+    breakfast:"Puri Bhaji <br><b>Beverage (Compulsory):</b> Chai / Doodh",
+    lunch:"Veg Biryani, Raita",
+    dinner:"Light Dinner – Dal, Roti"
+  },
+  Sunday:{
+    breakfast:"Bread Sandwich <br><b>Beverage:</b> Chai / Doodh",
+    lunch:"Special Thali (Paneer + Sweet)",
+    dinner:"Khichdi / Daliya"
+  }
+};
+
+function openMenu(day){
+  const data = foodMenu[day];
+  document.getElementById("menuModal").style.display="flex";
+  document.getElementById("dayTitle").innerText = day+" – Food Details";
+  document.getElementById("breakfastText").innerHTML = data.breakfast;
+  document.getElementById("lunchText").innerText = data.lunch;
+  document.getElementById("dinnerText").innerText = data.dinner;
+}
+
+function closeMenu(){
+  document.getElementById("menuModal").style.display="none";
+}
+</script>
 <footer>
     © 2026 PGCore | Safe Living for Every Girl
 </footer>
 
-<!-- JS LINK -->
-<script src="food-menu.js"></script>
 </body>
 </html>
