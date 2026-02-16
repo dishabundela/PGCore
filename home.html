@@ -5,6 +5,281 @@
     <title>PGCore | Girls PG Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== MODAL/POPUP STYLES - 100% SCROLLABLE ===== */
+        body.modal-open {
+            overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
+            height: 100% !important;
+            top: 0;
+            left: 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px 0;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 20px auto;
+            padding: 0;
+            width: 90%;
+            max-width: 550px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .modal-header {
+            padding: 18px 25px;
+            background: #1f3c4a;
+            color: white;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .close-btn {
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #ff9999;
+        }
+
+        .modal-body {
+            padding: 25px;
+            max-height: none;
+            overflow: visible;
+        }
+
+        /* Room Selection Popup */
+        .room-selection-popup {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .room-option {
+            background: #f8f9fa;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .room-option:hover {
+            border-color: #1f3c4a;
+            background: #f0f7fa;
+        }
+
+        .room-option.active {
+            border-color: #1f3c4a;
+            background: #e8f0fe;
+        }
+
+        .room-option .room-num {
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f3c4a;
+        }
+
+        .room-option .room-type {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .room-option .room-price {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #28a745;
+        }
+
+        /* Selected Room Popup */
+        .selected-room-popup {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .selected-value {
+            color: #1f3c4a;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Form Popup */
+        .form-row-popup {
+            margin-bottom: 20px;
+            clear: both;
+        }
+
+        .form-group-popup label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group-popup input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5eb;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .form-group-popup input:focus {
+            outline: none;
+            border-color: #1f3c4a;
+            box-shadow: 0 0 0 3px rgba(31,60,74,0.1);
+        }
+
+        .form-group-popup input[type="date"] {
+            padding: 11px 15px;
+            min-height: 45px;
+        }
+
+        .form-group-popup input[readonly] {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+        }
+
+        /* Total Amount Popup */
+        .total-amount-popup {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-amount-popup .amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f3c4a;
+        }
+
+        /* Confirm Button Popup */
+        .confirm-btn-popup {
+            width: 100%;
+            padding: 15px;
+            background: #1f3c4a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .confirm-btn-popup:hover {
+            background: #16303d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(31,60,74,0.3);
+        }
+
+        /* Room Price on Cards */
+        .room-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #28a745;
+            margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .room-selection-popup {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .modal-content {
+                margin: 10px auto;
+                width: 95%;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .modal-header {
+                padding: 15px 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 20px;
+            }
+        }
+
+        /* FORCE SCROLLBAR TO ALWAYS SHOW */
+        .modal::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .modal::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .modal::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        
+        .modal::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
 </head>
 <body>
     <!-- SIDEBAR -->
@@ -17,13 +292,14 @@
         <a href="about.html">About Us</a>
         <a href="contact.html">Contact Us</a>
         <a href="services.html">Services</a>
-        <a href="#" onclick="checkLogin()">Book Now</a>
+        <a href="#" onclick="handleBookNow()">Book Now</a>
     </div>
 
     <header class="top-header">
         <div class="auth-buttons">
-            <a href="login.html" class="login-btn">Login</a>
-            <!-- REGISTER BUTTON REMOVED -->
+            <a href="login.html" class="login-btn" id="loginBtn">Login</a>
+            <span class="welcome-user" id="welcomeUser" style="display: none;"></span>
+            <a href="#" onclick="logout()" class="logout-btn" id="logoutBtn" style="display: none;">Logout</a>
         </div>
     </header>
 
@@ -45,6 +321,7 @@
                 <div class="content">
                     <h4>Single Sharing</h4>
                     <p>Privacy-focused furnished rooms.</p>
+                    <p class="room-price">₹8000/month</p>
                 </div>
             </div>
             <div class="card">
@@ -52,6 +329,7 @@
                 <div class="content">
                     <h4>Double Sharing</h4>
                     <p>Affordable & comfortable living.</p>
+                    <p class="room-price">₹6000/month</p>
                 </div>
             </div>
             <div class="card">
@@ -59,6 +337,7 @@
                 <div class="content">
                     <h4>Triple Sharing</h4>
                     <p>Best for students on budget.</p>
+                    <p class="room-price">₹5000/month</p>
                 </div>
             </div>
         </div>
@@ -163,10 +442,402 @@
             </div>
         </div>
     </div>
-<footer class="pg-footer">
-  <p>© 2026 PGCore | Safe Living for Every Girl</p>
-</footer>
 
-    <script src="js/home.js"></script>
+    <footer>
+        © 2026 PGCore | Girls PG Management System
+    </footer>
+
+    <!-- ===== BOOKING MODAL/POPUP ===== -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Book Your Room</h2>
+                <span class="close-btn" onclick="closeBookingModal()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Room Selection - DYNAMIC from database -->
+                <div class="room-selection-popup" id="dynamicRoomSelection">
+                    <div style="grid-column: span 4; text-align: center; padding: 20px;">
+                        <i class="fas fa-spinner fa-spin"></i> Loading available rooms...
+                    </div>
+                </div>
+
+                <!-- Selected Room Display -->
+                <div class="selected-room-popup">
+                    <span class="label">Selected Room:</span>
+                    <span class="selected-value" id="popupSelectedRoom">Loading...</span>
+                </div>
+
+                <!-- Booking Form -->
+                <form id="popupBookingForm">
+                    <div class="form-row-popup">
+                        <div class="form-group-popup">
+                            <label>Full Name</label>
+                            <input type="text" id="popupFullName" placeholder="Full Name" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row-popup">
+                        <div class="form-group-popup">
+                            <label>Email</label>
+                            <input type="email" id="popupEmail" placeholder="Email" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row-popup">
+                        <div class="form-group-popup">
+                            <label>Phone</label>
+                            <input type="tel" id="popupPhone" placeholder="Phone" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row-popup">
+                        <div class="form-group-popup">
+                            <label>Booking Date</label>
+                            <input type="date" id="popupBookingDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row-popup">
+                        <div class="form-group-popup">
+                            <label>Move-in Date</label>
+                            <input type="date" id="popupMoveInDate" required>
+                        </div>
+                    </div>
+
+                    <div class="total-amount-popup">
+                        <span class="label">Total Amount:</span>
+                        <span class="amount" id="popupTotalAmount">₹0</span>
+                    </div>
+
+                    <button type="submit" class="confirm-btn-popup">
+                        Confirm Booking
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== HANDLE BOOK NOW CLICK =====
+        function handleBookNow() {
+            fetch('Backend/check_session.php')
+                .then(response => response.text())
+                .then(data => {
+                    if (data.trim() === "logged_in") {
+                        // User is logged in - open booking modal
+                        openBookingModal();
+                    } else {
+                        // User not logged in - go to login, then come back to booking
+                        localStorage.setItem("redirectAfterLogin", "home.html?open=booking");
+                        window.location.href = "login.html";
+                    }
+                })
+                .catch(error => {
+                    console.error("Session check failed:", error);
+                    window.location.href = "login.html";
+                });
+        }
+
+        // ===== LOGOUT FUNCTION =====
+        function logout() {
+            fetch('Backend/logout.php')
+                .then(() => {
+                    window.location.href = 'home.html';
+                })
+                .catch(() => {
+                    window.location.href = 'home.html';
+                });
+        }
+
+        // ===== CHECK LOGIN STATUS AND UPDATE UI =====
+        function checkLoginStatus() {
+            fetch('Backend/check_session.php')
+                .then(response => response.text())
+                .then(data => {
+                    const isLoggedIn = data.trim() === "logged_in";
+                    const loginBtn = document.getElementById('loginBtn');
+                    const logoutBtn = document.getElementById('logoutBtn');
+                    const welcomeUser = document.getElementById('welcomeUser');
+                    
+                    if (isLoggedIn) {
+                        if (loginBtn) loginBtn.style.display = 'none';
+                        if (logoutBtn) logoutBtn.style.display = 'inline-block';
+                        if (welcomeUser) {
+                            welcomeUser.style.display = 'inline-block';
+                            loadUserData();
+                        }
+                    } else {
+                        if (loginBtn) loginBtn.style.display = 'inline-block';
+                        if (logoutBtn) logoutBtn.style.display = 'none';
+                        if (welcomeUser) welcomeUser.style.display = 'none';
+                    }
+                });
+        }
+
+        // ===== LOAD USER DATA =====
+        function loadUserData() {
+            fetch('Backend/get_user_session.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.logged_in) {
+                        document.getElementById('welcomeUser').textContent = `Welcome, ${data.name || 'User'}!`;
+                    }
+                })
+                .catch(error => console.error('Error loading user data:', error));
+        }
+
+        // ===== BOOKING MODAL FUNCTIONS =====
+        function openBookingModal() {
+            loadUserDataForPopup();
+            document.getElementById('bookingModal').style.display = 'block';
+            document.body.classList.add('modal-open');
+            
+            setTimeout(() => {
+                const modal = document.querySelector('.modal');
+                if (modal) {
+                    modal.scrollTop = 0;
+                }
+            }, 100);
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        // Load user data for popup
+        function loadUserDataForPopup() {
+            fetch('Backend/get_user_session.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.logged_in) {
+                        document.getElementById('popupFullName').value = data.name || '';
+                        document.getElementById('popupEmail').value = data.email || '';
+                        document.getElementById('popupPhone').value = data.phone || '';
+                    }
+                })
+                .catch(error => console.error('Error loading user data:', error));
+        }
+
+        // ===== LOAD AVAILABLE ROOMS FROM DATABASE =====
+        function loadAvailableRooms() {
+            fetch('Backend/get_rooms.php')
+                .then(response => response.json())
+                .then(rooms => {
+                    const container = document.getElementById('dynamicRoomSelection');
+                    
+                    if (rooms.length === 0) {
+                        container.innerHTML = '<div style="grid-column: span 4; text-align: center; padding: 20px; color: #dc3545;">No rooms available at the moment</div>';
+                        return;
+                    }
+                    
+                    let html = '';
+                    rooms.forEach((room, index) => {
+                        const activeClass = index === 0 ? 'active' : '';
+                        html += `
+                            <div class="room-option ${activeClass}" 
+                                 data-room="${room.room_id}" 
+                                 data-price="${room.price}" 
+                                 data-type="${room.room_type}"
+                                 data-number="${room.room_number}">
+                                <span class="room-num">${room.room_number}</span>
+                                <span class="room-type">${room.room_type}</span>
+                                <span class="room-price">₹${room.price}</span>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                    
+                    // Re-attach event listeners to new room options
+                    setupDynamicRoomSelection();
+                    
+                    // Update selected room display for first room
+                    if (rooms.length > 0) {
+                        const firstRoom = rooms[0];
+                        document.getElementById('popupSelectedRoom').textContent = 
+                            `${firstRoom.room_number} - ${firstRoom.room_type} (₹${firstRoom.price})`;
+                        document.getElementById('popupTotalAmount').textContent = `₹${firstRoom.price}`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading rooms:', error);
+                    document.getElementById('dynamicRoomSelection').innerHTML = 
+                        '<div style="grid-column: span 4; text-align: center; padding: 20px; color: #dc3545;">Error loading rooms</div>';
+                });
+        }
+
+        // ===== SETUP DYNAMIC ROOM SELECTION =====
+        function setupDynamicRoomSelection() {
+            const roomOptions = document.querySelectorAll('.room-option');
+            const selectedRoomDisplay = document.getElementById('popupSelectedRoom');
+            const totalAmount = document.getElementById('popupTotalAmount');
+
+            roomOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    roomOptions.forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const number = this.dataset.number;
+                    const type = this.dataset.type;
+                    const price = this.dataset.price;
+                    
+                    selectedRoomDisplay.textContent = `${number} - ${type} (₹${price})`;
+                    totalAmount.textContent = `₹${price}`;
+                });
+            });
+        }
+
+        // Set min dates for popup
+        function setPopupMinDates() {
+            const today = new Date().toISOString().split('T')[0];
+            const bookingDate = document.getElementById('popupBookingDate');
+            const moveInDate = document.getElementById('popupMoveInDate');
+            
+            if (bookingDate) {
+                bookingDate.min = today;
+                bookingDate.value = today;
+            }
+            if (moveInDate) {
+                moveInDate.min = today;
+                moveInDate.value = today;
+            }
+        }
+
+        // ===== POPUP FORM SUBMISSION - FIXED WITH ROOM ID =====
+        function setupPopupBookingForm() {
+            const form = document.getElementById('popupBookingForm');
+            if (!form) return;
+            
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const activeRoom = document.querySelector('.room-option.active');
+                if (!activeRoom) {
+                    alert('Please select a room');
+                    return;
+                }
+                
+                const btn = document.querySelector('.confirm-btn-popup');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING...';
+                btn.disabled = true;
+                
+                // Get ALL form data including room_id
+                const room_id = activeRoom.dataset.room;
+                const price = activeRoom.dataset.price;
+                const booking_date = document.getElementById('popupBookingDate').value;
+                const move_in_date = document.getElementById('popupMoveInDate').value;
+                
+                // Debug log
+                console.log("Sending booking data:", { room_id, price, booking_date, move_in_date });
+                
+                try {
+                    const response = await fetch('Backend/create_booking.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `room_id=${encodeURIComponent(room_id)}&price=${encodeURIComponent(price)}&booking_date=${encodeURIComponent(booking_date)}&move_in_date=${encodeURIComponent(move_in_date)}`
+                    });
+                    
+                    const result = await response.text();
+                    const trimmed = result.trim();
+                    
+                    console.log("Server response:", trimmed);
+                    
+                    if (trimmed === 'success') {
+                        alert('Booking request submitted successfully! Your booking is pending admin approval.');
+                        closeBookingModal();
+                        form.reset();
+                        setPopupMinDates();
+                        
+                        // Reload rooms to update availability
+                        loadAvailableRooms();
+                        
+                        // Redirect to dashboard
+                        window.location.href = 'dashboard.html';
+                    } 
+                    else if (trimmed === 'empty') {
+                        alert('Please fill all fields including room selection');
+                    } 
+                    else if (trimmed === 'not_logged_in') {
+                        alert('Session expired. Please login again.');
+                        window.location.href = 'login.html';
+                    }
+                    else if (trimmed === 'invalid_room') {
+                        alert('Selected room is not available. Please choose another room.');
+                        // Reload rooms to refresh availability
+                        loadAvailableRooms();
+                    }
+                    else if (trimmed === 'already_booked') {
+                        alert('You already have a pending or confirmed booking. You cannot book another room.');
+                        window.location.href = 'dashboard.html';
+                    }
+                    else {
+                        alert('Booking failed. Please try again. Error: ' + trimmed);
+                    }
+                    
+                } catch (error) {
+                    console.error('Network error:', error);
+                    alert('Network error. Please check your connection.');
+                } finally {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            });
+        }
+
+        // IMAGE SLIDER
+        let slides = document.querySelectorAll(".slides");
+        let index = 0;
+
+        if (slides.length > 0) {
+            setInterval(() => {
+                slides[index].classList.remove("active");
+                index = (index + 1) % slides.length;
+                slides[index].classList.add("active");
+            }, 4000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            }
+        }
+
+        // Check for booking parameter in URL
+        function checkForBookingParam() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('open') === 'booking') {
+                setTimeout(() => {
+                    openBookingModal();
+                }, 500);
+            }
+        }
+
+        // ===== INITIALIZE EVERYTHING ON PAGE LOAD =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load rooms from database
+            loadAvailableRooms();
+            
+            // Set min dates
+            setPopupMinDates();
+            
+            // Setup form submission
+            setupPopupBookingForm();
+            
+            // Check login status
+            checkLoginStatus();
+            
+            // Check for booking parameter in URL
+            checkForBookingParam();
+        });
+    </script>
 </body>
 </html>

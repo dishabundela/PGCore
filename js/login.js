@@ -27,13 +27,11 @@ function setupPasswordToggle() {
 
 // ========== SHOW/HIDE FORMS ==========
 function showForm(formToShow) {
-    // Hide all forms
     const forms = [loginForm, signupForm, forgotForm, adminForm];
     forms.forEach(form => {
         if (form) form.classList.add('hidden');
     });
     
-    // Show selected form
     if (formToShow) {
         formToShow.classList.remove('hidden');
     }
@@ -41,37 +39,31 @@ function showForm(formToShow) {
 
 // ========== FORM NAVIGATION ==========
 function setupFormNavigation() {
-    // Login to Signup
     document.getElementById('goToSignup')?.addEventListener('click', (e) => {
         e.preventDefault();
         showForm(signupForm);
     });
     
-    // Signup to Login
     document.getElementById('goToLogin')?.addEventListener('click', (e) => {
         e.preventDefault();
         showForm(loginForm);
     });
     
-    // Login to Forgot Password
     document.getElementById('forgotPassword')?.addEventListener('click', (e) => {
         e.preventDefault();
         showForm(forgotForm);
     });
     
-    // Forgot to Login
     document.getElementById('backToLogin')?.addEventListener('click', (e) => {
         e.preventDefault();
         showForm(loginForm);
     });
     
-    // Login to Admin
     document.getElementById('goToAdmin')?.addEventListener('click', (e) => {
         e.preventDefault();
         showForm(adminForm);
     });
     
-    // Admin to Login
     document.getElementById('backToResidentLogin')?.addEventListener('click', (e) => {
         e.preventDefault();
         showForm(loginForm);
@@ -105,13 +97,12 @@ function setupLoginForm() {
         }
         
         try {
-            // Show loading
             if (loginButton) {
                 loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> LOGGING IN...';
                 loginButton.disabled = true;
             }
             
-            const response = await fetch('Backend/resident_login.php', {
+            const response = await fetch('Backend/user_login.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -121,7 +112,6 @@ function setupLoginForm() {
             
             const result = await response.text().then(text => text.trim());
             
-            // Reset button
             if (loginButton) {
                 loginButton.innerHTML = 'LOGIN';
                 loginButton.disabled = false;
@@ -129,10 +119,9 @@ function setupLoginForm() {
             
             switch (result) {
                 case 'success':
-                    alert('Login successful! Redirecting to Home Page 2...');
-                    const redirectUrl = localStorage.getItem('redirectAfterLogin') || 'booking.html';
-                    localStorage.removeItem('redirectAfterLogin');
-                    window.location.href = redirectUrl;
+                    alert('Login successful!');
+                    // ALWAYS GO TO DASHBOARD AFTER LOGIN
+                    window.location.href = 'dashboard.html';
                     break;
                     
                 case 'wrong':
@@ -164,7 +153,6 @@ function setupLoginForm() {
     });
 }
 
-
 // ========== SIGNUP FORM SUBMISSION ==========
 function setupSignupForm() {
     if (!signupForm) return;
@@ -189,13 +177,12 @@ function setupSignupForm() {
         }
         
         try {
-            // Show loading
             if (signupButton) {
                 signupButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> CREATING ACCOUNT...';
                 signupButton.disabled = true;
             }
             
-            const response = await fetch('Backend/resident_signup.php', {
+            const response = await fetch('Backend/user_signup.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -205,18 +192,14 @@ function setupSignupForm() {
             
             const result = await response.text().then(text => text.trim());
             
-            // Reset button
             if (signupButton) {
                 signupButton.innerHTML = 'CREATE ACCOUNT';
                 signupButton.disabled = false;
             }
             
-            // IMPORTANT: NO REDIRECTION HERE!
             if (result === 'success') {
                 alert('Account created successfully! Please login with your credentials.');
-                // Clear the form
                 signupForm.reset();
-                // Show login form
                 showForm(loginForm);
             } 
             else if (result === 'email_exists') {
@@ -227,6 +210,7 @@ function setupSignupForm() {
             }
             else {
                 alert('Signup failed. Please try again.');
+                console.error('Signup error:', result);
             }
             
         } catch (error) {
@@ -263,7 +247,6 @@ function setupForgotForm() {
         }
         
         try {
-            // Show loading
             if (resetButton) {
                 resetButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> RESETTING...';
                 resetButton.disabled = true;
@@ -279,30 +262,21 @@ function setupForgotForm() {
             
             const result = await response.text().then(text => text.trim());
             
-            // Reset button
             if (resetButton) {
                 resetButton.innerHTML = 'RESET PASSWORD';
                 resetButton.disabled = false;
             }
             
-            switch (result) {
-                case 'success':
-                    alert('Password reset successfully! You can now login with your new password.');
-                    forgotForm.reset();
-                    showForm(loginForm);
-                    break;
-                    
-                case 'not_found':
-                    alert('Email not found in our database.');
-                    break;
-                    
-                case 'empty':
-                    alert('Please fill in all fields.');
-                    break;
-                    
-                default:
-                    alert('Password reset failed. Please try again.');
-                    console.error('Forgot password error:', result);
+            if (result === 'success') {
+                alert('Password reset successfully! You can now login with your new password.');
+                forgotForm.reset();
+                showForm(loginForm);
+            } else if (result === 'not_found') {
+                alert('Email not found in our database.');
+            } else if (result === 'empty') {
+                alert('Please fill in all fields.');
+            } else {
+                alert('Password reset failed. Please try again.');
             }
             
         } catch (error) {
@@ -334,7 +308,6 @@ function setupAdminForm() {
         }
         
         try {
-            // Show loading
             if (adminButton) {
                 adminButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ADMIN LOGIN...';
                 adminButton.disabled = true;
@@ -350,29 +323,20 @@ function setupAdminForm() {
             
             const result = await response.text().then(text => text.trim());
             
-            // Reset button
             if (adminButton) {
                 adminButton.innerHTML = 'ADMIN LOGIN';
                 adminButton.disabled = false;
             }
             
-            switch (result) {
-                case 'success':
-                    alert('Admin login successful! Redirecting...');
-                    window.location.href = 'admin/dashboard.html';
-                    break;
-                    
-                case 'wrong':
-                    alert('Wrong admin password.');
-                    break;
-                    
-                case 'not_found':
-                    alert('Admin account not found.');
-                    break;
-                    
-                default:
-                    alert('Admin login failed.');
-                    console.error('Admin login error:', result);
+            if (result === 'success') {
+                alert('Admin login successful! Redirecting...');
+                window.location.href = 'admin/dashboard.html';
+            } else if (result === 'wrong') {
+                alert('Wrong admin password.');
+            } else if (result === 'not_found') {
+                alert('Admin account not found.');
+            } else {
+                alert('Admin login failed.');
             }
             
         } catch (error) {
@@ -391,7 +355,6 @@ function setupAdminForm() {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('PGCore Login System Initializing...');
     
-    // Setup all functionality
     setupPasswordToggle();
     setupFormNavigation();
     setupAdminShortcut();
@@ -400,11 +363,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupForgotForm();
     setupAdminForm();
     
-    // Make functions available globally (if needed)
     window.showForm = showForm;
     
     console.log('PGCore Login System Ready!');
-    
-    // Show login form by default
     showForm(loginForm);
 });

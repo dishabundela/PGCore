@@ -1,77 +1,39 @@
-/* ===============================
-   BOOKING FORM LOGIC
-================================ */
-
-const overlay = document.getElementById("overlay");
-
-const roomNo = document.getElementById("roomNo");
-const roomType = document.getElementById("roomType");
-const priceInput = document.getElementById("price");
-
-const bookingDate = document.getElementById("bookingDate");
-const moveInDate = document.getElementById("moveInDate");
-const paymentStatus = document.getElementById("paymentStatus");
-const bookingStatus = document.getElementById("bookingStatus");
-
-function openForm(r, t, p) {
-  overlay.style.display = "flex";
-  roomNo.value = r;
-  roomType.value = t;
-  priceInput.value = "₹" + p;
-  bookingDate.value = new Date().toISOString().split("T")[0];
-  moveInDate.value = "";
-  paymentStatus.value = "";
-  bookingStatus.value = "";
+function checkLogin() {
+    fetch('Backend/check_session.php')
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === "logged_in") {
+                window.location.href = "home.html?open=booking";
+            } else {
+                localStorage.setItem("redirectAfterLogin", "home.html?open=booking");
+                window.location.href = "login.html";
+            }
+        })
+        .catch(error => {
+            console.error("Session check failed:", error);
+            window.location.href = "login.html";
+        });
 }
 
-function closeForm() {
-  overlay.style.display = "none";
+// IMAGE SLIDER
+let slides = document.querySelectorAll(".slides");
+let index = 0;
+
+if (slides.length > 0) {
+    setInterval(() => {
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+    }, 4000);
 }
 
-function submitBooking() {
-  if (moveInDate.value === "") {
-    alert("⚠ Please select Move-in Date");
-    return;
-  }
-  paymentStatus.value = "Paid";
-  bookingStatus.value = "Confirmed";
-  alert("🎉 Booking Confirmed!");
-  setTimeout(closeForm, 1200);
-}
-
-/* ===============================
-   IMAGE SLIDER
-================================ */
-
-let images = [];
-let currentIndex = 0;
-
-const imgOverlay = document.getElementById("imgOverlay");
-const fullImg = document.getElementById("fullImg");
-const roomTitle = document.getElementById("roomTitle");
-const roomPrice = document.getElementById("roomPrice");
-const roomDesc = document.getElementById("roomDesc");
-
-function openRoom(imgArray, title, price, desc) {
-  images = imgArray;
-  currentIndex = 0;
-  imgOverlay.style.display = "flex";
-  fullImg.src = images[currentIndex];
-  roomTitle.innerText = title;
-  roomPrice.innerText = price;
-  roomDesc.innerText = desc;
-}
-
-function closeImg() {
-  imgOverlay.style.display = "none";
-}
-
-function nextImg() {
-  currentIndex = (currentIndex + 1) % images.length;
-  fullImg.src = images[currentIndex];
-}
-
-function prevImg() {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  fullImg.src = images[currentIndex];
-}
+// Auto-open booking modal if URL has parameter
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.search.includes('open=booking')) {
+        setTimeout(() => {
+            if (typeof openBookingModal === 'function') {
+                openBookingModal();
+            }
+        }, 500);
+    }
+});

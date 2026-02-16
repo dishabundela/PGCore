@@ -1,5 +1,5 @@
 <?php
-// Backend/resident_login.php
+// Backend/user_login.php
 include "db.php";
 session_start();
 
@@ -11,11 +11,17 @@ if(empty($email) || empty($password)){
     exit;
 }
 
+// Debug - check if connection works
+if(!$conn){
+    echo "db_connection_error";
+    exit;
+}
+
 $sql = "SELECT id, fullname, email, phone, password FROM users WHERE email = ?";
 $stmt = mysqli_prepare($conn, $sql);
 
 if(!$stmt){
-    echo "db_error";
+    echo "prepare_error";
     exit;
 }
 
@@ -24,6 +30,7 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
 if($row = mysqli_fetch_assoc($result)){
+    // User found, verify password
     if(password_verify($password, $row['password'])){
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['user_name'] = $row['fullname'];

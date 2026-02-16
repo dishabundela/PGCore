@@ -1,241 +1,598 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>PGCore | Room Booking</title>
-<link rel="stylesheet" href="css/booking.css">
+    <meta charset="UTF-8">
+    <title>PGCore | Girls PG Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="sidebar-brand">
-    <img src="images/logo.png">
-    <span>PGCore</span>
-  </div>
-
-  <a href="home.html">Home</a>
-  <a href="about.html">About Us</a>
-  <a href="contact.html">Contact Us</a>
-  <a href="services.html">Services</a>
-  <a href="booking.html" class="active">Book Now</a>
-  
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="main-content">
-
-<header>
-  <h1>Book Your Comfortable Stay</h1>
-  <p>Safe • Affordable • Premium PG Living</p>
-</header>
-
-<section>
-<h2 class="section-title">Available Rooms</h2>
-
-<div class="rooms-grid">
-
-  <!-- SINGLE SHARING -->
-  <div class="room-card">
-    <img src="images/sin2.jpg"
-      onclick="openRoom(
-        [
-          'images/s.jpg',
-          'images/single.jpg',
-          'images/b1.jpg',
-          'images/s2.jpg'
-        ],
-        'Single Sharing',
-        '₹8000 / month',
-        'Spacious single sharing room with bed, cupboard, study table, Wi-Fi and good ventilation.'
-      )">
-
-    <div class="room-content">
-      <h3>Single Sharing</h3>
-      <p class="price">₹12000 / month</p>
-      <button onclick="openForm('101','Single Sharing','8000')">Book Now</button>
-    </div>
-  </div>
-
-  <!-- DOUBLE SHARING -->
-  <div class="room-card">
-    <img src="images/d2.jpg"
-      onclick="openRoom(
-        [
-          'images/do4.jpg',
-          'images/tv.jpg',
-          'images/do2.jpg',
-          'images/do5.jpg'
-        ],
-        'Double Sharing',
-        '₹6000 / month',
-        'Comfortable double sharing room with storage, study area and Wi-Fi.'
-      )">
-
-    <div class="room-content">
-      <h3>Double Sharing</h3>
-      <p class="price">₹9000 / month</p>
-      <button onclick="openForm('102','Double Sharing','6000')">Book Now</button>
-    </div>
-  </div>
-
-  <!-- TRIPLE SHARING -->
-  <div class="room-card">
-    <img src="images/ro3.jpg"
-      onclick="openRoom(
-        [
-          'images/3r.jpg',
-          'images/w1.jpg',
-          'images/k (2).jpg',
-          'images/3rom.jpg'
-        ],
-        'Triple Sharing',
-        '₹5200 / month',
-        'Affordable triple sharing room with proper ventilation and study setup.'
-      )">
-
-    <div class="room-content">
-      <h3>Triple Sharing</h3>
-      <p class="price">₹7500 / month</p>
-      <button onclick="openForm('103','Triple Sharing','5200')">Book Now</button>
-    </div>
-  </div>
-
-  <!-- FOUR SHARING -->
-  <div class="room-card">
-    <img src="images/f1.jpg"
-      onclick="openRoom(
-        [
-          'images/f2.jpg',
-          'images/t3.jpg',
-          'images/four.jpg',
-          'images/fo5.jpg'
-        ],
-        'Four Sharing',
-        '₹4500 / month',
-        'Budget friendly four sharing room ideal for students.'
-      )">
-
-    <div class="room-content">
-      <h3>Four Sharing</h3>
-      <p class="price">₹6000 / month</p>
-      <button onclick="openForm('104','Four Sharing','4500')">Book Now</button>
-    </div>
-  </div>
-
-</div>
-</section>
-</div>
-
-<!-- IMAGE POPUP -->
-<div id="imgOverlay" class="img-overlay">
-  <div class="img-popup">
-    <span class="close" onclick="closeImg()">✖</span>
-    <span class="nav left" onclick="prevImg()">❮</span>
-    <span class="nav right" onclick="nextImg()">❯</span>
-
-    <img id="fullImg">
-
-    <div class="info">
-      <h3 id="roomTitle"></h3>
-      <p class="price" id="roomPrice"></p>
-      <p id="roomDesc"></p>
-    </div>
-  </div>
-</div>
-
-<section class="facilities-section">
-  <h2 class="section-title">Our Facilities</h2>
-
-  <div class="facilities-grid">
-    <div class="facility-card">
-      
-      <h4>High Speed Wi-Fi</h4>
-      <p>Uninterrupted internet access for study & work.</p>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <img src="images/logo.png" alt="PGCore Logo">
+            <span>PGCore</span>
+        </div>
+        <a href="home.html" class="active">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="services.html">Services</a>
+        <a href="#" onclick="openBookingModal()">Book Now</a>
     </div>
 
-    <div class="facility-card">
-     
-      <h4>24×7 Security</h4>
-      <p>CCTV surveillance and secure entry system.</p>
+    <header class="top-header">
+        <div class="auth-buttons">
+            <a href="login.html" class="login-btn">Login</a>
+        </div>
+    </header>
+
+    <div class="hero-slider">
+        <div class="slides active" style="background-image:url('images/home.jpg');"></div>
+        <div class="slides" style="background-image:url('images/home1.jpg');"></div>
+        <div class="slides" style="background-image:url('images/home3.jpg');"></div>
+        <div class="hero-content">
+            <h2>A Safe Home for Every Girl</h2>
+            <p>Live safe. Live smart. Live PGCore.</p>
+        </div>
     </div>
 
-    <div class="facility-card">
-      
-      <h4>Healthy Meals</h4>
-      <p>Fresh, hygienic and nutritious food daily.</p>
+    <div class="section">
+        <h3>Our Rooms</h3>
+        <div class="rooms">
+            <div class="card">
+                <img src="images/sin2.jpg" alt="Single Sharing Room">
+                <div class="content">
+                    <h4>Single Sharing</h4>
+                    <p>Privacy-focused furnished rooms.</p>
+                    <p class="room-price">₹8000/month</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="images/d2.jpg" alt="Double Sharing Room">
+                <div class="content">
+                    <h4>Double Sharing</h4>
+                    <p>Affordable & comfortable living.</p>
+                    <p class="room-price">₹6000/month</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="images/ro3.jpg" alt="Triple Sharing Room">
+                <div class="content">
+                    <h4>Triple Sharing</h4>
+                    <p>Best for students on budget.</p>
+                    <p class="room-price">₹5000/month</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="facility-card">
-      <h4>Laundry Service</h4>
-      <p>Regular washing & drying facilities available.</p>
+    <div class="section">
+        <h3>24×7 Facilities & Security</h3>
+        <div class="features">
+            <div class="feature">
+                <h5>24×7 CCTV Surveillance</h5>
+                <p>Complete camera coverage in all common areas for round-the-clock safety.</p>
+            </div>
+            <div class="feature">
+                <h5>24×7 Security Staff</h5>
+                <p>Trained security personnel available day and night for residents' protection.</p>
+            </div>
+            <div class="feature">
+                <h5>Biometric / Secure Entry</h5>
+                <p>Authorized access only to ensure strict security and discipline.</p>
+            </div>
+            <div class="feature">
+                <h5>24×7 Power Backup</h5>
+                <p>Uninterrupted electricity supply with generator and inverter support.</p>
+            </div>
+            <div class="feature">
+                <h5>24×7 RO Drinking Water</h5>
+                <p>Clean and safe drinking water available at all times.</p>
+            </div>
+            <div class="feature">
+                <h5>High-Speed Wi-Fi</h5>
+                <p>Reliable internet connectivity for study, work, and communication.</p>
+            </div>
+            <div class="feature">
+                <h5>Emergency Support</h5>
+                <p>Immediate assistance available for medical or safety emergencies.</p>
+            </div>
+            <div class="feature">
+                <h5>On-Call Management</h5>
+                <p>PG management available 24×7 for issue reporting and quick resolution.</p>
+            </div>
+        </div>
     </div>
 
-    <div class="facility-card">
-      
-      <h4>Housekeeping</h4>
-      <p>Clean rooms & common areas maintained daily.</p>
+    <div class="section">
+        <h3>What Our Customers Say</h3>
+        <div class="features">
+            <div class="feature">
+                <p>“PGCore feels like a second home. The security and cleanliness give my parents complete peace of mind.”</p>
+                <h5>— College Student</h5>
+            </div>
+            <div class="feature">
+                <p>“I stay here because of discipline, safety and caring management. It's perfect for working women.”</p>
+                <h5>— Working Professional</h5>
+            </div>
+            <div class="feature">
+                <p>“Best PG experience so far. Clean rooms, secure environment and very supportive staff.”</p>
+                <h5>— Resident</h5>
+            </div>
+        </div>
     </div>
 
-    <div class="facility-card">
-      
-      <h4>Power Backup</h4>
-      <p>24×7 electricity with power backup.</p>
+    <div class="section">
+        <h3>Our Success</h3>
+        <div class="features">
+            <div class="feature">
+                <h5>500+ Happy Residents</h5>
+                <p>Girls living safely and comfortably with PGCore.</p>
+            </div>
+            <div class="feature">
+                <h5>100% Safety Focus</h5>
+                <p>24×7 CCTV, secure entry and trained staff.</p>
+            </div>
+            <div class="feature">
+                <h5>95% Satisfaction Rate</h5>
+                <p>Trusted by residents and parents alike.</p>
+            </div>
+            <div class="feature">
+                <h5>Multiple PG Locations</h5>
+                <p>Well-managed PGs across prime areas.</p>
+            </div>
+        </div>
     </div>
-  </div>
-</section>
 
+    <div class="section">
+        <h3>Why Girls Will Choose PGCore?</h3>
+        <div class="faq">
+            <div class="faq-item">
+                <h4>Is PGCore safe for girls?</h4>
+                <p>Absolutely. Safety is our highest priority. PGCore is equipped with 24×7 CCTV surveillance, secure entry systems, and on-site staff to ensure a safe and worry-free living environment for every girl.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Who can stay at PGCore?</h4>
+                <p>PGCore welcomes college students, working women, and married ladies who are looking for a secure, peaceful, and well-managed PG accommodation with homely comfort.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What makes PGCore different from other PGs?</h4>
+                <p>Unlike regular PGs, PGCore focuses on discipline, hygiene, transparency, and comfort. From well-furnished rooms to professional management and quick issue resolution, we ensure a stress-free stay.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Is PGCore suitable for parents' trust?</h4>
+                <p>Yes. PGCore is designed keeping parents' concerns in mind. With strict security rules, clean surroundings, and responsible staff, parents can stay assured about their daughter's safety and well-being.</p>
+            </div>
+        </div>
+    </div>
 
-<!-- BOOKING FORM -->
-<div class="overlay" id="overlay">
-<div class="booking-card">
-  <span class="close-btn" onclick="closeBooking()">✖</span>
+    <footer>
+        © 2026 PGCore | Girls PG Management System
+    </footer>
 
-  <h1>Complete Your Booking</h1>
+    <!-- ===== BOOKING MODAL/POPUP ===== -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Book Your Room</h2>
+                <span class="close-btn" onclick="closeBookingModal()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Room Selection -->
+                <div class="room-selection-popup">
+                    <div class="room-option active" data-room="101" data-price="8000" data-type="Single Sharing">
+                        <span class="room-num">101</span>
+                        <span class="room-type">Single Sharing</span>
+                        <span class="room-price">₹8000</span>
+                    </div>
+                    <div class="room-option" data-room="102" data-price="6000" data-type="Double Sharing">
+                        <span class="room-num">102</span>
+                        <span class="room-type">Double Sharing</span>
+                        <span class="room-price">₹6000</span>
+                    </div>
+                    <div class="room-option" data-room="103" data-price="5000" data-type="Triple Sharing">
+                        <span class="room-num">103</span>
+                        <span class="room-type">Triple Sharing</span>
+                        <span class="room-price">₹5000</span>
+                    </div>
+                    <div class="room-option" data-room="104" data-price="4500" data-type="Four Sharing">
+                        <span class="room-num">104</span>
+                        <span class="room-type">Four Sharing</span>
+                        <span class="room-price">₹4500</span>
+                    </div>
+                </div>
 
-  <div class="form-grid">
-    <input id="roomNo" readonly placeholder="Room No">
-    <input id="roomType" readonly placeholder="Room Type">
-    <input id="price" readonly placeholder="Price">
+                <!-- Selected Room Display -->
+                <div class="selected-room-popup">
+                    <span class="label">Selected Room:</span>
+                    <span class="selected-value" id="popupSelectedRoom">101 - Single Sharing (₹8000)</span>
+                </div>
 
-    <input placeholder="Full Name">
-    <input placeholder="Email">
-    <input placeholder="Phone">
+                <!-- Booking Form -->
+                <form id="popupBookingForm">
+                    <div class="form-row-popup">
+                        <div class="form-group-popup">
+                            <label>Full Name</label>
+                            <input type="text" id="popupFullName" placeholder="Full Name" required>
+                        </div>
+                    </div>
 
-    <label>Booking Date</label>
-    <input id="bookingDate" readonly>
+                    <div class="form-row-popup">
+                        <div class="form-group-popup">
+                            <label>Email</label>
+                            <input type="email" id="popupEmail" placeholder="Email" required>
+                        </div>
+                    </div>
 
-    <label>Move-in Date</label>
-    <input type="date" id="moveInDate">
+                    <div class="form-row-popup">
+                        <div class="form-group-popup">
+                            <label>Phone</label>
+                            <input type="tel" id="popupPhone" placeholder="Phone" required>
+                        </div>
+                    </div>
 
-    <label>Payment Status</label>
-    <input id="paymentStatus" readonly>
+                    <div class="form-row-popup">
+                        <div class="form-group-popup">
+                            <label>Booking Date</label>
+                            <input type="date" id="popupBookingDate" required>
+                        </div>
+                    </div>
 
-    <label>Booking Status</label>
-    <input id="bookingStatus" readonly>
-  </div>
+                    <div class="form-row-popup">
+                        <div class="form-group-popup">
+                            <label>Move-in Date</label>
+                            <input type="date" id="popupMoveInDate" placeholder="dd-mm-yyyy" required>
+                        </div>
+                    </div>
 
-  <button class="btn" onclick="submitBooking()">Confirm Booking</button>
-</div>
-</div>
+                    <div class="total-amount-popup">
+                        <span class="label">Total Amount:</span>
+                        <span class="amount" id="popupTotalAmount">₹8000</span>
+                    </div>
 
+                    <button type="submit" class="confirm-btn-popup">
+                        Confirm Booking
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-<footer class="pg-footer">
-  <p>© 2026 PGCore | Safe Living for Every Girl</p>
-</footer>
+    <script src="js/home.js"></script>
+    <style>
+        /* ===== MODAL/POPUP STYLES ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-<script>
-function closeBooking(){
-    document.getElementById("overlay").style.display = "none";
-}
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 0;
+            width: 90%;
+            max-width: 550px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s;
+        }
 
-function openBooking(){
-    document.getElementById("overlay").style.display = "flex";
-}
-</script>
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
 
-<script src="js/booking.js"></script>
+        .modal-header {
+            padding: 20px 25px;
+            background: #1f3c4a;
+            color: white;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .close-btn {
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+        }
+
+        .close-btn:hover {
+            color: #ff9999;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        /* Room Selection Popup */
+        .room-selection-popup {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .room-option {
+            background: #f8f9fa;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .room-option:hover {
+            border-color: #1f3c4a;
+            background: #f0f7fa;
+        }
+
+        .room-option.active {
+            border-color: #1f3c4a;
+            background: #e8f0fe;
+        }
+
+        .room-option .room-num {
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f3c4a;
+        }
+
+        .room-option .room-type {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .room-option .room-price {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #28a745;
+        }
+
+        /* Selected Room Popup */
+        .selected-room-popup {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Form Popup */
+        .form-row-popup {
+            margin-bottom: 15px;
+        }
+
+        .form-group-popup label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group-popup input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5eb;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .form-group-popup input:focus {
+            outline: none;
+            border-color: #1f3c4a;
+        }
+
+        .form-group-popup input[type="date"] {
+            padding: 11px 15px;
+        }
+
+        /* Total Amount Popup */
+        .total-amount-popup {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .total-amount-popup .amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f3c4a;
+        }
+
+        /* Confirm Button Popup */
+        .confirm-btn-popup {
+            width: 100%;
+            padding: 15px;
+            background: #1f3c4a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .confirm-btn-popup:hover {
+            background: #16303d;
+        }
+
+        /* Room Price on Cards */
+        .room-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #28a745;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .room-selection-popup {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .modal-content {
+                margin: 20px auto;
+                width: 95%;
+            }
+        }
+    </style>
+    <script>
+        // ===== BOOKING MODAL FUNCTIONS =====
+        function openBookingModal() {
+            checkLoginAndOpenModal();
+        }
+
+        function checkLoginAndOpenModal() {
+            fetch('Backend/check_session.php')
+                .then(response => response.text())
+                .then(data => {
+                    if (data.trim() === "logged_in") {
+                        loadUserDataForPopup();
+                        document.getElementById('bookingModal').style.display = 'block';
+                    } else {
+                        localStorage.setItem("redirectAfterLogin", "home.html");
+                        window.location.href = "login.html";
+                    }
+                })
+                .catch(error => {
+                    console.error("Session check failed:", error);
+                    window.location.href = "login.html";
+                });
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        // Load user data for popup
+        function loadUserDataForPopup() {
+            fetch('Backend/get_user_session.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.logged_in) {
+                        document.getElementById('popupFullName').value = data.name || '';
+                        document.getElementById('popupEmail').value = data.email || '';
+                        document.getElementById('popupPhone').value = data.phone || '';
+                    }
+                })
+                .catch(error => console.error('Error loading user data:', error));
+        }
+
+        // Room selection for popup
+        function setupPopupRoomSelection() {
+            const roomOptions = document.querySelectorAll('.room-option');
+            const selectedRoomDisplay = document.getElementById('popupSelectedRoom');
+            const totalAmount = document.getElementById('popupTotalAmount');
+
+            roomOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    roomOptions.forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const room = this.dataset.room;
+                    const type = this.dataset.type;
+                    const price = this.dataset.price;
+                    
+                    selectedRoomDisplay.textContent = `${room} - ${type} (₹${price})`;
+                    totalAmount.textContent = `₹${price}`;
+                });
+            });
+        }
+
+        // Set min dates for popup
+        function setPopupMinDates() {
+            const today = new Date().toISOString().split('T')[0];
+            const bookingDate = document.getElementById('popupBookingDate');
+            const moveInDate = document.getElementById('popupMoveInDate');
+            
+            bookingDate.min = today;
+            moveInDate.min = today;
+        }
+
+        // Popup form submission
+        function setupPopupBookingForm() {
+            const form = document.getElementById('popupBookingForm');
+            
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const activeRoom = document.querySelector('.room-option.active');
+                if (!activeRoom) {
+                    alert('Please select a room');
+                    return;
+                }
+                
+                const btn = document.querySelector('.confirm-btn-popup');
+                btn.innerHTML = 'PROCESSING...';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    alert('Booking confirmed successfully!');
+                    btn.innerHTML = 'Confirm Booking';
+                    btn.disabled = false;
+                    closeBookingModal();
+                    form.reset();
+                    
+                    // Reset to default room
+                    document.querySelector('.room-option[data-room="101"]').classList.add('active');
+                    document.getElementById('popupSelectedRoom').textContent = '101 - Single Sharing (₹8000)';
+                    document.getElementById('popupTotalAmount').textContent = '₹8000';
+                }, 1000);
+            });
+        }
+
+        // Initialize popup when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setupPopupRoomSelection();
+            setPopupMinDates();
+            setupPopupBookingForm();
+            
+            // Set default active room
+            setTimeout(() => {
+                const defaultRoom = document.querySelector('.room-option[data-room="101"]');
+                if (defaultRoom) defaultRoom.classList.add('active');
+            }, 100);
+
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                const modal = document.getElementById('bookingModal');
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
