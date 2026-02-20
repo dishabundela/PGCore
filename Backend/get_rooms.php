@@ -4,7 +4,7 @@ include "db.php";
 header('Content-Type: application/json');
 
 // Using 'status' column as per your table structure
-$sql = "SELECT room_id, room_number, room_type, rent as price, status FROM rooms WHERE status = 'available'";
+$sql = "SELECT room_id, room_number, room_type, rent as price, status FROM rooms WHERE status = 'available' ORDER BY room_number";
 $result = mysqli_query($conn, $sql);
 
 $rooms = [];

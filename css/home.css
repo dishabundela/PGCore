@@ -49,6 +49,7 @@ body{
 .sidebar a.active {
     background: #14576b;
 }
+
 .sidebar-brand{
     display:flex;
     align-items:center;
@@ -68,48 +69,75 @@ body{
     font-weight:600;
 }
 
-/* ===== TOP HEADER ===== */
-.top-header{
+/* ===== TOP HEADER - FIXED VISIBILITY ===== */
+.top-header {
     position: fixed;
     top: 0;
     left: 220px;
     right: 0;
     height: 70px;
-    background: rgba(15,60,76,0.95);
+    background: #0f3c4c;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding: 0 35px;
     z-index: 1100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-
-
-/* LOGIN / REGISTER */
-.auth-buttons a{
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    margin-left: 10px;
-    font-weight: 500;
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-.login-btn{
-    border: 2px solid #ffffff;
-    color: #ffffff;
-    background: transparent;
-    font-weight: 600;
-}
-
-.login-btn:hover{
+.login-btn {
     background: #ffffff;
-    color: #0f3c4c;
+    color: #0f3c4c !important;
+    padding: 8px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    border: 2px solid #ffffff;
+    transition: all 0.3s ease;
 }
 
-.register-btn{
-    background: #3bb3c3;
-    color: #fff;
+.login-btn:hover {
+    background: transparent;
+    color: #ffffff !important;
+    border-color: #ffffff;
+}
+
+.welcome-user {
+    color: #ffffff !important;
+    font-size: 16px;
+    font-weight: 500;
+    background: rgba(255,255,255,0.15);
+    padding: 8px 18px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.3);
+    display: inline-block;
+}
+
+.logout-btn {
+    background: #dc3545;
+    color: #ffffff !important;
+    padding: 8px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid #dc3545;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.logout-btn:hover {
+    background: #bb2d3b;
+    border-color: #bb2d3b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220,53,69,0.3);
 }
 
 /* ===== MAIN CONTENT ===== */
@@ -220,21 +248,18 @@ body{
     box-shadow: 0 10px 22px rgba(0,0,0,0.08);
 }
 
+/* ===== FOOTER ===== */
 footer{
     margin-left: 260px;
     width: calc(100% - 300px);
-
     background: #1f3c4a;
     color: #fff;
     text-align: center;
-
-    padding: 20px 32px;      /* thoda mota */
+    padding: 20px 32px;
     margin-top: 20px;
     margin-bottom: 30px; 
-
-    border-radius: 12px;    /* 👈 square jesa, bas halka curve */
+    border-radius: 12px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-
     font-size: 14px;
     line-height: 1.6;
 }
@@ -243,10 +268,33 @@ footer p{
     margin: 0;
 }
 
+/* ===== ROOM PRICE ===== */
+.room-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #28a745;
+    margin-top: 10px;
+}
 
+/* ===== MOBILE RESPONSIVE ===== */
 @media(max-width:900px){
-    .sidebar{display:none;}
-
+    .sidebar{
+        display:none;
+    }
+    
+    .top-header {
+        left: 0;
+    }
+    
+    .hero-content {
+        left: 30px;
+    }
+    
+    .section {
+        margin-left: 0;
+        width: 100%;
+    }
+    
     footer{
         margin-left: 0;
         width: 100%;
@@ -258,5 +306,38 @@ footer p{
     .about-container{
         grid-template-columns:1fr;
         text-align:center;
+    }
+    
+    .top-header {
+        padding: 0 15px;
+    }
+    
+    .welcome-user {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+    
+    .logout-btn {
+        padding: 6px 15px;
+        font-size: 13px;
+    }
+    
+    .login-btn {
+        padding: 6px 20px;
+        font-size: 14px;
+    }
+}
+
+@media(max-width:480px){
+    .hero-content h2 {
+        font-size: 24px;
+    }
+    
+    .hero-content p {
+        font-size: 16px;
+    }
+    
+    .auth-buttons {
+        gap: 10px;
     }
 }

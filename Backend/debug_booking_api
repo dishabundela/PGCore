@@ -1,0 +1,84 @@
+<?php
+// debug_booking_api.php
+include "Backend/db.php";
+session_start();
+
+echo "<h2>🔍 PGCore Debug Tool</h2>";
+echo "<pre>";
+
+// 1. Check Session
+echo "\n1. SESSION DATA:\n";
+print_r($_SESSION);
+
+if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true){
+    echo "❌ User NOT logged in\n";
+    exit;
+}
+
+$user_id = $_SESSION['user_id'];
+echo "✅ User ID: " . $user_id . "\n";
+
+// 2. Check Database Connection
+echo "\n2. DATABASE CONNECTION:\n";
+if($conn){
+    echo "✅ Connected successfully\n";
+} else {
+    echo "❌ Connection failed: " . mysqli_connect_error() . "\n";
+    exit;
+}
+
+// 3. Check Users Table
+echo "\n3. USERS TABLE:\n";
+$sql = "SELECT id, fullname, email, phone FROM users WHERE id = $user_id";
+$result = mysqli_query($conn, $sql);
+if(mysqli_num_rows($result) > 0){
+    $user = mysqli_fetch_assoc($result);
+    echo "✅ User found:\n";
+    print_r($user);
+} else {
+    echo "❌ User NOT found in database\n";
+}
+
+// 4. Check Bookings Table Structure
+echo "\n4. BOOKINGS TABLE STRUCTURE:\n";
+$sql = "DESCRIBE bookings";
+$result = mysqli_query($conn, $sql);
+if($result){
+    echo "✅ Bookings table columns:\n";
+    while($row = mysqli_fetch_assoc($result)){
+        echo "   - " . $row['Field'] . " (" . $row['Type'] . ")\n";
+    }
+} else {
+    echo "❌ Error: " . mysqli_error($conn) . "\n";
+}
+
+// 5. Check Bookings for this user
+echo "\n5. BOOKINGS FOR USER ID $user_id:\n";
+$sql = "SELECT * FROM bookings WHERE user_id = $user_id";
+$result = mysqli_query($conn, $sql);
+if(mysqli_num_rows($result) > 0){
+    echo "✅ Bookings found:\n";
+    while($row = mysqli_fetch_assoc($result)){
+        print_r($row);
+    }
+} else {
+    echo "❌ No bookings found\n";
+    echo "   SQL Error: " . mysqli_error($conn) . "\n";
+}
+
+// 6. Check Rooms Table
+echo "\n6. ROOMS TABLE:\n";
+$sql = "SELECT room_id, room_number, room_type FROM rooms LIMIT 5";
+$result = mysqli_query($conn, $sql);
+if(mysqli_num_rows($result) > 0){
+    echo "✅ Rooms found:\n";
+    while($row = mysqli_fetch_assoc($result)){
+        echo "   Room ID: " . $row['room_id'] . " - " . $row['room_number'] . " - " . $row['room_type'] . "\n";
+    }
+} else {
+    echo "❌ No rooms found\n";
+}
+
+echo "\n</pre>";
+mysqli_close($conn);
+?>

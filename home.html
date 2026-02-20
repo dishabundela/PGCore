@@ -7,112 +7,434 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== MODAL/POPUP STYLES - 100% SCROLLABLE ===== */
-        body.modal-open {
-            overflow: hidden !important;
-            position: fixed !important;
-            width: 100% !important;
-            height: 100% !important;
-            top: 0;
-            left: 0;
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('images/bg.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 100vh;
+            background: #0f3c4c;
+            padding: 30px 20px;
+            z-index: 1000;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 45px;
+        }
+
+        .sidebar-brand img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .sidebar-brand span {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #dfeef3;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #1a5a6e;
+            padding-left: 20px;
+        }
+
+        /* ===== TOP HEADER ===== */
+        .top-header {
+            position: fixed;
+            top: 0;
+            left: 220px;
+            right: 0;
+            height: 70px;
+            background: #0f3c4c;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 35px;
+            z-index: 1100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .login-btn {
+            background: #ffffff;
+            color: #0f3c4c !important;
+            padding: 8px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            border: 2px solid #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: transparent;
+            color: #ffffff !important;
+            border-color: #ffffff;
+        }
+
+        .welcome-user {
+            color: #ffffff !important;
+            font-size: 16px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 18px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: #ffffff !important;
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border: 2px solid #dc3545;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #bb2d3b;
+            border-color: #bb2d3b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(220,53,69,0.3);
+        }
+
+        /* ===== HERO SLIDER ===== */
+        .hero-slider {
+            position: relative;
+            height: 75vh;
+            overflow: hidden;
+        }
+
+        .slides {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .slides.active {
+            opacity: 1;
+        }
+
+        .hero-slider::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(15,60,76,0.65);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 260px;
+            transform: translateY(-50%);
+            color: #fff;
+            z-index: 2;
+            max-width: 520px;
+        }
+
+        .hero-content h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 60px 35px;
+            margin-left: 220px;
+            width: calc(100% - 220px);
+        }
+
+        .section h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #0f3c4c;
+            text-align: center;
+        }
+
+        /* ===== ROOMS GRID ===== */
+        .rooms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card .content {
+            padding: 20px;
+        }
+
+        .card .content h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .card .content p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .room-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #28a745;
+        }
+
+        /* ===== FEATURES GRID ===== */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .feature {
+            background: #fff;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+        }
+
+        .feature h5 {
+            color: #0f3c4c;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-item {
+            background: #fff;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+        }
+
+        .faq-item h4 {
+            color: #0f3c4c;
+            margin-bottom: 10px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-left: 260px;
+            width: calc(100% - 300px);
+            background: #1f3c4a;
+            color: #fff;
+            text-align: center;
+            padding: 22px;
+            border-radius: 14px;
+            margin: 20px auto 30px;
+        }
+
+        /* ===== MODAL STYLES - FIXED & BEAUTIFUL ===== */
         .modal {
             display: none;
             position: fixed;
-            z-index: 999999;
+            z-index: 9999;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            overflow-y: auto !important;
-            -webkit-overflow-scrolling: touch;
-            padding: 20px 0;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            overflow-y: auto;
+            padding: 30px 0;
         }
 
         .modal-content {
-            background-color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             margin: 20px auto;
             padding: 0;
             width: 90%;
-            max-width: 550px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 700px;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             position: relative;
-            margin-bottom: 30px;
-            margin-top: 20px;
+            animation: modalSlideIn 0.4s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .modal-header {
-            padding: 18px 25px;
-            background: #1f3c4a;
-            color: white;
-            border-radius: 15px 15px 0 0;
+            background: rgba(255,255,255,0.1);
+            padding: 25px 30px;
+            border-radius: 25px 25px 0 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
         }
 
         .modal-header h2 {
-            font-size: 24px;
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
             margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-header h2 i {
+            font-size: 28px;
         }
 
         .close-btn {
-            font-size: 30px;
+            color: white;
+            font-size: 35px;
             font-weight: bold;
             cursor: pointer;
-            color: white;
+            transition: all 0.3s;
             line-height: 1;
         }
 
         .close-btn:hover {
             color: #ff9999;
+            transform: scale(1.1);
         }
 
         .modal-body {
-            padding: 25px;
-            max-height: none;
-            overflow: visible;
+            background: white;
+            padding: 35px;
+            border-radius: 0 0 25px 25px;
         }
 
-        /* Room Selection Popup */
-        .room-selection-popup {
+        /* Floor Sections */
+        .floor-section {
+            margin-bottom: 30px;
+        }
+
+        .floor-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f3c4c;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e1e5eb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .floor-title i {
+            color: #28a745;
+        }
+
+        .room-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
         }
 
         .room-option {
             background: #f8f9fa;
             border: 2px solid #e1e5eb;
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 12px;
+            padding: 15px 8px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .room-option:hover {
-            border-color: #1f3c4a;
+            border-color: #0f3c4c;
             background: #f0f7fa;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(15,60,76,0.2);
         }
 
         .room-option.active {
-            border-color: #1f3c4a;
+            border-color: #0f3c4c;
             background: #e8f0fe;
+            box-shadow: 0 5px 15px rgba(15,60,76,0.2);
         }
 
         .room-option .room-num {
             display: block;
             font-size: 20px;
             font-weight: 700;
-            color: #1f3c4a;
+            color: #0f3c4c;
         }
 
         .room-option .room-type {
@@ -129,155 +451,178 @@
             color: #28a745;
         }
 
-        /* Selected Room Popup */
-        .selected-room-popup {
-            background: #f8f9fa;
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
+        /* Selected Room Display */
+        .selected-room {
+            background: #f0f7fa;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 25px 0;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #0f3c4c;
         }
 
-        .label {
+        .selected-room .label {
             font-weight: 600;
             color: #555;
-            font-size: 14px;
+            font-size: 15px;
         }
 
-        .selected-value {
-            color: #1f3c4a;
-            font-weight: 600;
-            font-size: 14px;
+        .selected-room .value {
+            color: #0f3c4c;
+            font-weight: 700;
+            font-size: 16px;
         }
 
-        /* Form Popup */
-        .form-row-popup {
+        /* Booking Form */
+        .booking-form {
+            margin-top: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
             margin-bottom: 20px;
-            clear: both;
         }
 
-        .form-group-popup label {
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: #555;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        .form-group-popup input {
+        .form-group label i {
+            margin-right: 5px;
+            color: #0f3c4c;
+        }
+
+        .form-group input {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e1e5eb;
-            border-radius: 6px;
+            border-radius: 10px;
             font-size: 15px;
             transition: all 0.3s;
         }
 
-        .form-group-popup input:focus {
+        .form-group input:focus {
             outline: none;
-            border-color: #1f3c4a;
-            box-shadow: 0 0 0 3px rgba(31,60,74,0.1);
+            border-color: #0f3c4c;
+            box-shadow: 0 0 0 3px rgba(15,60,76,0.1);
         }
 
-        .form-group-popup input[type="date"] {
-            padding: 11px 15px;
-            min-height: 45px;
-        }
-
-        .form-group-popup input[readonly] {
+        .form-group input[readonly] {
             background-color: #f0f0f0;
             cursor: not-allowed;
         }
 
-        /* Total Amount Popup */
-        .total-amount-popup {
+        .total-amount {
             background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 6px;
-            margin: 20px 0;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-left: 4px solid #28a745;
         }
 
-        .total-amount-popup .amount {
-            font-size: 24px;
+        .total-amount .label {
+            font-weight: 600;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .total-amount .amount {
+            font-size: 28px;
             font-weight: 700;
-            color: #1f3c4a;
+            color: #0f3c4c;
         }
 
-        /* Confirm Button Popup */
-        .confirm-btn-popup {
+        .confirm-btn {
             width: 100%;
-            padding: 15px;
-            background: #1f3c4a;
+            padding: 16px;
+            background: linear-gradient(135deg, #0f3c4c, #1a5a6e);
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 18px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 20px;
-            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .confirm-btn-popup:hover {
-            background: #16303d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(31,60,74,0.3);
+        .confirm-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(15,60,76,0.3);
         }
 
-        /* Room Price on Cards */
-        .room-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #28a745;
-            margin-top: 10px;
+        .confirm-btn i {
+            font-size: 20px;
+        }
+
+        /* Loading State */
+        .loading-rooms {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .loading-rooms i {
+            font-size: 40px;
+            color: #0f3c4c;
+            margin-bottom: 15px;
         }
 
         /* Responsive */
-        @media (max-width: 600px) {
-            .room-selection-popup {
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .top-header {
+                left: 0;
+            }
+            
+            .hero-content {
+                left: 30px;
+            }
+            
+            .section {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            footer {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .room-grid {
                 grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .modal-content {
-                margin: 10px auto;
-                width: 95%;
-            }
-            
-            .modal-body {
-                padding: 20px;
-            }
-            
-            .modal-header {
-                padding: 15px 20px;
-            }
-            
-            .modal-header h2 {
-                font-size: 20px;
             }
         }
 
-        /* FORCE SCROLLBAR TO ALWAYS SHOW */
-        .modal::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .modal::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        .modal::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-        
-        .modal::-webkit-scrollbar-thumb:hover {
-            background: #555;
+        @media (max-width: 480px) {
+            .room-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -295,6 +640,7 @@
         <a href="#" onclick="handleBookNow()">Book Now</a>
     </div>
 
+    <!-- TOP HEADER -->
     <header class="top-header">
         <div class="auth-buttons">
             <a href="login.html" class="login-btn" id="loginBtn">Login</a>
@@ -303,6 +649,7 @@
         </div>
     </header>
 
+    <!-- HERO SLIDER -->
     <div class="hero-slider">
         <div class="slides active" style="background-image:url('images/home.jpg');"></div>
         <div class="slides" style="background-image:url('images/home1.jpg');"></div>
@@ -313,6 +660,7 @@
         </div>
     </div>
 
+    <!-- OUR ROOMS SECTION -->
     <div class="section">
         <h3>Our Rooms</h3>
         <div class="rooms">
@@ -320,29 +668,38 @@
                 <img src="images/sin2.jpg" alt="Single Sharing Room">
                 <div class="content">
                     <h4>Single Sharing</h4>
-                    <p>Privacy-focused furnished rooms.</p>
-                    <p class="room-price">₹8000/month</p>
+                    <p>Privacy-focused furnished rooms with attached bathroom.</p>
+                    <p class="room-price">₹8000 - ₹9500/month</p>
                 </div>
             </div>
             <div class="card">
                 <img src="images/d2.jpg" alt="Double Sharing Room">
                 <div class="content">
                     <h4>Double Sharing</h4>
-                    <p>Affordable & comfortable living.</p>
-                    <p class="room-price">₹6000/month</p>
+                    <p>Affordable & comfortable living with a roommate.</p>
+                    <p class="room-price">₹6000 - ₹7500/month</p>
                 </div>
             </div>
             <div class="card">
                 <img src="images/ro3.jpg" alt="Triple Sharing Room">
                 <div class="content">
                     <h4>Triple Sharing</h4>
-                    <p>Best for students on budget.</p>
-                    <p class="room-price">₹5000/month</p>
+                    <p>Best for students on budget with all amenities.</p>
+                    <p class="room-price">₹5000 - ₹6500/month</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="images/four.jpg" alt="Four Sharing Room">
+                <div class="content">
+                    <h4>Four Sharing</h4>
+                    <p>Budget-friendly community living with friends.</p>
+                    <p class="room-price">₹4500 - ₹5500/month</p>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- FACILITIES SECTION -->
     <div class="section">
         <h3>24×7 Facilities & Security</h3>
         <div class="features">
@@ -355,90 +712,66 @@
                 <p>Trained security personnel available day and night for residents' protection.</p>
             </div>
             <div class="feature">
-                <h5>Biometric / Secure Entry</h5>
+                <h5>Biometric Entry</h5>
                 <p>Authorized access only to ensure strict security and discipline.</p>
             </div>
             <div class="feature">
-                <h5>24×7 Power Backup</h5>
-                <p>Uninterrupted electricity supply with generator and inverter support.</p>
+                <h5>Power Backup</h5>
+                <p>Uninterrupted electricity supply with generator support.</p>
             </div>
             <div class="feature">
-                <h5>24×7 RO Drinking Water</h5>
-                <p>Clean and safe drinking water available at all times.</p>
+                <h5>RO Drinking Water</h5>
+                <p>Clean and safe drinking water available 24×7.</p>
             </div>
             <div class="feature">
                 <h5>High-Speed Wi-Fi</h5>
-                <p>Reliable internet connectivity for study, work, and communication.</p>
+                <p>Reliable internet connectivity for study and work.</p>
             </div>
             <div class="feature">
                 <h5>Emergency Support</h5>
-                <p>Immediate assistance available for medical or safety emergencies.</p>
+                <p>Immediate assistance for medical or safety emergencies.</p>
             </div>
             <div class="feature">
-                <h5>On-Call Management</h5>
-                <p>PG management available 24×7 for issue reporting and quick resolution.</p>
+                <h5>Housekeeping</h5>
+                <p>Daily cleaning and maintenance service.</p>
             </div>
         </div>
     </div>
 
+    <!-- TESTIMONIALS SECTION -->
     <div class="section">
-        <h3>What Our Customers Say</h3>
+        <h3>What Our Residents Say</h3>
         <div class="features">
             <div class="feature">
-                <p>“PGCore feels like a second home. The security and cleanliness give my parents complete peace of mind.”</p>
-                <h5>— College Student</h5>
+                <p>"PGCore feels like a second home. The security and cleanliness give my parents complete peace of mind."</p>
+                <h5>— Priya, Room 201</h5>
             </div>
             <div class="feature">
-                <p>“I stay here because of discipline, safety and caring management. It's perfect for working women.”</p>
-                <h5>— Working Professional</h5>
+                <p>"I stay here because of discipline, safety and caring management. Perfect for working women."</p>
+                <h5>— Neha, Room 302</h5>
             </div>
             <div class="feature">
-                <p>“Best PG experience so far. Clean rooms, secure environment and very supportive staff.”</p>
-                <h5>— Resident</h5>
+                <p>"Best PG experience so far. Clean rooms, secure environment and very supportive staff."</p>
+                <h5>— Riya, Room 103</h5>
             </div>
         </div>
     </div>
 
+    <!-- FAQ SECTION -->
     <div class="section">
-        <h3>Our Success</h3>
-        <div class="features">
-            <div class="feature">
-                <h5>500+ Happy Residents</h5>
-                <p>Girls living safely and comfortably with PGCore.</p>
-            </div>
-            <div class="feature">
-                <h5>100% Safety Focus</h5>
-                <p>24×7 CCTV, secure entry and trained staff.</p>
-            </div>
-            <div class="feature">
-                <h5>95% Satisfaction Rate</h5>
-                <p>Trusted by residents and parents alike.</p>
-            </div>
-            <div class="feature">
-                <h5>Multiple PG Locations</h5>
-                <p>Well-managed PGs across prime areas.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3>Why Girls Will Choose PGCore?</h3>
+        <h3>Why Girls Choose PGCore?</h3>
         <div class="faq">
             <div class="faq-item">
                 <h4>Is PGCore safe for girls?</h4>
-                <p>Absolutely. Safety is our highest priority. PGCore is equipped with 24×7 CCTV surveillance, secure entry systems, and on-site staff to ensure a safe and worry-free living environment for every girl.</p>
+                <p>Absolutely. Safety is our highest priority. PGCore is equipped with 24×7 CCTV surveillance, secure entry systems, and on-site staff.</p>
             </div>
             <div class="faq-item">
                 <h4>Who can stay at PGCore?</h4>
-                <p>PGCore welcomes college students, working women, and married ladies who are looking for a secure, peaceful, and well-managed PG accommodation with homely comfort.</p>
+                <p>PGCore welcomes college students, working women, and married ladies looking for secure and comfortable accommodation.</p>
             </div>
             <div class="faq-item">
-                <h4>What makes PGCore different from other PGs?</h4>
-                <p>Unlike regular PGs, PGCore focuses on discipline, hygiene, transparency, and comfort. From well-furnished rooms to professional management and quick issue resolution, we ensure a stress-free stay.</p>
-            </div>
-            <div class="faq-item">
-                <h4>Is PGCore suitable for parents' trust?</h4>
-                <p>Yes. PGCore is designed keeping parents' concerns in mind. With strict security rules, clean surroundings, and responsible staff, parents can stay assured about their daughter's safety and well-being.</p>
+                <h4>What makes PGCore different?</h4>
+                <p>We focus on discipline, hygiene, transparency, and comfort with professional management.</p>
             </div>
         </div>
     </div>
@@ -447,72 +780,71 @@
         © 2026 PGCore | Girls PG Management System
     </footer>
 
-    <!-- ===== BOOKING MODAL/POPUP ===== -->
+    <!-- BEAUTIFUL BOOKING MODAL -->
     <div id="bookingModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Book Your Room</h2>
+                <h2><i class="fas fa-calendar-check"></i> Book Your Room</h2>
                 <span class="close-btn" onclick="closeBookingModal()">&times;</span>
             </div>
             
             <div class="modal-body">
-                <!-- Room Selection - DYNAMIC from database -->
-                <div class="room-selection-popup" id="dynamicRoomSelection">
-                    <div style="grid-column: span 4; text-align: center; padding: 20px;">
-                        <i class="fas fa-spinner fa-spin"></i> Loading available rooms...
+                <!-- Room Selection -->
+                <div id="dynamicRoomContainer">
+                    <div class="loading-rooms">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading available rooms...</p>
                     </div>
                 </div>
 
                 <!-- Selected Room Display -->
-                <div class="selected-room-popup">
-                    <span class="label">Selected Room:</span>
-                    <span class="selected-value" id="popupSelectedRoom">Loading...</span>
+                <div class="selected-room" id="selectedRoomContainer" style="display: none;">
+                    <span class="label"><i class="fas fa-check-circle" style="color: #28a745;"></i> Selected Room:</span>
+                    <span class="value" id="popupSelectedRoom">-</span>
                 </div>
 
                 <!-- Booking Form -->
-                <form id="popupBookingForm">
-                    <div class="form-row-popup">
-                        <div class="form-group-popup">
-                            <label>Full Name</label>
-                            <input type="text" id="popupFullName" placeholder="Full Name" required readonly>
+                <form id="popupBookingForm" class="booking-form" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="popupFullName" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="popupEmail" readonly>
                         </div>
                     </div>
 
-                    <div class="form-row-popup">
-                        <div class="form-group-popup">
-                            <label>Email</label>
-                            <input type="email" id="popupEmail" placeholder="Email" required readonly>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Phone</label>
+                            <input type="tel" id="popupPhone" readonly>
                         </div>
-                    </div>
-
-                    <div class="form-row-popup">
-                        <div class="form-group-popup">
-                            <label>Phone</label>
-                            <input type="tel" id="popupPhone" placeholder="Phone" required readonly>
-                        </div>
-                    </div>
-
-                    <div class="form-row-popup">
-                        <div class="form-group-popup">
-                            <label>Booking Date</label>
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar"></i> Booking Date</label>
                             <input type="date" id="popupBookingDate" required>
                         </div>
                     </div>
 
-                    <div class="form-row-popup">
-                        <div class="form-group-popup">
-                            <label>Move-in Date</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-check"></i> Move-in Date</label>
                             <input type="date" id="popupMoveInDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> Room Type</label>
+                            <input type="text" id="popupRoomType" readonly>
                         </div>
                     </div>
 
-                    <div class="total-amount-popup">
-                        <span class="label">Total Amount:</span>
+                    <div class="total-amount">
+                        <span class="label"><i class="fas fa-rupee-sign"></i> Total Amount:</span>
                         <span class="amount" id="popupTotalAmount">₹0</span>
                     </div>
 
-                    <button type="submit" class="confirm-btn-popup">
-                        Confirm Booking
+                    <button type="submit" class="confirm-btn">
+                        <i class="fas fa-check-circle"></i> Confirm Booking
                     </button>
                 </form>
             </div>
@@ -520,16 +852,14 @@
     </div>
 
     <script>
-        // ===== HANDLE BOOK NOW CLICK =====
+        // ===== HANDLE BOOK NOW =====
         function handleBookNow() {
             fetch('Backend/check_session.php')
                 .then(response => response.text())
                 .then(data => {
                     if (data.trim() === "logged_in") {
-                        // User is logged in - open booking modal
                         openBookingModal();
                     } else {
-                        // User not logged in - go to login, then come back to booking
                         localStorage.setItem("redirectAfterLogin", "home.html?open=booking");
                         window.location.href = "login.html";
                     }
@@ -540,18 +870,14 @@
                 });
         }
 
-        // ===== LOGOUT FUNCTION =====
+        // ===== LOGOUT =====
         function logout() {
             fetch('Backend/logout.php')
-                .then(() => {
-                    window.location.href = 'home.html';
-                })
-                .catch(() => {
-                    window.location.href = 'home.html';
-                });
+                .then(() => window.location.href = 'home.html')
+                .catch(() => window.location.href = 'home.html');
         }
 
-        // ===== CHECK LOGIN STATUS AND UPDATE UI =====
+        // ===== CHECK LOGIN STATUS =====
         function checkLoginStatus() {
             fetch('Backend/check_session.php')
                 .then(response => response.text())
@@ -588,26 +914,19 @@
                 .catch(error => console.error('Error loading user data:', error));
         }
 
-        // ===== BOOKING MODAL FUNCTIONS =====
+        // ===== MODAL FUNCTIONS =====
         function openBookingModal() {
-            loadUserDataForPopup();
             document.getElementById('bookingModal').style.display = 'block';
-            document.body.classList.add('modal-open');
-            
-            setTimeout(() => {
-                const modal = document.querySelector('.modal');
-                if (modal) {
-                    modal.scrollTop = 0;
-                }
-            }, 100);
+            document.body.style.overflow = 'hidden';
+            loadUserDataForPopup();
+            loadAvailableRooms();
         }
 
         function closeBookingModal() {
             document.getElementById('bookingModal').style.display = 'none';
-            document.body.classList.remove('modal-open');
+            document.body.style.overflow = 'auto';
         }
 
-        // Load user data for popup
         function loadUserDataForPopup() {
             fetch('Backend/get_user_session.php')
                 .then(response => response.json())
@@ -621,60 +940,84 @@
                 .catch(error => console.error('Error loading user data:', error));
         }
 
-        // ===== LOAD AVAILABLE ROOMS FROM DATABASE =====
+        // ===== LOAD ROOMS =====
         function loadAvailableRooms() {
             fetch('Backend/get_rooms.php')
                 .then(response => response.json())
                 .then(rooms => {
-                    const container = document.getElementById('dynamicRoomSelection');
+                    const container = document.getElementById('dynamicRoomContainer');
                     
-                    if (rooms.length === 0) {
-                        container.innerHTML = '<div style="grid-column: span 4; text-align: center; padding: 20px; color: #dc3545;">No rooms available at the moment</div>';
+                    if (!rooms || rooms.length === 0) {
+                        container.innerHTML = '<div class="loading-rooms">No rooms available</div>';
                         return;
                     }
-                    
-                    let html = '';
-                    rooms.forEach((room, index) => {
-                        const activeClass = index === 0 ? 'active' : '';
-                        html += `
-                            <div class="room-option ${activeClass}" 
-                                 data-room="${room.room_id}" 
-                                 data-price="${room.price}" 
-                                 data-type="${room.room_type}"
-                                 data-number="${room.room_number}">
-                                <span class="room-num">${room.room_number}</span>
-                                <span class="room-type">${room.room_type}</span>
-                                <span class="room-price">₹${room.price}</span>
-                            </div>
-                        `;
+
+                    // Group rooms by floor
+                    const floors = {};
+                    rooms.forEach(room => {
+                        const floorNum = room.room_number.toString().charAt(0);
+                        if (!floors[floorNum]) {
+                            const floorNames = {1: 'Ground Floor', 2: 'First Floor', 3: 'Second Floor', 4: 'Third Floor'};
+                            floors[floorNum] = {
+                                name: floorNames[floorNum] || `Floor ${floorNum}`,
+                                rooms: []
+                            };
+                        }
+                        floors[floorNum].rooms.push(room);
                     });
-                    
+
+                    let html = '';
+                    let firstRoom = null;
+
+                    Object.keys(floors).sort().forEach(floorNum => {
+                        const floor = floors[floorNum];
+                        html += `
+                            <div class="floor-section">
+                                <div class="floor-title">
+                                    <i class="fas fa-building"></i> ${floor.name}
+                                    <span style="margin-left: auto; font-size: 12px; color: #666;">${floor.rooms.length} rooms</span>
+                                </div>
+                                <div class="room-grid">
+                        `;
+
+                        floor.rooms.sort((a, b) => a.room_number - b.room_number).forEach(room => {
+                            if (!firstRoom) firstRoom = room;
+                            html += `
+                                <div class="room-option" 
+                                     data-room="${room.room_id}" 
+                                     data-price="${room.price}" 
+                                     data-type="${room.room_type}"
+                                     data-number="${room.room_number}">
+                                    <span class="room-num">${room.room_number}</span>
+                                    <span class="room-type">${room.room_type}</span>
+                                    <span class="room-price">₹${room.price}</span>
+                                </div>
+                            `;
+                        });
+
+                        html += `</div></div>`;
+                    });
+
                     container.innerHTML = html;
+
+                    // Show form and setup events
+                    document.getElementById('selectedRoomContainer').style.display = 'flex';
+                    document.getElementById('popupBookingForm').style.display = 'block';
                     
-                    // Re-attach event listeners to new room options
-                    setupDynamicRoomSelection();
-                    
-                    // Update selected room display for first room
-                    if (rooms.length > 0) {
-                        const firstRoom = rooms[0];
-                        document.getElementById('popupSelectedRoom').textContent = 
-                            `${firstRoom.room_number} - ${firstRoom.room_type} (₹${firstRoom.price})`;
-                        document.getElementById('popupTotalAmount').textContent = `₹${firstRoom.price}`;
+                    if (firstRoom) {
+                        setupRoomSelection(firstRoom);
                     }
                 })
                 .catch(error => {
-                    console.error('Error loading rooms:', error);
-                    document.getElementById('dynamicRoomSelection').innerHTML = 
-                        '<div style="grid-column: span 4; text-align: center; padding: 20px; color: #dc3545;">Error loading rooms</div>';
+                    console.error('Error:', error);
+                    document.getElementById('dynamicRoomContainer').innerHTML = 
+                        '<div class="loading-rooms">Error loading rooms</div>';
                 });
         }
 
-        // ===== SETUP DYNAMIC ROOM SELECTION =====
-        function setupDynamicRoomSelection() {
+        function setupRoomSelection(firstRoom) {
             const roomOptions = document.querySelectorAll('.room-option');
-            const selectedRoomDisplay = document.getElementById('popupSelectedRoom');
-            const totalAmount = document.getElementById('popupTotalAmount');
-
+            
             roomOptions.forEach(option => {
                 option.addEventListener('click', function() {
                     roomOptions.forEach(o => o.classList.remove('active'));
@@ -684,33 +1027,34 @@
                     const type = this.dataset.type;
                     const price = this.dataset.price;
                     
-                    selectedRoomDisplay.textContent = `${number} - ${type} (₹${price})`;
-                    totalAmount.textContent = `₹${price}`;
+                    document.getElementById('popupSelectedRoom').textContent = `${number} - ${type} (₹${price})`;
+                    document.getElementById('popupTotalAmount').textContent = `₹${price}`;
+                    document.getElementById('popupRoomType').value = type;
                 });
             });
+
+            // Select first room
+            if (firstRoom && roomOptions.length > 0) {
+                roomOptions[0].classList.add('active');
+                document.getElementById('popupSelectedRoom').textContent = 
+                    `${firstRoom.room_number} - ${firstRoom.room_type} (₹${firstRoom.price})`;
+                document.getElementById('popupTotalAmount').textContent = `₹${firstRoom.price}`;
+                document.getElementById('popupRoomType').value = firstRoom.room_type;
+            }
         }
 
-        // Set min dates for popup
-        function setPopupMinDates() {
+        // ===== SET MIN DATES =====
+        function setMinDates() {
             const today = new Date().toISOString().split('T')[0];
-            const bookingDate = document.getElementById('popupBookingDate');
-            const moveInDate = document.getElementById('popupMoveInDate');
-            
-            if (bookingDate) {
-                bookingDate.min = today;
-                bookingDate.value = today;
-            }
-            if (moveInDate) {
-                moveInDate.min = today;
-                moveInDate.value = today;
-            }
+            document.getElementById('popupBookingDate').min = today;
+            document.getElementById('popupBookingDate').value = today;
+            document.getElementById('popupMoveInDate').min = today;
+            document.getElementById('popupMoveInDate').value = today;
         }
 
-        // ===== POPUP FORM SUBMISSION - FIXED WITH ROOM ID =====
-        function setupPopupBookingForm() {
+        // ===== FORM SUBMISSION =====
+        function setupBookingForm() {
             const form = document.getElementById('popupBookingForm');
-            if (!form) return;
-            
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
@@ -719,124 +1063,74 @@
                     alert('Please select a room');
                     return;
                 }
-                
-                const btn = document.querySelector('.confirm-btn-popup');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING...';
+
+                const btn = document.querySelector('.confirm-btn');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
                 btn.disabled = true;
-                
-                // Get ALL form data including room_id
-                const room_id = activeRoom.dataset.room;
-                const price = activeRoom.dataset.price;
-                const booking_date = document.getElementById('popupBookingDate').value;
-                const move_in_date = document.getElementById('popupMoveInDate').value;
-                
-                // Debug log
-                console.log("Sending booking data:", { room_id, price, booking_date, move_in_date });
-                
+
+                const formData = new FormData();
+                formData.append('room_id', activeRoom.dataset.room);
+                formData.append('price', activeRoom.dataset.price);
+                formData.append('booking_date', document.getElementById('popupBookingDate').value);
+                formData.append('move_in_date', document.getElementById('popupMoveInDate').value);
+
                 try {
                     const response = await fetch('Backend/create_booking.php', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `room_id=${encodeURIComponent(room_id)}&price=${encodeURIComponent(price)}&booking_date=${encodeURIComponent(booking_date)}&move_in_date=${encodeURIComponent(move_in_date)}`
+                        body: formData
                     });
                     
                     const result = await response.text();
-                    const trimmed = result.trim();
                     
-                    console.log("Server response:", trimmed);
-                    
-                    if (trimmed === 'success') {
-                        alert('Booking request submitted successfully! Your booking is pending admin approval.');
+                    if (result.trim() === 'success') {
+                        alert('Booking successful! Your request is pending approval.');
                         closeBookingModal();
-                        form.reset();
-                        setPopupMinDates();
-                        
-                        // Reload rooms to update availability
-                        loadAvailableRooms();
-                        
-                        // Redirect to dashboard
                         window.location.href = 'dashboard.html';
-                    } 
-                    else if (trimmed === 'empty') {
-                        alert('Please fill all fields including room selection');
-                    } 
-                    else if (trimmed === 'not_logged_in') {
-                        alert('Session expired. Please login again.');
-                        window.location.href = 'login.html';
+                    } else {
+                        alert('Booking failed: ' + result);
                     }
-                    else if (trimmed === 'invalid_room') {
-                        alert('Selected room is not available. Please choose another room.');
-                        // Reload rooms to refresh availability
-                        loadAvailableRooms();
-                    }
-                    else if (trimmed === 'already_booked') {
-                        alert('You already have a pending or confirmed booking. You cannot book another room.');
-                        window.location.href = 'dashboard.html';
-                    }
-                    else {
-                        alert('Booking failed. Please try again. Error: ' + trimmed);
-                    }
-                    
                 } catch (error) {
-                    console.error('Network error:', error);
-                    alert('Network error. Please check your connection.');
+                    alert('Error: ' + error);
                 } finally {
-                    btn.innerHTML = originalText;
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Confirm Booking';
                     btn.disabled = false;
                 }
             });
         }
 
-        // IMAGE SLIDER
+        // ===== IMAGE SLIDER =====
         let slides = document.querySelectorAll(".slides");
-        let index = 0;
-
+        let slideIndex = 0;
         if (slides.length > 0) {
             setInterval(() => {
-                slides[index].classList.remove("active");
-                index = (index + 1) % slides.length;
-                slides[index].classList.add("active");
+                slides[slideIndex].classList.remove("active");
+                slideIndex = (slideIndex + 1) % slides.length;
+                slides[slideIndex].classList.add("active");
             }, 4000);
         }
 
-        // Close modal when clicking outside
+        // ===== CLICK OUTSIDE MODAL =====
         window.onclick = function(event) {
             const modal = document.getElementById('bookingModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-                document.body.classList.remove('modal-open');
+            if (event.target === modal) {
+                closeBookingModal();
             }
         }
 
-        // Check for booking parameter in URL
-        function checkForBookingParam() {
+        // ===== CHECK URL PARAM =====
+        function checkUrlParam() {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('open') === 'booking') {
-                setTimeout(() => {
-                    openBookingModal();
-                }, 500);
+                setTimeout(openBookingModal, 500);
             }
         }
 
-        // ===== INITIALIZE EVERYTHING ON PAGE LOAD =====
+        // ===== INITIALIZE =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Load rooms from database
-            loadAvailableRooms();
-            
-            // Set min dates
-            setPopupMinDates();
-            
-            // Setup form submission
-            setupPopupBookingForm();
-            
-            // Check login status
             checkLoginStatus();
-            
-            // Check for booking parameter in URL
-            checkForBookingParam();
+            setMinDates();
+            setupBookingForm();
+            checkUrlParam();
         });
     </script>
 </body>
