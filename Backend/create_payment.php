@@ -2,32 +2,20 @@
 include "db.php";
 session_start();
 
-if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true){
-    echo "not_logged_in";
-    exit;
-}
-
 $user_id = $_SESSION['user_id'];
-$amount = $_POST['amount'] ?? '';
 $payment_month = $_POST['month'] ?? '';
-$payment_date = date('Y-m-d');
 
-if(empty($amount) || empty($payment_month)){
-    echo "empty";
-    exit;
-}
+$base_rent = 8000;
+$current_day = date('j');
+$late_fee = ($current_day > 5) ? 800 : 0;
+$total_amount = $base_rent + $late_fee;
 
-$sql = "INSERT INTO payments (user_id, amount, payment_month, payment_date, status) 
-        VALUES (?, ?, ?, ?, 'completed')";
-$stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "idss", $user_id, $amount, $payment_month, $payment_date);
+$sql = "INSERT INTO payments (user_id, amount, late_fee, payment_month, payment_date, status) 
+        VALUES ($user_id, $total_amount, $late_fee, '$payment_month', CURDATE(), 'completed')";
 
-if(mysqli_stmt_execute($stmt)){
+if(mysqli_query($conn, $sql)) {
     echo "success";
 } else {
-    echo "error";
+    echo "error: " . mysqli_error($conn);
 }
-
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
 ?>

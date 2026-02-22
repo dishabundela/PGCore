@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PGCore | Visitor Log</title>
-    <link rel="stylesheet" href="css/visitor.css">
+    <title>PGCore | Complaints</title>
+    <link rel="stylesheet" href="css/complaint.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -30,24 +30,33 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
         
-        h3 {
+        h2 {
             color: #0f3c4c;
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        h3 i {
+        h2 i {
             color: #1a5a6e;
         }
         
-        .box {
+        h3 {
+            color: #0f3c4c;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-box {
             background: #f8fafc;
             border-radius: 15px;
             padding: 30px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             border: 1px solid #e1e5eb;
         }
         
@@ -64,7 +73,8 @@
         }
         
         .form-row input,
-        .form-row select {
+        .form-row select,
+        .form-row textarea {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e1e5eb;
@@ -74,13 +84,14 @@
         }
         
         .form-row input:focus,
-        .form-row select:focus {
+        .form-row select:focus,
+        .form-row textarea:focus {
             border-color: #0f3c4c;
             outline: none;
             box-shadow: 0 0 0 3px rgba(15,60,76,0.1);
         }
         
-        button {
+        #submitBtn {
             background: #0f3c4c;
             color: white;
             border: none;
@@ -93,59 +104,105 @@
             width: 100%;
         }
         
-        button:hover {
+        #submitBtn:hover {
             background: #1a5a6e;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(15,60,76,0.3);
         }
         
-        button:disabled {
+        #submitBtn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
         
-        .visitor-history {
-            margin-top: 30px;
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+            border-left: 4px solid #28a745;
         }
         
-        .visitor-card {
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .complaints-history {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e1e5eb;
+        }
+        
+        .complaint-card {
             background: white;
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 15px;
             border-left: 4px solid #0f3c4c;
             box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s;
         }
         
-        .visitor-header {
+        .complaint-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .complaint-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
         }
         
-        .visitor-name {
-            font-weight: 600;
-            color: #0f3c4c;
-            font-size: 16px;
-        }
-        
-        .visitor-date {
+        .complaint-date {
             color: #666;
             font-size: 14px;
+            font-weight: 500;
         }
         
-        .visitor-times {
-            display: flex;
-            gap: 20px;
-            color: #555;
-            font-size: 14px;
-        }
-        
-        .visitor-times span {
-            background: #f0f7fa;
-            padding: 5px 12px;
+        .complaint-status {
+            padding: 4px 12px;
             border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-resolved {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-progress {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .complaint-text {
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
+            white-space: pre-wrap;
         }
         
         .no-data {
@@ -169,28 +226,25 @@
 <body>
     <div class="main-content">
         <section class="content active">
-            <h3><i class="fas fa-users"></i> Visitor Entry</h3>
+            <h2><i class="fas fa-exclamation-circle"></i> Register Complaint</h2>
             
-            <div class="box">
+            <div class="form-box">
                 <div class="form-row">
-                    <label><i class="fas fa-user"></i> Visitor Name</label>
-                    <input type="text" id="vname" placeholder="Enter visitor name">
+                    <label><i class="fas fa-tag"></i> Complaint Title</label>
+                    <input type="text" id="title" placeholder="Ex: Water Leakage, Electricity Issue">
                 </div>
                 
                 <div class="form-row">
-                    <label><i class="fas fa-user-tag"></i> Relation</label>
-                    <select id="relation">
-                        <option>Parent</option>
-                        <option>Friend</option>
-                        <option>Relative</option>
-                        <option>Delivery</option>
+                    <label><i class="fas fa-list"></i> Category</label>
+                    <select id="category">
+                        <option>Electricity</option>
+                        <option>Water</option>
+                        <option>Food</option>
+                        <option>Room Cleaning</option>
+                        <option>Internet</option>
+                        <option>Security</option>
                         <option>Other</option>
                     </select>
-                </div>
-                
-                <div class="form-row">
-                    <label><i class="fas fa-phone"></i> Contact Number</label>
-                    <input type="text" id="contact" placeholder="Enter phone number">
                 </div>
                 
                 <div class="form-row">
@@ -204,23 +258,31 @@
                 </div>
                 
                 <div class="form-row">
-                    <label><i class="fas fa-clock"></i> In Time</label>
-                    <input type="time" id="in">
+                    <label><i class="fas fa-align-left"></i> Complaint Description</label>
+                    <textarea id="desc" rows="4" placeholder="Explain your problem clearly..."></textarea>
                 </div>
                 
-                <button onclick="addVisitor()">
-                    <i class="fas fa-plus-circle"></i> Add Visitor
+                <!-- FIXED: Added id="submitBtn" and removed onclick -->
+                <button id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Complaint
                 </button>
+                
+                <div class="success" id="successMsg">✔ Complaint submitted successfully!</div>
+                <div class="error" id="errorMsg">✖ Error submitting complaint!</div>
             </div>
             
-            <!-- Visitor history will be loaded here dynamically -->
+            <!-- Complaints history will be loaded here -->
+            <div class="complaints-history" id="complaintsHistory">
+                <h3><i class="fas fa-history"></i> Your Complaint History</h3>
+                <div id="complaintList"></div>
+            </div>
         </section>
     </div>
     
     <footer>
         © 2026 PGCore | Safe Living for Every Girl
     </footer>
-    
-    <script src="js/visitor.js"></script>
+
+    <script src="js/complaint.js"></script>
 </body>
 </html>

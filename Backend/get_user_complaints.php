@@ -10,7 +10,9 @@ if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true){
 
 $user_id = $_SESSION['user_id'];
 
-$sql = "SELECT * FROM complaints WHERE user_id = ? ORDER BY complaint_date DESC";
+$sql = "SELECT complaint_id, user_id, title, category, room_no, complaint_text as description, complaint_date, status 
+        FROM complaints WHERE user_id = ? ORDER BY complaint_date DESC";
+
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "i", $user_id);
 mysqli_stmt_execute($stmt);

@@ -10,7 +10,9 @@ if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true){
 
 $user_id = $_SESSION['user_id'];
 
-$sql = "SELECT * FROM payments WHERE user_id = ? ORDER BY payment_date DESC";
+$sql = "SELECT payment_id, amount, late_fee, payment_month, payment_date, status 
+        FROM payments WHERE user_id = ? ORDER BY payment_date DESC";
+
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "i", $user_id);
 mysqli_stmt_execute($stmt);

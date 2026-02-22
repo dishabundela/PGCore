@@ -1,122 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>PGCore | Payments</title>
-
-<!-- CSS -->
-<link rel="stylesheet" href="css/payments.css">
+    <meta charset="UTF-8">
+    <title>PGCore | Payments</title>
+    <link rel="stylesheet" href="css/payments.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: #f4f6f9;
+            padding: 20px;
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .content.active {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .page-title {
+            color: #0f3c4c;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .page-desc {
+            color: #666;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e1e5eb;
+        }
+        
+        .box {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #e1e5eb;
+        }
+        
+        .box h3 {
+            color: #0f3c4c;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #0f3c4c;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .info-card b {
+            display: block;
+            color: #0f3c4c;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .info-card span {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .late-fee-warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .late-fee-warning i {
+            font-size: 24px;
+            color: #ffc107;
+        }
+        
+        .late-fee-warning strong {
+            font-size: 16px;
+        }
+        
+        .pending {
+            color: #856404;
+            background: #fff3cd;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+        }
+        
+        .paid {
+            color: #155724;
+            background: #d4edda;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+        }
+        
+        .late-fee-badge {
+            background: #dc3545;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        #payButton {
+            background: #0f3c4c;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        #payButton:hover {
+            background: #1a5a6e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(15,60,76,0.3);
+        }
+        
+        #payButton:disabled {
+            background: #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        #payButton.pay-with-late {
+            background: #dc3545;
+        }
+        
+        #payButton.pay-with-late:hover {
+            background: #bb2d3b;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th {
+            background: #0f3c4c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e1e5eb;
+        }
+        
+        tr:hover {
+            background: #f0f7fa;
+        }
+        
+        .no-data {
+            text-align: center;
+            color: #999;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-style: italic;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            margin-top: 30px;
+            border-top: 1px solid #eef2f6;
+        }
+    </style>
 </head>
-
 <body>
+    <div class="main-content">
+        <section class="content active">
+            <div class="page-title">
+                <i class="fas fa-credit-card"></i> Rent & Payment Details
+            </div>
+            <div class="page-desc">
+                This section shows your monthly rent, payment status, and complete transaction history.
+                <br><strong>Note:</strong> ₹800 late fee applies for payments after 5th of the month.
+            </div>
+            
+            <div class="box">
+                <h3><i class="fas fa-wallet"></i> Current Payment Summary</h3>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <b>Room Number</b>
+                        <span id="roomNumber">Loading...</span>
+                    </div>
+                    
+                    <div class="info-card">
+                        <b>Monthly Rent</b>
+                        <span id="monthlyRent">Loading...</span>
+                    </div>
+                    
+                    <div class="info-card">
+                        <b>Due Date</b>
+                        <span>5th of Every Month</span>
+                    </div>
+                    
+                    <div class="info-card">
+                        <b>Today's Date</b>
+                        <span id="currentDate"></span>
+                    </div>
+                    
+                    <div class="info-card">
+                        <b>Last Payment</b>
+                        <span id="lastPayment">N/A</span>
+                    </div>
+                    
+                    <div class="info-card">
+                        <b>Payment Status</b>
+                        <span id="paymentStatus" class="pending">Checking...</span>
+                    </div>
+                    
+                    <div class="info-card">
+                        <b>Late Fee</b>
+                        <span id="lateFeeDisplay">₹0</span>
+                    </div>
+                </div>
+                
+                <!-- Late Fee Warning (shown dynamically) -->
+                <div id="lateFeeWarning" class="late-fee-warning" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>⚠️ Late Fee Applied!</strong><br>
+                        <span>Payment after 5th of month will include ₹800 late fee.</span>
+                    </div>
+                </div>
+                
+                <!-- IMPORTANT: Button has ID, no onclick attribute -->
+                <button id="payButton">
+                    <i class="fas fa-rupee-sign"></i> <span id="payButtonText">Pay Rent</span>
+                </button>
+            </div>
+            
+            <div class="box">
+                <h3><i class="fas fa-history"></i> Payment History</h3>
+                
+                <table id="paymentTable">
+                    <tr>
+                        <th>Month</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="no-data">Loading payment history...</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <i class="far fa-copyright"></i> 2026 PGCore | Safe Living for Every Girl
+    </footer>
 
-<!-- MAIN -->
-<div class="main-content">
-
-<section class="content active">
-
-<div class="page-title">Rent & Payment Details</div>
-<div class="page-desc">
-This section shows your monthly rent, payment status, and complete transaction history.  
-Please ensure rent is paid before due date to avoid penalties.
-</div>
-
-<!-- PAYMENT SUMMARY -->
-<div class="box">
-
-<h3>Current Payment Summary</h3><br>
-
-<div class="info-grid">
-
-<div class="info-card">
-<b>Room Number</b>
-101
-</div>
-
-<div class="info-card">
-<b>Monthly Rent</b>
-₹7000
-</div>
-
-<div class="info-card">
-<b>Due Date</b>
-5th of Every Month
-</div>
-
-<div class="info-card">
-<b>Last Payment</b>
-January 2026
-</div>
-
-<div class="info-card">
-<b>Payment Status</b>
-<span class="pending">Pending</span>
-</div>
-
-<div class="info-card">
-<b>Late Fee</b>
-₹0
-</div>
-
-</div>
-
-<br>
-<button onclick="payRent()">Pay Rent</button>
-
-</div>
-
-<!-- PAYMENT HISTORY -->
-<div class="box">
-
-<h3>Payment History</h3><br>
-
-<table>
-<tr>
-<th>Month</th>
-<th>Amount</th>
-<th>Date</th>
-<th>Status</th>
-</tr>
-
-<tr>
-<td>January 2026</td>
-<td>₹7000</td>
-<td>05-01-2026</td>
-<td class="paid">Paid</td>
-</tr>
-
-<tr>
-<td>December 2025</td>
-<td>₹7000</td>
-<td>05-12-2025</td>
-<td class="paid">Paid</td>
-</tr>
-
-<tr>
-<td>November 2025</td>
-<td>₹7000</td>
-<td>07-11-2025</td>
-<td class="paid">Paid</td>
-</tr>
-
-<tr>
-<td>October 2025</td>
-<td>₹7000</td>
-<td>Pending</td>
-<td class="pending">Pending</td>
-</tr>
-
-</table>
-
-</div>
-
-</section>
-</div>
-<footer>
-    © 2026 PGCore | Safe Living for Every Girl
-</footer>
-
-<!-- JS -->
-<script src="js/payments.js"></script>
+    <script src="js/payments.js"></script>
 </body>
 </html>
