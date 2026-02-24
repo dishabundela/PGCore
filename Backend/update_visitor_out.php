@@ -5,14 +5,15 @@ session_start();
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+header('Content-Type: text/plain');
 
 if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true){
     echo "not_logged_in";
     exit;
 }
 
-$visitor_id = $_POST['visitor_id'] ?? '';
-$out_time = $_POST['out_time'] ?? '';
+$visitor_id = isset($_POST['visitor_id']) ? $_POST['visitor_id'] : '';
+$out_time = isset($_POST['out_time']) ? $_POST['out_time'] : '';
 
 if(empty($visitor_id) || empty($out_time)){
     echo "empty";
@@ -32,7 +33,7 @@ if(mysqli_num_rows($check_result) == 0){
     exit;
 }
 
-// Update out time - in_time is TIME type, so we can just update the time
+// Update out time
 $sql = "UPDATE visitor_log SET out_time = ? WHERE id = ?";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "si", $out_time, $visitor_id);

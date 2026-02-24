@@ -151,7 +151,7 @@
             margin-left: 80px;
         }
 
-        /* Top Header - Modified: Removed search and notifications */
+        /* Top Header */
         .top-header {
             height: var(--header-height);
             background: white;
@@ -1215,16 +1215,16 @@
     padding: 20px;
     display: flex;
     align-items: center;
-    gap: 15px;  /* Increased gap for better spacing */
-    font-size: 1.8rem;  /* Increased from 1.2rem */
+    gap: 15px;
+    font-size: 1.8rem;
     font-weight: bold;
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .pg-logo {
-    height: 45px;  /* Increased from 30px */
+    height: 45px;
     width: auto;
-    order: -1;  /* Ensures image comes first (though HTML already has it first) */
+    order: -1;
     vertical-align: middle;
 }
 
@@ -1240,10 +1240,10 @@
 /* Responsive adjustment */
 @media (max-width: 768px) {
     .logo {
-        font-size: 1.5rem;  /* Slightly smaller on mobile but still enlarged */
+        font-size: 1.5rem;
     }
     .pg-logo {
-        height: 38px;  /* Slightly smaller on mobile */
+        height: 38px;
     }
 }
     </style>
@@ -1309,7 +1309,7 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <!-- Top Header - Modified: Removed search and notifications -->
+            <!-- Top Header -->
             <header class="top-header">
                 <button class="menu-toggle" onclick="toggleSidebar()">
                     <i class="fas fa-bars"></i>
@@ -1396,7 +1396,7 @@
                         </div>
                         <div class="stat-info">
                             <h3>Pending Bookings</h3>
-                            <p class="stat-number" id="pendingBookings">2</p>
+                            <p class="stat-number" id="pendingBookings">0</p>
                         </div>
                     </div>
                 </div>
@@ -1435,7 +1435,7 @@
                     <button class="tab-btn active" onclick="switchResidentTab('all')" id="tabAll">All Users</button>
                     <button class="tab-btn" onclick="switchResidentTab('requests')" id="tabRequests">
                         Booking Requests 
-                        <span class="request-badge" id="requestCount">2</span>
+                        <span class="request-badge" id="requestCount">0</span>
                     </button>
                 </div>
                 
@@ -1588,7 +1588,7 @@
                 </div>
             </section>
 
-            <!-- Visitor Log Section - Contact column added back -->
+            <!-- Visitor Log Section -->
             <section id="visitors" class="content-section">
                 <div class="section-header">
                     <h1>Visitor Log Management</h1>
@@ -1624,7 +1624,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Visitor Name</th>
-                                <th>Contact</th>   <!-- Contact column added back -->
+                                <th>Contact</th>
                                 <th>Users Visiting</th>
                                 <th>Room No.</th>
                                 <th>Check In Time</th>
@@ -2090,156 +2090,12 @@
     </div>
 
     <script>
-        // Sample Data
-        let residents = [
-            {
-                id: 1,
-                name: "Priya Sharma",
-                room: "101",
-                mobile: "9876543210",
-                email: "priya@example.com",
-                checkinDate: "2024-01-15",
-                rentStatus: "paid",
-                status: "active"
-            },
-            {
-                id: 2,
-                name: "Neha Patel",
-                room: "102",
-                mobile: "9876543211",
-                email: "neha@example.com",
-                checkinDate: "2024-02-01",
-                rentStatus: "pending",
-                status: "active"
-            },
-            {
-                id: 3,
-                name: "Riya Gupta",
-                room: "103",
-                mobile: "9876543212",
-                email: "riya@example.com",
-                checkinDate: "2024-01-20",
-                rentStatus: "paid",
-                status: "active"
-            }
-        ];
-
-        let rooms = [
-            {
-                number: "101",
-                type: "single",
-                capacity: 1,
-                occupants: 1,
-                rent: 12000,
-                amenities: ["ac", "attached", "furnished"],
-                status: "occupied"
-            },
-            {
-                number: "102",
-                type: "double",
-                capacity: 2,
-                occupants: 1,
-                rent: 9000,
-                amenities: ["attached", "balcony"],
-                status: "available"
-            },
-            {
-                number: "103",
-                type: "triple",
-                capacity: 3,
-                occupants: 1,
-                rent: 7500,
-                amenities: ["furnished"],
-                status: "available"
-            },
-            {
-                number: "104",
-                type: "Four",
-                capacity: 2,
-                occupants: 0,
-                rent: 6000,
-                amenities: ["ac", "attached"],
-                status: "available"
-            }
-        ];
-
-        let payments = [
-            {
-                id: 1,
-                residentName: "Priya Sharma",
-                room: "101",
-                amount: 12000,
-                month: "January",
-                date: "2024-01-25",
-                method: "online",
-                status: "completed"
-            },
-            {
-                id: 2,
-                residentName: "Riya Gupta",
-                room: "103",
-                amount: 9000,
-                month: "January",
-                date: "2024-01-22",
-                method: "cash",
-                status: "completed"
-            }
-        ];
-
-        let complaints = [
-            {
-                id: 1,
-                residentName: "Neha Patel",
-                room: "102",
-                title: "Water leakage in bathroom",
-                description: "There is water leakage from the tap",
-                date: "2024-02-10",
-                status: "pending",
-                priority: "high"
-            },
-            {
-                id: 2,
-                residentName: "Priya Sharma",
-                room: "101",
-                title: "WiFi not working",
-                description: "Internet connection is down since morning",
-                date: "2024-02-09",
-                status: "in-progress",
-                priority: "medium"
-            }
-        ];
-
-        // Visitor Log Data - Added contact field
-        let visitors = [
-            {
-                id: 1,
-                name: "Amit Kumar",
-                contact: "9988776655",           // Contact added
-                residentName: "Priya Sharma",
-                room: "101",
-                checkIn: "2024-02-15T10:30",
-                checkOut: "2024-02-15T12:45",
-                purpose: "Family Visit",
-                vehicle: "MH01AB1234",
-                idProof: "Aadhar: 1234-5678-9012",
-                status: "checked-out"
-            },
-            {
-                id: 2,
-                name: "Sneha Reddy",
-                contact: "9876543210",           // Contact added
-                residentName: "Neha Patel",
-                room: "102",
-                checkIn: "2024-02-15T14:00",
-                checkOut: null,
-                purpose: "Friend Visit",
-                vehicle: "",
-                idProof: "Driving License: DL-123456",
-                status: "checked-in"
-            }
-        ];
-
-        // Emergency Data
+        // ===== GLOBAL VARIABLES FOR REAL DATA =====
+        let residents = [];
+        let rooms = [];
+        let payments = [];
+        let complaints = [];
+        let visitors = [];
         let emergencies = [
             {
                 id: 1,
@@ -2266,189 +2122,350 @@
                 resolvedBy: "Admin"
             }
         ];
+        let bookingRequests = [];
+        let activities = [];
+        let dues = [];
 
-        // Booking Requests Data with status
-        let bookingRequests = [
-            {
-                id: 1,
-                name: "Anjali Desai",
-                mobile: "9988776655",
-                email: "anjali@example.com",
-                roomPreference: "101",
-                roomType: "single",
-                checkInDate: "2024-03-01",
-                occupation: "Software Engineer",
-                message: "Looking for long term stay",
-                requestedOn: "2024-02-19T10:30",
-                status: "pending"
-            },
-            {
-                id: 2,
-                name: "Kavya Sharma",
-                mobile: "9876543210",
-                email: "kavya@example.com",
-                roomPreference: "102",
-                roomType: "double",
-                checkInDate: "2024-02-25",
-                occupation: "Student",
-                message: "Need accommodation for 6 months",
-                requestedOn: "2024-02-19T09:15",
-                status: "confirmed"
-            },
-            {
-                id: 3,
-                name: "Priya Mehta",
-                mobile: "9876512345",
-                email: "priya.m@example.com",
-                roomPreference: "103",
-                roomType: "triple",
-                checkInDate: "2024-02-28",
-                occupation: "Working Professional",
-                message: "Immediate joining required",
-                requestedOn: "2024-02-18T15:45",
-                status: "rejected"
-            }
-        ];
-
-        let activities = [
-            {
-                id: 1,
-                description: "New resident Priya Sharma checked in",
-                time: "2 hours ago",
-                type: "checkin"
-            },
-            {
-                id: 2,
-                description: "Payment received from Riya Gupta - ₹6000",
-                time: "5 hours ago",
-                type: "payment"
-            },
-            {
-                id: 3,
-                description: "Complaint #1 marked as in-progress",
-                time: "1 day ago",
-                type: "complaint"
-            },
-            {
-                id: 4,
-                description: "Visitor Amit Kumar checked out",
-                time: "3 hours ago",
-                type: "visitor"
-            },
-            {
-                id: 5,
-                description: "Medical emergency reported for Riya Gupta",
-                time: "4 hours ago",
-                type: "emergency"
-            }
-        ];
-
-        let dues = [
-            {
-                id: 1,
-                residentName: "Neha Patel",
-                room: "102",
-                amount: 8000,
-                dueDate: "2024-02-05",
-                daysOverdue: 5
-            }
-        ];
-
-        // Initialize Dashboard
+        // ===== INITIALIZE DASHBOARD - FETCH REAL DATA =====
         document.addEventListener('DOMContentLoaded', function() {
-            updateDashboardStats();
-            displayCurrentDate();
-            loadResidentsTable();
-            loadRoomsGrid();
-            loadPaymentsTable();
-            loadComplaintsGrid();
-            loadVisitorsTable();
-            loadEmergencyTable();
-            loadActivities();
-            loadDues();
-            loadBookingRequests();
-            
-            // Populate resident dropdowns in modals
-            populateResidentDropdowns();
+            // First check if admin is logged in
+            fetch('Backend/admin/check_admin_session.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(!data.logged_in){
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    // Set admin name
+                    if(data.username){
+                        document.querySelector('.admin-info p').textContent = data.username;
+                    }
+                    // Load all data
+                    loadDashboardStats();
+                    loadResidents();
+                    loadRooms();
+                    loadPayments();
+                    loadComplaints();
+                    loadVisitors();
+                    loadBookingRequests();
+                    loadActivities();
+                    loadDues();
+                    displayCurrentDate();
+                })
+                .catch(error => {
+                    console.error('Session check failed:', error);
+                    window.location.href = 'login.html';
+                });
         });
 
-        // Display Current Date
-        function displayCurrentDate() {
-            const date = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').textContent = date.toLocaleDateString('en-US', options);
+        // ===== LOAD RESIDENTS =====
+        function loadResidents() {
+            fetch('Backend/admin/get_all_users.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error){
+                        console.error('Error loading residents:', data.error);
+                        return;
+                    }
+                    residents = data;
+                    loadResidentsTable();
+                })
+                .catch(error => console.error('Fetch error:', error));
         }
 
-        // Toggle Sidebar
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('collapsed');
+        // ===== LOAD ROOMS =====
+        function loadRooms() {
+            fetch('Backend/admin/get_all_rooms.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error){
+                        console.error('Error loading rooms:', data.error);
+                        return;
+                    }
+                    rooms = data;
+                    loadRoomsGrid();
+                })
+                .catch(error => console.error('Fetch error:', error));
         }
 
-        // Show Section
-        function showSection(sectionId, event) {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            document.getElementById(sectionId).classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
+        // ===== LOAD PAYMENTS =====
+        function loadPayments() {
+            fetch('Backend/admin/get_all_payments.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error){
+                        console.error('Error loading payments:', data.error);
+                        return;
+                    }
+                    payments = data;
+                    loadPaymentsTable();
+                })
+                .catch(error => console.error('Fetch error:', error));
         }
 
-        // Update Dashboard Stats
-        function updateDashboardStats() {
-            document.getElementById('totalResidents').textContent = residents.length;
-            
-            const availableRooms = rooms.filter(room => room.status === 'available').length;
-            document.getElementById('availableRooms').textContent = availableRooms;
-            
-            const monthlyRevenue = payments
-                .filter(p => p.month === 'January')
-                .reduce((sum, p) => sum + p.amount, 0);
-            document.getElementById('monthlyRevenue').textContent = `₹${monthlyRevenue.toLocaleString()}`;
-            
-            const pendingComplaints = complaints.filter(c => c.status === 'pending').length;
-            document.getElementById('pendingComplaints').textContent = pendingComplaints;
-            
-            const today = new Date().toISOString().split('T')[0];
-            const todayVisitors = visitors.filter(v => v.checkIn.startsWith(today)).length;
-            document.getElementById('todayVisitors').textContent = todayVisitors;
-            
-            const activeEmergencies = emergencies.filter(e => e.status === 'active').length;
-            document.getElementById('activeEmergencies').textContent = activeEmergencies;
-            
-            const pendingBookings = bookingRequests.filter(r => r.status === 'pending').length;
-            document.getElementById('pendingBookings').textContent = pendingBookings;
-            document.getElementById('requestCount').textContent = pendingBookings;
+        // ===== LOAD COMPLAINTS =====
+        function loadComplaints() {
+            fetch('Backend/admin/get_all_complaints.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error){
+                        console.error('Error loading complaints:', data.error);
+                        return;
+                    }
+                    complaints = data;
+                    loadComplaintsGrid();
+                })
+                .catch(error => console.error('Fetch error:', error));
         }
 
-        // Switch between Residents tab and Requests tab
-        function switchResidentTab(tab) {
-            const tabAll = document.getElementById('tabAll');
-            const tabRequests = document.getElementById('tabRequests');
-            const allUsersContainer = document.getElementById('allUsersContainer');
-            const requestsContainer = document.getElementById('requestsContainer');
-            
-            if (tab === 'all') {
-                tabAll.classList.add('active');
-                tabRequests.classList.remove('active');
-                allUsersContainer.style.display = 'block';
-                requestsContainer.style.display = 'none';
-                loadResidentsTable();
-            } else {
-                tabAll.classList.remove('active');
-                tabRequests.classList.add('active');
-                allUsersContainer.style.display = 'none';
-                requestsContainer.style.display = 'block';
-                loadBookingRequests();
-            }
+        // ===== LOAD VISITORS =====
+        function loadVisitors() {
+            fetch('Backend/admin/get_all_visitors.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error){
+                        console.error('Error loading visitors:', data.error);
+                        return;
+                    }
+                    visitors = data;
+                    loadVisitorsTable();
+                })
+                .catch(error => console.error('Fetch error:', error));
         }
 
-        // Load Booking Requests
+        // ===== LOAD BOOKING REQUESTS =====
         function loadBookingRequests() {
+            fetch('Backend/admin/get_all_bookings.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error){
+                        console.error('Error loading bookings:', data.error);
+                        return;
+                    }
+                    bookingRequests = data;
+                    loadBookingRequestsList();
+                    updateDashboardStats();
+                })
+                .catch(error => console.error('Fetch error:', error));
+        }
+
+        // ===== LOAD ACTIVITIES =====
+        function loadActivities() {
+            fetch('Backend/admin/get_recent_activities.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error){
+                        console.error('Error loading activities:', data.error);
+                        return;
+                    }
+                    activities = data;
+                    loadActivitiesList();
+                })
+                .catch(error => console.error('Fetch error:', error));
+        }
+
+        // ===== LOAD DUES =====
+        function loadDues() {
+            fetch('Backend/admin/get_upcoming_dues.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error){
+                        console.error('Error loading dues:', data.error);
+                        return;
+                    }
+                    dues = data;
+                    loadDuesList();
+                })
+                .catch(error => console.error('Fetch error:', error));
+        }
+
+        // ===== UPDATE DASHBOARD STATS =====
+        function loadDashboardStats() {
+            fetch('Backend/admin/get_dashboard_stats.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error){
+                        console.error('Error loading stats:', data.error);
+                        return;
+                    }
+                    document.getElementById('totalResidents').textContent = data.totalResidents || 0;
+                    document.getElementById('availableRooms').textContent = data.availableRooms || 0;
+                    document.getElementById('monthlyRevenue').textContent = data.monthlyRevenue || '₹0';
+                    document.getElementById('pendingComplaints').textContent = data.pendingComplaints || 0;
+                    document.getElementById('todayVisitors').textContent = data.todayVisitors || 0;
+                    document.getElementById('activeEmergencies').textContent = data.activeEmergencies || 0;
+                    document.getElementById('pendingBookings').textContent = data.pendingBookings || 0;
+                    document.getElementById('requestCount').textContent = data.pendingBookings || 0;
+                })
+                .catch(error => console.error('Fetch error:', error));
+        }
+
+        // ===== LOAD RESIDENTS TABLE =====
+        function loadResidentsTable() {
+            const tbody = document.getElementById('residentsTableBody');
+            tbody.innerHTML = '';
+            
+            residents.forEach(resident => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${resident.id}</td>
+                    <td>${resident.name}</td>
+                    <td>${resident.room}</td>
+                    <td>${resident.mobile}</td>
+                    <td>${resident.email || '-'}</td>
+                    <td>${resident.checkinDate || '-'}</td>
+                    <td><span class="status-badge ${resident.rentStatus === 'paid' ? 'status-active' : 'status-pending'}">${resident.rentStatus}</span></td>
+                    <td><span class="status-badge ${resident.status === 'active' ? 'status-active' : 'status-inactive'}">${resident.status}</span></td>
+                    <td>
+                        <button class="action-btn" onclick="editResident(${resident.id})"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn" onclick="viewResident(${resident.id})"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn" onclick="deleteResident(${resident.id})"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // ===== LOAD ROOMS GRID =====
+        function loadRoomsGrid() {
+            const grid = document.getElementById('roomsGrid');
+            grid.innerHTML = '';
+            
+            rooms.forEach(room => {
+                const roomCard = document.createElement('div');
+                roomCard.className = 'room-card';
+                
+                const occupancyPercentage = ((room.occupants || 0) / (room.capacity || 1)) * 100;
+                const amenitiesList = Array.isArray(room.amenities) ? room.amenities.join(', ') : room.amenities || 'Standard';
+                
+                roomCard.innerHTML = `
+                    <div class="room-header">
+                        <span class="room-number">Room ${room.number}</span>
+                        <span class="room-type">${room.type} Sharing</span>
+                    </div>
+                    <div class="room-details">
+                        <div class="detail-item">
+                            <span>Capacity:</span>
+                            <span>${room.occupants || 0}/${room.capacity}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Amenities:</span>
+                            <span>${amenitiesList}</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: ${occupancyPercentage}%"></div>
+                        </div>
+                    </div>
+                    <div class="room-footer">
+                        <span class="rent-amount">₹${room.rent}/month</span>
+                        <span class="status-badge ${room.status === 'available' ? 'status-active' : room.status === 'occupied' ? 'status-pending' : 'status-inactive'}">${room.status}</span>
+                    </div>
+                `;
+                
+                grid.appendChild(roomCard);
+            });
+        }
+
+        // ===== LOAD PAYMENTS TABLE =====
+        function loadPaymentsTable() {
+            const tbody = document.getElementById('paymentsTableBody');
+            tbody.innerHTML = '';
+            
+            payments.forEach(payment => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${payment.id}</td>
+                    <td>${payment.residentName}</td>
+                    <td>${payment.room}</td>
+                    <td>₹${payment.amount.toLocaleString()}</td>
+                    <td>${payment.month}</td>
+                    <td>${payment.date}</td>
+                    <td>${payment.method || 'cash'}</td>
+                    <td><span class="status-badge status-active">${payment.status}</span></td>
+                    <td>
+                        <button class="action-btn" onclick="viewPayment(${payment.id})"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn" onclick="downloadReceipt(${payment.id})"><i class="fas fa-download"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            // Update payment summaries
+            const totalCollected = payments.reduce((sum, p) => sum + p.amount, 0);
+            document.getElementById('totalCollected').textContent = `₹${totalCollected.toLocaleString()}`;
+            
+            const pendingAmount = dues.reduce((sum, d) => sum + d.amount, 0);
+            document.getElementById('totalPending').textContent = `₹${pendingAmount.toLocaleString()}`;
+            
+            const thisMonth = payments
+                .filter(p => p.month === new Date().toLocaleString('default', { month: 'long' }))
+                .reduce((sum, p) => sum + p.amount, 0);
+            document.getElementById('thisMonthCollection').textContent = `₹${thisMonth.toLocaleString()}`;
+        }
+
+        // ===== LOAD COMPLAINTS GRID =====
+        function loadComplaintsGrid() {
+            const grid = document.getElementById('complaintsGrid');
+            grid.innerHTML = '';
+            
+            complaints.forEach(complaint => {
+                const complaintCard = document.createElement('div');
+                complaintCard.className = 'complaint-card';
+                complaintCard.innerHTML = `
+                    <div class="complaint-header">
+                        <span class="complaint-title">${complaint.title}</span>
+                        <span class="complaint-status ${complaint.status}">${complaint.status}</span>
+                    </div>
+                    <p class="complaint-description">${complaint.description}</p>
+                    <div class="complaint-meta">
+                        <span><i class="fas fa-user"></i> ${complaint.residentName}</span>
+                        <span><i class="fas fa-door-open"></i> Room ${complaint.room}</span>
+                        <span><i class="fas fa-calendar"></i> ${complaint.date}</span>
+                    </div>
+                    <div class="complaint-actions">
+                        <button class="btn-primary" onclick="updateComplaintStatus(${complaint.id}, 'in-progress')">Mark In Progress</button>
+                        <button class="btn-secondary" onclick="updateComplaintStatus(${complaint.id}, 'resolved')">Resolve</button>
+                    </div>
+                `;
+                grid.appendChild(complaintCard);
+            });
+        }
+
+        // ===== LOAD VISITORS TABLE =====
+        function loadVisitorsTable() {
+            const tbody = document.getElementById('visitorsTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+            
+            visitors.forEach(visitor => {
+                const row = document.createElement('tr');
+                const checkOutTime = visitor.checkOut ? visitor.checkOut : '-';
+                const statusClass = visitor.status === 'checked-in' ? 'status-active' : 'status-inactive';
+                
+                row.innerHTML = `
+                    <td>${visitor.id}</td>
+                    <td>${visitor.name}</td>
+                    <td>${visitor.contact || '-'}</td>
+                    <td>${visitor.residentName}</td>
+                    <td>${visitor.room}</td>
+                    <td>${formatDateTime(visitor.checkIn)}</td>
+                    <td>${visitor.checkOut ? formatDateTime(visitor.checkOut) : '-'}</td>
+                    <td>${visitor.purpose}</td>
+                    <td><span class="status-badge ${statusClass}">${visitor.status}</span></td>
+                    <td>
+                        ${visitor.status === 'checked-in' ? 
+                            `<button class="action-btn" onclick="openCheckOutModal(${visitor.id})" style="color: #00b894;" title="Check Out"><i class="fas fa-sign-out-alt"></i></button>` : 
+                            ''}
+                        <button class="action-btn" onclick="viewVisitor(${visitor.id})"><i class="fas fa-eye"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // ===== LOAD BOOKING REQUESTS LIST =====
+        function loadBookingRequestsList() {
             const container = document.getElementById('bookingRequestsList');
             const filterValue = document.getElementById('bookingStatusFilter')?.value || 'all';
             
@@ -2469,17 +2486,14 @@
                 const card = document.createElement('div');
                 card.className = `request-card ${request.status}`;
                 
-                // Status badge class
                 const statusClass = request.status === 'pending' ? 'status-pending' : 
                                    request.status === 'confirmed' ? 'status-confirmed' : 
                                    'status-rejected';
                 
-                // Status text
                 const statusText = request.status === 'pending' ? 'Pending' : 
                                   request.status === 'confirmed' ? 'Confirmed' : 
                                   'Rejected';
                 
-                // Action buttons based on status
                 let actionButtons = '';
                 if (request.status === 'pending') {
                     actionButtons = `
@@ -2526,7 +2540,7 @@
                         </div>
                         <div class="detail-row">
                             <span class="label">Occupation:</span>
-                            <span>${request.occupation}</span>
+                            <span>${request.occupation || 'N/A'}</span>
                         </div>
                     </div>
                     ${actionButtons}
@@ -2535,13 +2549,101 @@
             });
         }
 
-        // Filter bookings by status
-        function filterBookings() {
-            loadBookingRequests();
-            updateDashboardStats();
+        // ===== LOAD ACTIVITIES LIST =====
+        function loadActivitiesList() {
+            const activityList = document.getElementById('activityList');
+            activityList.innerHTML = '';
+            
+            activities.forEach(activity => {
+                const activityItem = document.createElement('div');
+                activityItem.className = 'activity-item';
+                activityItem.innerHTML = `
+                    <div class="activity-icon ${activity.type}">
+                        <i class="fas fa-${activity.type === 'checkin' ? 'user-plus' : activity.type === 'payment' ? 'rupee-sign' : activity.type === 'complaint' ? 'exclamation-triangle' : activity.type === 'visitor' ? 'address-book' : 'ambulance'}"></i>
+                    </div>
+                    <div class="activity-details">
+                        <p>${activity.description}</p>
+                        <small>${activity.time}</small>
+                    </div>
+                `;
+                activityList.appendChild(activityItem);
+            });
         }
 
-        // Search bookings
+        // ===== LOAD DUES LIST =====
+        function loadDuesList() {
+            const duesList = document.getElementById('duesList');
+            duesList.innerHTML = '';
+            
+            dues.forEach(due => {
+                const dueItem = document.createElement('div');
+                dueItem.className = 'due-item';
+                dueItem.innerHTML = `
+                    <div class="due-info">
+                        <p><strong>${due.residentName}</strong> - Room ${due.room}</p>
+                        <p>Amount: ₹${due.amount.toLocaleString()}</p>
+                        <small>Due: ${due.dueDate} (${due.daysOverdue} days overdue)</small>
+                    </div>
+                    <button class="btn-primary" onclick="collectPayment(${due.id})">Collect</button>
+                `;
+                duesList.appendChild(dueItem);
+            });
+        }
+
+        // ===== DISPLAY CURRENT DATE =====
+        function displayCurrentDate() {
+            const date = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = date.toLocaleDateString('en-US', options);
+        }
+
+        // ===== TOGGLE SIDEBAR =====
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        }
+
+        // ===== SHOW SECTION =====
+        function showSection(sectionId, event) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        // ===== SWITCH BETWEEN RESIDENTS TAB AND REQUESTS TAB =====
+        function switchResidentTab(tab) {
+            const tabAll = document.getElementById('tabAll');
+            const tabRequests = document.getElementById('tabRequests');
+            const allUsersContainer = document.getElementById('allUsersContainer');
+            const requestsContainer = document.getElementById('requestsContainer');
+            
+            if (tab === 'all') {
+                tabAll.classList.add('active');
+                tabRequests.classList.remove('active');
+                allUsersContainer.style.display = 'block';
+                requestsContainer.style.display = 'none';
+                loadResidentsTable();
+            } else {
+                tabAll.classList.remove('active');
+                tabRequests.classList.add('active');
+                allUsersContainer.style.display = 'none';
+                requestsContainer.style.display = 'block';
+                loadBookingRequestsList();
+            }
+        }
+
+        // ===== FILTER BOOKINGS =====
+        function filterBookings() {
+            loadBookingRequestsList();
+        }
+
+        // ===== SEARCH BOOKINGS =====
         function searchBookings() {
             const searchTerm = document.getElementById('bookingSearch').value.toLowerCase();
             const filterValue = document.getElementById('bookingStatusFilter').value;
@@ -2549,12 +2651,10 @@
             
             let filtered = bookingRequests;
             
-            // Apply status filter first
             if (filterValue !== 'all') {
                 filtered = bookingRequests.filter(r => r.status === filterValue);
             }
             
-            // Then apply search
             const searched = filtered.filter(request => 
                 request.name.toLowerCase().includes(searchTerm) ||
                 request.mobile.includes(searchTerm) ||
@@ -2631,98 +2731,217 @@
             });
         }
 
-        // Confirm booking request
+        // ===== CONFIRM BOOKING =====
         function confirmBooking(requestId) {
-            const request = bookingRequests.find(r => r.id === requestId);
-            if (!request) return;
+            if(!confirm('Are you sure you want to confirm this booking?')) return;
             
-            // Update status to confirmed
-            request.status = 'confirmed';
+            const formData = new FormData();
+            formData.append('booking_id', requestId);
+            formData.append('status', 'confirmed');
             
-            // Create new resident from request
-            const newResident = {
-                id: residents.length + 1,
-                name: request.name,
-                room: request.roomPreference,
-                mobile: request.mobile,
-                email: request.email,
-                checkinDate: request.checkInDate,
-                rentStatus: "pending",
-                status: "active"
-            };
-            
-            // Add to residents
-            residents.push(newResident);
-            
-            // Update room occupancy
-            const room = rooms.find(r => r.number === request.roomPreference);
-            if (room) {
-                room.occupants += 1;
-                if (room.occupants >= room.capacity) {
-                    room.status = "occupied";
+            fetch('Backend/admin/update_booking_status.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if(data.trim() === 'success'){
+                    alert('Booking confirmed successfully!');
+                    loadBookingRequests();
+                    loadResidents();
+                    loadDashboardStats();
+                } else {
+                    alert('Error confirming booking');
                 }
-            }
-            
-            // Refresh views
-            loadBookingRequests();
-            loadResidentsTable();
-            populateResidentDropdowns();
-            updateDashboardStats();
-            
-            // Add activity
-            activities.unshift({
-                id: activities.length + 1,
-                description: `Booking confirmed for ${request.name}`,
-                time: 'Just now',
-                type: 'checkin'
-            });
-            loadActivities();
-            
-            alert(`Booking confirmed for ${request.name}`);
+            })
+            .catch(error => console.error('Error:', error));
         }
 
-        // Reject booking request
+        // ===== REJECT BOOKING =====
         function rejectBooking(requestId) {
-            if (confirm('Are you sure you want to reject this booking request?')) {
-                const request = bookingRequests.find(r => r.id === requestId);
-                request.status = 'rejected';
-                
-                loadBookingRequests();
-                updateDashboardStats();
-                
-                // Add activity
-                activities.unshift({
-                    id: activities.length + 1,
-                    description: `Booking rejected for ${request.name}`,
-                    time: 'Just now',
-                    type: 'complaint'
-                });
-                loadActivities();
-                
-                alert('Booking request rejected');
-            }
+            if(!confirm('Are you sure you want to reject this booking?')) return;
+            
+            const formData = new FormData();
+            formData.append('booking_id', requestId);
+            formData.append('status', 'rejected');
+            
+            fetch('Backend/admin/update_booking_status.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if(data.trim() === 'success'){
+                    alert('Booking rejected!');
+                    loadBookingRequests();
+                    loadDashboardStats();
+                } else {
+                    alert('Error rejecting booking');
+                }
+            })
+            .catch(error => console.error('Error:', error));
         }
 
-        // View booking details
+        // ===== VIEW BOOKING DETAILS =====
         function viewBookingDetails(requestId) {
             const request = bookingRequests.find(r => r.id === requestId);
-            alert(`Booking Details:\nName: ${request.name}\nStatus: ${request.status}\nRoom: ${request.roomPreference}\nCheck-in: ${request.checkInDate}\nMessage: ${request.message}`);
+            alert(`Booking Details:\nName: ${request.name}\nStatus: ${request.status}\nRoom: ${request.roomPreference}\nCheck-in: ${request.checkInDate}\nMessage: ${request.message || 'No message'}`);
         }
 
-        // Load Residents Table
-        function loadResidentsTable() {
+        // ===== UPDATE COMPLAINT STATUS =====
+        function updateComplaintStatus(complaintId, status) {
+            const formData = new FormData();
+            formData.append('complaint_id', complaintId);
+            formData.append('status', status);
+            
+            fetch('Backend/admin/update_complaint_status.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if(data.trim() === 'success'){
+                    alert(`Complaint marked as ${status}`);
+                    loadComplaints();
+                    loadDashboardStats();
+                } else {
+                    alert('Error updating complaint');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // ===== FORMAT DATETIME =====
+        function formatDateTime(datetime) {
+            if (!datetime) return '-';
+            const date = new Date(datetime);
+            return date.toLocaleString('en-IN', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // ===== POPULATE RESIDENT DROPDOWNS =====
+        function populateResidentDropdowns() {
+            const visitorResidentSelect = document.getElementById('visitorResident');
+            const emergencyResidentSelect = document.getElementById('emergencyResident');
+            
+            if (visitorResidentSelect) {
+                visitorResidentSelect.innerHTML = '<option value="">Select Resident</option>';
+                residents.filter(r => r.status === 'active').forEach(resident => {
+                    const option = document.createElement('option');
+                    option.value = resident.id;
+                    option.textContent = `${resident.name} (Room ${resident.room})`;
+                    visitorResidentSelect.appendChild(option);
+                });
+            }
+            
+            if (emergencyResidentSelect) {
+                emergencyResidentSelect.innerHTML = '<option value="">Select Resident</option>';
+                residents.forEach(resident => {
+                    const option = document.createElement('option');
+                    option.value = resident.id;
+                    option.textContent = `${resident.name} (Room ${resident.room})`;
+                    emergencyResidentSelect.appendChild(option);
+                });
+            }
+        }
+
+        // ===== MODAL FUNCTIONS =====
+        function openAddResidentModal() {
+            document.getElementById('addResidentModal').style.display = 'block';
+        }
+
+        function openAddRoomModal() {
+            document.getElementById('addRoomModal').style.display = 'block';
+        }
+
+        function openAddVisitorModal() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('visitorCheckIn').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+            
+            // Populate resident dropdown
+            populateResidentDropdowns();
+            
+            document.getElementById('addVisitorModal').style.display = 'block';
+        }
+
+        function openAddEmergencyModal() {
+            populateResidentDropdowns();
+            document.getElementById('addEmergencyModal').style.display = 'block';
+        }
+
+        function openCheckOutModal(visitorId) {
+            const visitor = visitors.find(v => v.id === visitorId);
+            if (visitor) {
+                document.getElementById('checkOutVisitorId').value = visitor.id;
+                document.getElementById('checkOutVisitorNameDisplay').textContent = visitor.name;
+                
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                document.getElementById('visitorCheckOut').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+                
+                document.getElementById('checkOutVisitorModal').style.display = 'block';
+            }
+        }
+
+        function openResolveEmergencyModal(emergencyId) {
+            const emergency = emergencies.find(e => e.id === emergencyId);
+            if (emergency) {
+                document.getElementById('resolveEmergencyId').value = emergency.id;
+                document.getElementById('resolveEmergencyDetails').innerHTML = `
+                    <strong>Resident:</strong> ${emergency.residentName}<br>
+                    <strong>Type:</strong> ${emergency.type}<br>
+                    <strong>Description:</strong> ${emergency.description}
+                `;
+                
+                document.getElementById('resolveEmergencyModal').style.display = 'block';
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // ===== FILTER FUNCTIONS =====
+        function filterResidents() {
+            const roomFilter = document.getElementById('roomFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            
+            let filtered = residents;
+            
+            if(roomFilter !== 'all'){
+                filtered = filtered.filter(r => r.room === roomFilter);
+            }
+            
+            if(statusFilter !== 'all'){
+                filtered = filtered.filter(r => r.status === statusFilter);
+            }
+            
             const tbody = document.getElementById('residentsTableBody');
             tbody.innerHTML = '';
             
-            residents.forEach(resident => {
+            filtered.forEach(resident => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${resident.id}</td>
                     <td>${resident.name}</td>
                     <td>${resident.room}</td>
                     <td>${resident.mobile}</td>
-                    <td>${resident.email}</td>
-                    <td>${resident.checkinDate}</td>
+                    <td>${resident.email || '-'}</td>
+                    <td>${resident.checkinDate || '-'}</td>
                     <td><span class="status-badge ${resident.rentStatus === 'paid' ? 'status-active' : 'status-pending'}">${resident.rentStatus}</span></td>
                     <td><span class="status-badge ${resident.status === 'active' ? 'status-active' : 'status-inactive'}">${resident.status}</span></td>
                     <td>
@@ -2735,118 +2954,57 @@
             });
         }
 
-        // Load Rooms Grid
-        function loadRoomsGrid() {
-            const grid = document.getElementById('roomsGrid');
-            grid.innerHTML = '';
+        function searchResidents() {
+            const searchTerm = document.getElementById('residentSearch').value.toLowerCase();
             
-            rooms.forEach(room => {
-                const roomCard = document.createElement('div');
-                roomCard.className = 'room-card';
-                
-                const occupancyPercentage = (room.occupants / room.capacity) * 100;
-                
-                roomCard.innerHTML = `
-                    <div class="room-header">
-                        <span class="room-number">Room ${room.number}</span>
-                        <span class="room-type">${room.type} Sharing</span>
-                    </div>
-                    <div class="room-details">
-                        <div class="detail-item">
-                            <span>Capacity:</span>
-                            <span>${room.occupants}/${room.capacity}</span>
-                        </div>
-                        <div class="detail-item">
-                            <span>Amenities:</span>
-                            <span>${room.amenities.join(', ')}</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: ${occupancyPercentage}%"></div>
-                        </div>
-                    </div>
-                    <div class="room-footer">
-                        <span class="rent-amount">₹${room.rent}/month</span>
-                        <span class="status-badge ${room.status === 'available' ? 'status-active' : room.status === 'occupied' ? 'status-pending' : 'status-inactive'}">${room.status}</span>
-                    </div>
-                `;
-                
-                grid.appendChild(roomCard);
-            });
-        }
-
-        // Load Payments Table
-        function loadPaymentsTable() {
-            const tbody = document.getElementById('paymentsTableBody');
+            const filtered = residents.filter(resident => 
+                resident.name.toLowerCase().includes(searchTerm) ||
+                (resident.room && resident.room.includes(searchTerm)) ||
+                (resident.mobile && resident.mobile.includes(searchTerm))
+            );
+            
+            const tbody = document.getElementById('residentsTableBody');
             tbody.innerHTML = '';
             
-            payments.forEach(payment => {
+            filtered.forEach(resident => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${payment.id}</td>
-                    <td>${payment.residentName}</td>
-                    <td>${payment.room}</td>
-                    <td>₹${payment.amount.toLocaleString()}</td>
-                    <td>${payment.month}</td>
-                    <td>${payment.date}</td>
-                    <td>${payment.method}</td>
-                    <td><span class="status-badge status-active">${payment.status}</span></td>
+                    <td>${resident.id}</td>
+                    <td>${resident.name}</td>
+                    <td>${resident.room}</td>
+                    <td>${resident.mobile}</td>
+                    <td>${resident.email || '-'}</td>
+                    <td>${resident.checkinDate || '-'}</td>
+                    <td><span class="status-badge ${resident.rentStatus === 'paid' ? 'status-active' : 'status-pending'}">${resident.rentStatus}</span></td>
+                    <td><span class="status-badge ${resident.status === 'active' ? 'status-active' : 'status-inactive'}">${resident.status}</span></td>
                     <td>
-                        <button class="action-btn" onclick="viewPayment(${payment.id})"><i class="fas fa-eye"></i></button>
-                        <button class="action-btn" onclick="downloadReceipt(${payment.id})"><i class="fas fa-download"></i></button>
+                        <button class="action-btn" onclick="editResident(${resident.id})"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn" onclick="viewResident(${resident.id})"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn" onclick="deleteResident(${resident.id})"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(row);
             });
-            
-            // Update payment summaries
-            const totalCollected = payments.reduce((sum, p) => sum + p.amount, 0);
-            document.getElementById('totalCollected').textContent = `₹${totalCollected.toLocaleString()}`;
-            
-            const pendingAmount = dues.reduce((sum, d) => sum + d.amount, 0);
-            document.getElementById('totalPending').textContent = `₹${pendingAmount.toLocaleString()}`;
-            
-            const thisMonth = payments
-                .filter(p => p.month === 'January')
-                .reduce((sum, p) => sum + p.amount, 0);
-            document.getElementById('thisMonthCollection').textContent = `₹${thisMonth.toLocaleString()}`;
         }
 
-        // Load Complaints Grid
-        function loadComplaintsGrid() {
-            const grid = document.getElementById('complaintsGrid');
-            grid.innerHTML = '';
+        function filterVisitors() {
+            const dateFilter = document.getElementById('visitorDateFilter').value;
+            const statusFilter = document.getElementById('visitorStatusFilter').value;
             
-            complaints.forEach(complaint => {
-                const complaintCard = document.createElement('div');
-                complaintCard.className = 'complaint-card';
-                complaintCard.innerHTML = `
-                    <div class="complaint-header">
-                        <span class="complaint-title">${complaint.title}</span>
-                        <span class="complaint-status ${complaint.status}">${complaint.status}</span>
-                    </div>
-                    <p class="complaint-description">${complaint.description}</p>
-                    <div class="complaint-meta">
-                        <span><i class="fas fa-user"></i> ${complaint.residentName}</span>
-                        <span><i class="fas fa-door-open"></i> Room ${complaint.room}</span>
-                        <span><i class="fas fa-calendar"></i> ${complaint.date}</span>
-                    </div>
-                    <div class="complaint-actions">
-                        <button class="btn-primary" onclick="updateComplaintStatus(${complaint.id}, 'in-progress')">Mark In Progress</button>
-                        <button class="btn-secondary" onclick="updateComplaintStatus(${complaint.id}, 'resolved')">Resolve</button>
-                    </div>
-                `;
-                grid.appendChild(complaintCard);
-            });
-        }
-
-        // Load Visitors Table - Contact column displayed
-        function loadVisitorsTable() {
+            let filtered = visitors;
+            
+            if(dateFilter){
+                filtered = filtered.filter(v => v.checkIn.startsWith(dateFilter));
+            }
+            
+            if(statusFilter !== 'all'){
+                filtered = filtered.filter(v => v.status === statusFilter);
+            }
+            
             const tbody = document.getElementById('visitorsTableBody');
-            if (!tbody) return;
-            
             tbody.innerHTML = '';
             
-            visitors.forEach(visitor => {
+            filtered.forEach(visitor => {
                 const row = document.createElement('tr');
                 const checkOutTime = visitor.checkOut ? visitor.checkOut : '-';
                 const statusClass = visitor.status === 'checked-in' ? 'status-active' : 'status-inactive';
@@ -2854,7 +3012,7 @@
                 row.innerHTML = `
                     <td>${visitor.id}</td>
                     <td>${visitor.name}</td>
-                    <td>${visitor.contact || '-'}</td>   <!-- Contact column data -->
+                    <td>${visitor.contact || '-'}</td>
                     <td>${visitor.residentName}</td>
                     <td>${visitor.room}</td>
                     <td>${formatDateTime(visitor.checkIn)}</td>
@@ -2872,7 +3030,273 @@
             });
         }
 
-        // Load Emergency Table
+        function searchVisitors() {
+            const searchTerm = document.getElementById('visitorSearch').value.toLowerCase();
+            
+            const filtered = visitors.filter(visitor => 
+                visitor.name.toLowerCase().includes(searchTerm) ||
+                (visitor.contact && visitor.contact.includes(searchTerm)) ||
+                visitor.residentName.toLowerCase().includes(searchTerm)
+            );
+            
+            const tbody = document.getElementById('visitorsTableBody');
+            tbody.innerHTML = '';
+            
+            filtered.forEach(visitor => {
+                const row = document.createElement('tr');
+                const checkOutTime = visitor.checkOut ? visitor.checkOut : '-';
+                const statusClass = visitor.status === 'checked-in' ? 'status-active' : 'status-inactive';
+                
+                row.innerHTML = `
+                    <td>${visitor.id}</td>
+                    <td>${visitor.name}</td>
+                    <td>${visitor.contact || '-'}</td>
+                    <td>${visitor.residentName}</td>
+                    <td>${visitor.room}</td>
+                    <td>${formatDateTime(visitor.checkIn)}</td>
+                    <td>${visitor.checkOut ? formatDateTime(visitor.checkOut) : '-'}</td>
+                    <td>${visitor.purpose}</td>
+                    <td><span class="status-badge ${statusClass}">${visitor.status}</span></td>
+                    <td>
+                        ${visitor.status === 'checked-in' ? 
+                            `<button class="action-btn" onclick="openCheckOutModal(${visitor.id})" style="color: #00b894;" title="Check Out"><i class="fas fa-sign-out-alt"></i></button>` : 
+                            ''}
+                        <button class="action-btn" onclick="viewVisitor(${visitor.id})"><i class="fas fa-eye"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterEmergencies() {
+            const statusFilter = document.getElementById('emergencyStatusFilter').value;
+            const typeFilter = document.getElementById('emergencyTypeFilter').value;
+            
+            let filtered = emergencies;
+            
+            if(statusFilter !== 'all'){
+                filtered = filtered.filter(e => e.status === statusFilter);
+            }
+            
+            if(typeFilter !== 'all'){
+                filtered = filtered.filter(e => e.type === typeFilter);
+            }
+            
+            const tbody = document.getElementById('emergencyTableBody');
+            tbody.innerHTML = '';
+            
+            filtered.forEach(emergency => {
+                const row = document.createElement('tr');
+                const statusClass = emergency.status === 'active' ? 'status-emergency' : 'status-resolved';
+                
+                row.innerHTML = `
+                    <td>${emergency.id}</td>
+                    <td>${emergency.residentName}</td>
+                    <td>${emergency.room}</td>
+                    <td><span class="emergency-type">${emergency.type}</span></td>
+                    <td>${emergency.description.substring(0, 30)}${emergency.description.length > 30 ? '...' : ''}</td>
+                    <td>${formatDateTime(emergency.reportedTime)}</td>
+                    <td><span class="status-badge ${statusClass}">${emergency.status}</span></td>
+                    <td>${emergency.actionTaken || '-'}</td>
+                    <td>
+                        ${emergency.status === 'active' ? 
+                            `<button class="action-btn" onclick="openResolveEmergencyModal(${emergency.id})" style="color: #00b894;" title="Resolve"><i class="fas fa-check-circle"></i></button>` : 
+                            ''}
+                        <button class="action-btn" onclick="viewEmergency(${emergency.id})"><i class="fas fa-eye"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // ===== SAVE FUNCTIONS =====
+        function saveResident() {
+            const formData = new FormData();
+            formData.append('name', document.getElementById('residentName').value);
+            formData.append('room', document.getElementById('residentRoom').value);
+            formData.append('mobile', document.getElementById('residentMobile').value);
+            formData.append('email', document.getElementById('residentEmail').value);
+            formData.append('checkinDate', document.getElementById('checkinDate').value);
+            
+            fetch('Backend/admin/add_user.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if(data.trim() === 'success'){
+                    alert('Resident added successfully!');
+                    closeModal('addResidentModal');
+                    loadResidents();
+                    loadDashboardStats();
+                } else {
+                    alert('Error adding resident');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Network error');
+            });
+        }
+
+        function saveRoom() {
+            const amenities = Array.from(document.querySelectorAll('#addRoomForm .checkbox-group input:checked')).map(cb => cb.value);
+            
+            const formData = new FormData();
+            formData.append('room_number', document.getElementById('roomNumber').value);
+            formData.append('room_type', document.getElementById('roomType').value);
+            formData.append('capacity', document.getElementById('roomCapacity').value);
+            formData.append('rent', document.getElementById('roomRent').value);
+            formData.append('amenities', JSON.stringify(amenities));
+            formData.append('status', document.getElementById('roomStatus').value);
+            
+            fetch('Backend/admin/add_room.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if(data.trim() === 'success'){
+                    alert('Room added successfully!');
+                    closeModal('addRoomModal');
+                    loadRooms();
+                } else {
+                    alert('Error adding room');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Network error');
+            });
+        }
+
+        function saveVisitor() {
+            const residentSelect = document.getElementById('visitorResident');
+            const selectedResidentId = parseInt(residentSelect.value);
+            const resident = residents.find(r => r.id === selectedResidentId);
+            
+            if(!resident){
+                alert('Please select a resident');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('visitor_name', document.getElementById('visitorName').value);
+            formData.append('relation', document.getElementById('visitorPurpose').value);
+            formData.append('contact', document.getElementById('visitorContact').value);
+            formData.append('room_no', resident.room);
+            formData.append('visit_date', new Date().toISOString().split('T')[0]);
+            formData.append('in_time', new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }));
+            
+            fetch('Backend/add_visitor.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(response => response.text())
+            .then(data => {
+                if(data.trim() === 'success'){
+                    alert('Visitor added successfully!');
+                    closeModal('addVisitorModal');
+                    loadVisitors();
+                    loadDashboardStats();
+                } else {
+                    alert('Error adding visitor: ' + data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Network error');
+            });
+        }
+
+        function saveEmergency() {
+            const residentSelect = document.getElementById('emergencyResident');
+            const selectedResidentId = parseInt(residentSelect.value);
+            const resident = residents.find(r => r.id === selectedResidentId);
+            
+            if(!resident){
+                alert('Please select a resident');
+                return;
+            }
+            
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const reportedTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+            
+            const newEmergency = {
+                id: emergencies.length + 1,
+                residentName: resident.name,
+                room: resident.room,
+                type: document.getElementById('emergencyType').value,
+                description: document.getElementById('emergencyDescription').value,
+                reportedTime: reportedTime,
+                status: 'active',
+                actionTaken: document.getElementById('emergencyAction').value || 'Pending',
+                reportedBy: document.getElementById('emergencyReportedBy').value || 'Admin'
+            };
+            
+            emergencies.push(newEmergency);
+            loadEmergencyTable();
+            closeModal('addEmergencyModal');
+            loadDashboardStats();
+            
+            alert('Emergency logged successfully!');
+        }
+
+        function checkOutVisitor() {
+            const visitorId = parseInt(document.getElementById('checkOutVisitorId').value);
+            const checkOutTime = document.getElementById('visitorCheckOut').value;
+            const remarks = document.getElementById('checkOutRemarks').value;
+            
+            const visitor = visitors.find(v => v.id === visitorId);
+            if (visitor) {
+                visitor.checkOut = checkOutTime;
+                visitor.status = 'checked-out';
+                visitor.checkOutRemarks = remarks;
+                
+                loadVisitorsTable();
+                closeModal('checkOutVisitorModal');
+                
+                alert('Visitor checked out successfully!');
+            }
+        }
+
+        function resolveEmergency() {
+            const emergencyId = parseInt(document.getElementById('resolveEmergencyId').value);
+            const resolution = document.getElementById('emergencyResolution').value;
+            const resolvedBy = document.getElementById('emergencyResolvedBy').value;
+            
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const resolvedTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+            
+            const emergency = emergencies.find(e => e.id === emergencyId);
+            if (emergency) {
+                emergency.status = 'resolved';
+                emergency.resolution = resolution;
+                emergency.resolvedBy = resolvedBy;
+                emergency.resolvedTime = resolvedTime;
+                
+                loadEmergencyTable();
+                closeModal('resolveEmergencyModal');
+                loadDashboardStats();
+                
+                alert('Emergency resolved successfully!');
+            }
+        }
+
+        // ===== LOAD EMERGENCY TABLE =====
         function loadEmergencyTable() {
             const tbody = document.getElementById('emergencyTableBody');
             if (!tbody) return;
@@ -2920,424 +3344,7 @@
             });
         }
 
-        // Format DateTime
-        function formatDateTime(datetime) {
-            if (!datetime) return '-';
-            const date = new Date(datetime);
-            return date.toLocaleString('en-IN', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }
-
-        // Populate Resident Dropdowns
-        function populateResidentDropdowns() {
-            const visitorResidentSelect = document.getElementById('visitorResident');
-            const emergencyResidentSelect = document.getElementById('emergencyResident');
-            
-            if (visitorResidentSelect) {
-                visitorResidentSelect.innerHTML = '<option value="">Select Resident</option>';
-                residents.filter(r => r.status === 'active').forEach(resident => {
-                    const option = document.createElement('option');
-                    option.value = resident.id;
-                    option.textContent = `${resident.name} (Room ${resident.room})`;
-                    visitorResidentSelect.appendChild(option);
-                });
-            }
-            
-            if (emergencyResidentSelect) {
-                emergencyResidentSelect.innerHTML = '<option value="">Select Resident</option>';
-                residents.forEach(resident => {
-                    const option = document.createElement('option');
-                    option.value = resident.id;
-                    option.textContent = `${resident.name} (Room ${resident.room})`;
-                    emergencyResidentSelect.appendChild(option);
-                });
-            }
-        }
-
-        // Load Activities
-        function loadActivities() {
-            const activityList = document.getElementById('activityList');
-            activityList.innerHTML = '';
-            
-            activities.forEach(activity => {
-                const activityItem = document.createElement('div');
-                activityItem.className = 'activity-item';
-                activityItem.innerHTML = `
-                    <div class="activity-icon ${activity.type}">
-                        <i class="fas fa-${activity.type === 'checkin' ? 'user-plus' : activity.type === 'payment' ? 'rupee-sign' : activity.type === 'complaint' ? 'exclamation-triangle' : activity.type === 'visitor' ? 'address-book' : 'ambulance'}"></i>
-                    </div>
-                    <div class="activity-details">
-                        <p>${activity.description}</p>
-                        <small>${activity.time}</small>
-                    </div>
-                `;
-                activityList.appendChild(activityItem);
-            });
-        }
-
-        // Load Dues
-        function loadDues() {
-            const duesList = document.getElementById('duesList');
-            duesList.innerHTML = '';
-            
-            dues.forEach(due => {
-                const dueItem = document.createElement('div');
-                dueItem.className = 'due-item';
-                dueItem.innerHTML = `
-                    <div class="due-info">
-                        <p><strong>${due.residentName}</strong> - Room ${due.room}</p>
-                        <p>Amount: ₹${due.amount.toLocaleString()}</p>
-                        <small>Due: ${due.dueDate} (${due.daysOverdue} days overdue)</small>
-                    </div>
-                    <button class="btn-primary" onclick="collectPayment(${due.id})">Collect</button>
-                `;
-                duesList.appendChild(dueItem);
-            });
-        }
-
-        // Modal Functions
-        function openAddResidentModal() {
-            document.getElementById('addResidentModal').style.display = 'block';
-        }
-
-        function openAddRoomModal() {
-            document.getElementById('addRoomModal').style.display = 'block';
-        }
-
-        function openAddVisitorModal() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('visitorCheckIn').value = `${year}-${month}-${day}T${hours}:${minutes}`;
-            
-            document.getElementById('addVisitorModal').style.display = 'block';
-        }
-
-        function openAddEmergencyModal() {
-            document.getElementById('addEmergencyModal').style.display = 'block';
-        }
-
-        function openCheckOutModal(visitorId) {
-            const visitor = visitors.find(v => v.id === visitorId);
-            if (visitor) {
-                document.getElementById('checkOutVisitorId').value = visitor.id;
-                document.getElementById('checkOutVisitorNameDisplay').textContent = visitor.name;
-                
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = String(now.getMonth() + 1).padStart(2, '0');
-                const day = String(now.getDate()).padStart(2, '0');
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                document.getElementById('visitorCheckOut').value = `${year}-${month}-${day}T${hours}:${minutes}`;
-                
-                document.getElementById('checkOutVisitorModal').style.display = 'block';
-            }
-        }
-
-        function openResolveEmergencyModal(emergencyId) {
-            const emergency = emergencies.find(e => e.id === emergencyId);
-            if (emergency) {
-                document.getElementById('resolveEmergencyId').value = emergency.id;
-                document.getElementById('resolveEmergencyDetails').innerHTML = `
-                    <strong>Resident:</strong> ${emergency.residentName}<br>
-                    <strong>Type:</strong> ${emergency.type}<br>
-                    <strong>Description:</strong> ${emergency.description}
-                `;
-                
-                document.getElementById('resolveEmergencyModal').style.display = 'block';
-            }
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // Filter Functions
-        function filterResidents() {
-            const roomFilter = document.getElementById('roomFilter').value;
-            const statusFilter = document.getElementById('statusFilter').value;
-            console.log('Filtering residents:', { roomFilter, statusFilter });
-        }
-
-        function searchResidents() {
-            const searchTerm = document.getElementById('residentSearch').value.toLowerCase();
-            
-            const filtered = residents.filter(resident => 
-                resident.name.toLowerCase().includes(searchTerm) ||
-                resident.room.includes(searchTerm) ||
-                resident.mobile.includes(searchTerm)
-            );
-            
-            const tbody = document.getElementById('residentsTableBody');
-            tbody.innerHTML = '';
-            
-            filtered.forEach(resident => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${resident.id}</td>
-                    <td>${resident.name}</td>
-                    <td>${resident.room}</td>
-                    <td>${resident.mobile}</td>
-                    <td>${resident.email}</td>
-                    <td>${resident.checkinDate}</td>
-                    <td><span class="status-badge ${resident.rentStatus === 'paid' ? 'status-active' : 'status-pending'}">${resident.rentStatus}</span></td>
-                    <td><span class="status-badge ${resident.status === 'active' ? 'status-active' : 'status-inactive'}">${resident.status}</span></td>
-                    <td>
-                        <button class="action-btn" onclick="editResident(${resident.id})"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn" onclick="viewResident(${resident.id})"><i class="fas fa-eye"></i></button>
-                        <button class="action-btn" onclick="deleteResident(${resident.id})"><i class="fas fa-trash"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function filterVisitors() {
-            const dateFilter = document.getElementById('visitorDateFilter').value;
-            const statusFilter = document.getElementById('visitorStatusFilter').value;
-            console.log('Filtering visitors:', { dateFilter, statusFilter });
-        }
-
-        function searchVisitors() {
-            const searchTerm = document.getElementById('visitorSearch').value.toLowerCase();
-            
-            const filtered = visitors.filter(visitor => 
-                visitor.name.toLowerCase().includes(searchTerm) ||
-                (visitor.contact && visitor.contact.includes(searchTerm)) ||
-                visitor.residentName.toLowerCase().includes(searchTerm)
-            );
-            
-            const tbody = document.getElementById('visitorsTableBody');
-            tbody.innerHTML = '';
-            
-            filtered.forEach(visitor => {
-                const row = document.createElement('tr');
-                const checkOutTime = visitor.checkOut ? visitor.checkOut : '-';
-                const statusClass = visitor.status === 'checked-in' ? 'status-active' : 'status-inactive';
-                
-                row.innerHTML = `
-                    <td>${visitor.id}</td>
-                    <td>${visitor.name}</td>
-                    <td>${visitor.contact || '-'}</td>
-                    <td>${visitor.residentName}</td>
-                    <td>${visitor.room}</td>
-                    <td>${formatDateTime(visitor.checkIn)}</td>
-                    <td>${visitor.checkOut ? formatDateTime(visitor.checkOut) : '-'}</td>
-                    <td>${visitor.purpose}</td>
-                    <td><span class="status-badge ${statusClass}">${visitor.status}</span></td>
-                    <td>
-                        ${visitor.status === 'checked-in' ? 
-                            `<button class="action-btn" onclick="openCheckOutModal(${visitor.id})" style="color: #00b894;" title="Check Out"><i class="fas fa-sign-out-alt"></i></button>` : 
-                            ''}
-                        <button class="action-btn" onclick="viewVisitor(${visitor.id})"><i class="fas fa-eye"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function filterEmergencies() {
-            const statusFilter = document.getElementById('emergencyStatusFilter').value;
-            const typeFilter = document.getElementById('emergencyTypeFilter').value;
-            console.log('Filtering emergencies:', { statusFilter, typeFilter });
-        }
-
-        // Save Functions
-        function saveResident() {
-            const newResident = {
-                id: residents.length + 1,
-                name: document.getElementById('residentName').value,
-                room: document.getElementById('residentRoom').value,
-                mobile: document.getElementById('residentMobile').value,
-                email: document.getElementById('residentEmail').value,
-                checkinDate: document.getElementById('checkinDate').value,
-                status: 'active',
-                rentStatus: 'pending'
-            };
-            
-            residents.push(newResident);
-            loadResidentsTable();
-            populateResidentDropdowns();
-            closeModal('addResidentModal');
-            updateDashboardStats();
-            
-            activities.unshift({
-                id: activities.length + 1,
-                description: `New resident ${newResident.name} added`,
-                time: 'Just now',
-                type: 'checkin'
-            });
-            loadActivities();
-            
-            alert('Resident added successfully!');
-        }
-
-        function saveRoom() {
-            const newRoom = {
-                number: document.getElementById('roomNumber').value,
-                type: document.getElementById('roomType').value,
-                capacity: parseInt(document.getElementById('roomCapacity').value),
-                rent: parseInt(document.getElementById('roomRent').value),
-                amenities: Array.from(document.querySelectorAll('#addRoomForm .checkbox-group input:checked')).map(cb => cb.value),
-                status: document.getElementById('roomStatus').value,
-                occupants: 0
-            };
-            
-            rooms.push(newRoom);
-            loadRoomsGrid();
-            closeModal('addRoomModal');
-            updateDashboardStats();
-            
-            alert('Room added successfully!');
-        }
-
-        function saveVisitor() {
-            const residentSelect = document.getElementById('visitorResident');
-            const selectedResidentId = parseInt(residentSelect.value);
-            const resident = residents.find(r => r.id === selectedResidentId);
-            
-            const newVisitor = {
-                id: visitors.length + 1,
-                name: document.getElementById('visitorName').value,
-                contact: document.getElementById('visitorContact').value,   // Save contact
-                residentName: resident.name,
-                room: resident.room,
-                checkIn: document.getElementById('visitorCheckIn').value,
-                checkOut: null,
-                purpose: document.getElementById('visitorPurpose').value,
-                vehicle: document.getElementById('visitorVehicle').value,
-                idProof: document.getElementById('visitorIdProof').value,
-                status: 'checked-in'
-            };
-            
-            visitors.push(newVisitor);
-            loadVisitorsTable();
-            closeModal('addVisitorModal');
-            updateDashboardStats();
-            
-            activities.unshift({
-                id: activities.length + 1,
-                description: `New visitor ${newVisitor.name} for ${newVisitor.residentName}`,
-                time: 'Just now',
-                type: 'visitor'
-            });
-            loadActivities();
-            
-            alert('Visitor added successfully!');
-        }
-
-        function saveEmergency() {
-            const residentSelect = document.getElementById('emergencyResident');
-            const selectedResidentId = parseInt(residentSelect.value);
-            const resident = residents.find(r => r.id === selectedResidentId);
-            
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const reportedTime = `${year}-${month}-${day}T${hours}:${minutes}`;
-            
-            const newEmergency = {
-                id: emergencies.length + 1,
-                residentName: resident.name,
-                room: resident.room,
-                type: document.getElementById('emergencyType').value,
-                description: document.getElementById('emergencyDescription').value,
-                reportedTime: reportedTime,
-                status: 'active',
-                actionTaken: document.getElementById('emergencyAction').value || 'Pending',
-                reportedBy: document.getElementById('emergencyReportedBy').value || resident.name
-            };
-            
-            emergencies.push(newEmergency);
-            loadEmergencyTable();
-            closeModal('addEmergencyModal');
-            updateDashboardStats();
-            
-            activities.unshift({
-                id: activities.length + 1,
-                description: `Emergency reported for ${resident.name} - ${newEmergency.type}`,
-                time: 'Just now',
-                type: 'emergency'
-            });
-            loadActivities();
-            
-            alert('Emergency logged successfully!');
-        }
-
-        function checkOutVisitor() {
-            const visitorId = parseInt(document.getElementById('checkOutVisitorId').value);
-            const checkOutTime = document.getElementById('visitorCheckOut').value;
-            const remarks = document.getElementById('checkOutRemarks').value;
-            
-            const visitor = visitors.find(v => v.id === visitorId);
-            if (visitor) {
-                visitor.checkOut = checkOutTime;
-                visitor.status = 'checked-out';
-                visitor.checkOutRemarks = remarks;
-                
-                loadVisitorsTable();
-                closeModal('checkOutVisitorModal');
-                
-                activities.unshift({
-                    id: activities.length + 1,
-                    description: `Visitor ${visitor.name} checked out`,
-                    time: 'Just now',
-                    type: 'visitor'
-                });
-                loadActivities();
-                
-                alert('Visitor checked out successfully!');
-            }
-        }
-
-        function resolveEmergency() {
-            const emergencyId = parseInt(document.getElementById('resolveEmergencyId').value);
-            const resolution = document.getElementById('emergencyResolution').value;
-            const resolvedBy = document.getElementById('emergencyResolvedBy').value;
-            
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const resolvedTime = `${year}-${month}-${day}T${hours}:${minutes}`;
-            
-            const emergency = emergencies.find(e => e.id === emergencyId);
-            if (emergency) {
-                emergency.status = 'resolved';
-                emergency.resolution = resolution;
-                emergency.resolvedBy = resolvedBy;
-                emergency.resolvedTime = resolvedTime;
-                
-                loadEmergencyTable();
-                closeModal('resolveEmergencyModal');
-                
-                activities.unshift({
-                    id: activities.length + 1,
-                    description: `Emergency resolved for ${emergency.residentName}`,
-                    time: 'Just now',
-                    type: 'emergency'
-                });
-                loadActivities();
-                
-                alert('Emergency resolved successfully!');
-            }
-        }
-
-        // Pagination Functions
+        // ===== PAGINATION FUNCTIONS =====
         function previousPage(section) {
             console.log('Previous page for', section);
         }
@@ -3346,26 +3353,20 @@
             console.log('Next page for', section);
         }
 
-        // Action Functions
+        // ===== ACTION FUNCTIONS =====
         function editResident(id) {
-            const resident = residents.find(r => r.id === id);
-            console.log('Edit resident:', resident);
-            alert('Edit functionality - Resident ID: ' + id);
+            alert('Edit functionality for resident ID: ' + id + ' (coming soon)');
         }
 
         function viewResident(id) {
             const resident = residents.find(r => r.id === id);
-            console.log('View resident:', resident);
-            alert('View details - Resident ID: ' + id);
+            alert(`Resident Details:\nID: ${resident.id}\nName: ${resident.name}\nRoom: ${resident.room}\nMobile: ${resident.mobile}\nEmail: ${resident.email}\nStatus: ${resident.status}`);
         }
 
         function deleteResident(id) {
             if (confirm('Are you sure you want to delete this resident?')) {
-                residents = residents.filter(r => r.id !== id);
-                loadResidentsTable();
-                populateResidentDropdowns();
-                updateDashboardStats();
-                alert('Resident deleted successfully!');
+                // This would need a backend API
+                alert('Delete functionality coming soon');
             }
         }
 
@@ -3385,21 +3386,11 @@
             alert('View emergency details - ID: ' + id);
         }
 
-        function updateComplaintStatus(id, status) {
-            const complaint = complaints.find(c => c.id === id);
-            if (complaint) {
-                complaint.status = status;
-                loadComplaintsGrid();
-                alert(`Complaint #${id} marked as ${status}`);
-            }
-        }
-
         function collectPayment(id) {
             const due = dues.find(d => d.id === id);
             if (due) {
                 alert(`Collect payment of ₹${due.amount} from ${due.residentName}`);
-                dues = dues.filter(d => d.id !== id);
-                loadDues();
+                // This would need a backend API
             }
         }
 
@@ -3407,7 +3398,7 @@
             alert('Generating payment report...');
         }
 
-        // Settings Functions
+        // ===== SETTINGS FUNCTIONS =====
         function savePGInfo() {
             const pgName = document.getElementById('pgName').value;
             const pgAddress = document.getElementById('pgAddress').value;
@@ -3445,14 +3436,20 @@
             alert('Password changed successfully!');
         }
 
-        // Logout Function
+        // ===== LOGOUT FUNCTION =====
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
-                alert('Logging out...');
+                fetch('Backend/admin_logout.php')
+                    .then(() => {
+                        window.location.href = 'login.html';
+                    })
+                    .catch(() => {
+                        window.location.href = 'login.html';
+                    });
             }
         }
 
-        // Click outside modal to close
+        // ===== CLICK OUTSIDE MODAL TO CLOSE =====
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';

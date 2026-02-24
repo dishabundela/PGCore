@@ -1,5 +1,6 @@
 // ===== LOAD COMPLAINTS ON PAGE LOAD =====
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Complaints page loaded');
     loadUserComplaints();
     
     // Set today's date
@@ -15,14 +16,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== SUBMIT COMPLAINT =====
 function submitComplaint() {
-    const title = document.getElementById('title').value;
+    const title = document.getElementById('title').value.trim();
     const category = document.getElementById('category').value;
-    const room = document.getElementById('room').value;
+    const room = document.getElementById('room').value.trim();
     const date = document.getElementById('date').value;
-    const description = document.getElementById('desc').value;
+    const description = document.getElementById('desc').value.trim();
     
+    console.log('Submitting complaint:', {title, category, room, date, description});
+    
+    // Validation
     if(!title || !category || !room || !date || !description) {
-        alert('Please fill all fields');
+        alert('❌ Please fill all fields');
         return;
     }
     
@@ -31,7 +35,7 @@ function submitComplaint() {
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SUBMITTING...';
     btn.disabled = true;
     
-    // Send separate fields
+    // Create form data
     const formData = new URLSearchParams();
     formData.append('title', title);
     formData.append('category', category);
@@ -48,31 +52,47 @@ function submitComplaint() {
     .then(response => response.text())
     .then(data => {
         data = data.trim();
+        console.log('Server response:', data);
+        
         if(data === 'success') {
             // Show success message
             const msg = document.getElementById('successMsg');
             msg.style.display = 'block';
-            msg.innerHTML = '✔ Complaint submitted successfully!';
+            msg.innerHTML = '✅ Complaint submitted successfully!';
+            
             setTimeout(() => {
                 msg.style.display = 'none';
             }, 3000);
             
-            // Clear form
+            // Clear form (keep date and room)
             document.getElementById('title').value = '';
             document.getElementById('desc').value = '';
+            // Keep room number as is
+            // Keep category as default
             
             // Reload complaints list
             loadUserComplaints();
+            
         } else if(data === 'not_logged_in') {
             alert('Please login first');
             window.location.href = 'login.html';
+            
+        } else if(data === 'empty') {
+            alert('Please fill all fields');
+            
         } else {
-            alert('Error submitting complaint. Please try again.');
+            // Show error message with the actual error
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.style.display = 'block';
+            errorMsg.innerHTML = '❌ Error: ' + data;
+            setTimeout(() => {
+                errorMsg.style.display = 'none';
+            }, 5000);
         }
     })
     .catch(error => {
-        console.error('Error:', error);
-        alert('Network error. Please try again.');
+        console.error('Network error:', error);
+        alert('Network error. Please check your connection.');
     })
     .finally(() => {
         btn.innerHTML = originalText;
@@ -82,53 +102,95 @@ function submitComplaint() {
 
 // ===== LOAD USER COMPLAINTS =====
 function loadUserComplaints() {
+    console.log('Loading complaints...');
+    const complaintList = document.getElementById('complaintList');
+    
+    if(!complaintList) {
+        console.error('complaintList element not found!');
+        return;
+    }
+    
+    complaintList.innerHTML = '<p class="no-data"><i class="fas fa-spinner fa-spin"></i> Loading complaints...</p>';
+    
     fetch('Backend/get_user_complaints.php')
     .then(response => response.json())
     .then(complaints => {
+        console.log('Complaints loaded:', complaints);
+        
         if(complaints.error) {
-            console.log('No complaints or error:', complaints.error);
+            if(complaints.error === 'not_logged_in') {
+                window.location.href = 'login.html';
+                return;
+            }
+            complaintList.innerHTML = `<p class="no-data"><i class="fas fa-exclamation-triangle"></i> ${complaints.error}</p>`;
             return;
         }
         
-        // Create complaints history section if it doesn't exist
-        let historySection = document.getElementById('complaintsHistory');
-        if(!historySection) {
-            historySection = document.createElement('div');
-            historySection.id = 'complaintsHistory';
-            historySection.className = 'complaints-history';
-            document.querySelector('.content').appendChild(historySection);
-        }
-        
-        if(complaints.length === 0) {
-            document.getElementById('complaintList').innerHTML = `
-                <p class="no-data">No complaints yet.</p>
+        if(!complaints || complaints.length === 0) {
+            complaintList.innerHTML = `
+                <p class="no-data">
+                    <i class="fas fa-info-circle"></i> No complaints yet. Submit your first complaint above.
+                </p>
             `;
             return;
         }
         
         let html = '';
         complaints.forEach(complaint => {
-            const statusClass = complaint.status === 'pending' ? 'status-pending' : 
-                               complaint.status === 'resolved' ? 'status-resolved' : 'status-progress';
-            const statusIcon = complaint.status === 'pending' ? '⏳' : 
-                              complaint.status === 'resolved' ? '✅' : '🔄';
+            // Determine status class and icon
+            let statusClass, statusIcon;
+            const status = (complaint.status || 'pending').toLowerCase();
+            
+            switch(status) {
+                case 'pending':
+                    statusClass = 'status-pending';
+                    statusIcon = '⏳';
+                    break;
+                case 'resolved':
+                    statusClass = 'status-resolved';
+                    statusIcon = '✅';
+                    break;
+                case 'in-progress':
+                case 'in progress':
+                    statusClass = 'status-progress';
+                    statusIcon = '🔄';
+                    break;
+                default:
+                    statusClass = 'status-pending';
+                    statusIcon = '⏳';
+            }
             
             html += `
                 <div class="complaint-card">
                     <div class="complaint-header">
-                        <span class="complaint-date"><i class="far fa-calendar-alt"></i> ${complaint.complaint_date}</span>
-                        <span class="complaint-status ${statusClass}">${statusIcon} ${complaint.status}</span>
+                        <span class="complaint-date">
+                            <i class="far fa-calendar-alt"></i> ${complaint.complaint_date || 'N/A'}
+                        </span>
+                        <span class="complaint-status ${statusClass}">
+                            ${statusIcon} ${complaint.status || 'Pending'}
+                        </span>
                     </div>
                     <div class="complaint-text">
-                        <strong>[${complaint.category}] ${complaint.title}</strong><br>
-                        Room: ${complaint.room_no}<br><br>
-                        ${complaint.description}
+                        <strong>[${complaint.category || 'General'}] ${complaint.title || 'No Title'}</strong>
+                        <br>
+                        <span style="color: #0f3c4c; font-size: 13px;">
+                            <i class="fas fa-door-open"></i> Room: ${complaint.room_no || 'N/A'}
+                        </span>
+                        <br><br>
+                        ${complaint.description || complaint.complaint_text || 'No description provided'}
                     </div>
                 </div>
             `;
         });
         
-        document.getElementById('complaintList').innerHTML = html;
+        complaintList.innerHTML = html;
     })
-    .catch(error => console.error('Error loading complaints:', error));
+    .catch(error => {
+        console.error('Error loading complaints:', error);
+        complaintList.innerHTML = `
+            <p class="no-data">
+                <i class="fas fa-exclamation-triangle"></i> Error loading complaints. Please try again.
+            </p>
+        `;
+    });
 }

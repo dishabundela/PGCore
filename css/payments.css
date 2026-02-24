@@ -95,3 +95,64 @@ footer{
         text-align:center;
     }
 }
+/* Late fee styles */
+.late-fee-warning {
+    background: #fff3cd;
+    color: #856404;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 4px solid #ffc107;
+}
+
+.late-fee-warning i {
+    font-size: 24px;
+    color: #ffc107;
+}
+
+.late-fee-badge {
+    background: #dc3545;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+#payButton.pay-with-late {
+    background: #dc3545;
+}
+
+#payButton.pay-with-late:hover {
+    background: #bb2d3b;
+}
+
+/* Status colors */
+.paid {
+    color: #155724;
+    background: #d4edda;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.pending {
+    color: #856404;
+    background: #fff3cd;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.no-data {
+    text-align: center;
+    color: #999;
+    padding: 30px;
+    font-style: italic;
+}

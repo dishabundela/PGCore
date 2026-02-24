@@ -50,7 +50,7 @@ if($user_data){
         'booking_status' => $user_data['booking_status'] ?? 'none',
         'room_number' => $user_data['room_number'] ?? 'Not assigned',
         'room_type' => $user_data['room_type'] ?? 'Not assigned',
-        'room_rent' => $user_data['rent'] ?? 0,
+        'room_rent' => $user_data['rent'] ?? 0, // This gets the actual room rent!
         'move_in_date' => $user_data['move_in_date'] ?? 'Not available'
     ];
     echo json_encode($response);

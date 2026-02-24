@@ -157,7 +157,8 @@ body {
 .room-price {
     font-size: 16px;
     font-weight: 600;
-    color: #28a745;
+    color: #1f3c4a;
+    
 }
 
 /* ===== SIMPLE BOOKING FORM ===== */
@@ -187,7 +188,7 @@ body {
 
 .label {
     font-weight: 600;
-    color: #555;
+    color:#1f3c4a;
 }
 
 .value {

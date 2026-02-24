@@ -292,6 +292,7 @@ function setupForgotForm() {
 }
 
 // ========== ADMIN LOGIN FORM SUBMISSION ==========
+// ===== ADMIN LOGIN FORM SUBMISSION =====
 function setupAdminForm() {
     if (!adminForm) return;
     
@@ -330,7 +331,9 @@ function setupAdminForm() {
             
             if (result === 'success') {
                 alert('Admin login successful! Redirecting...');
-                window.location.href = 'admin/dashboard.html';
+                // 👇 CHANGE THIS LINE FROM:
+                // window.location.href = 'admin2/dashboard.html';
+                window.location.href = 'admin2.html';
             } else if (result === 'wrong') {
                 alert('Wrong admin password.');
             } else if (result === 'not_found') {
