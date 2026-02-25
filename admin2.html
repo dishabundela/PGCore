@@ -1412,13 +1412,13 @@
                     </div>
                     
                     <!-- Upcoming Rent Dues Card -->
-                    <div class="upcoming-dues">
-                        <h3>Upcoming Rent Dues</h3>
-                        <div class="dues-list" id="duesList">
-                            <!-- Dues will be added here dynamically -->
-                        </div>
-                    </div>
-                </div>
+                   <!-- Upcoming Rent Dues Card -->
+<div class="upcoming-dues">
+    <h3>Upcoming Rent Dues</h3>
+    <div class="dues-list" id="duesList">
+        <!-- Dues will be added here dynamically -->
+    </div>
+</div>
             </section>
 
             <!-- Residents Section with Booking Requests -->
@@ -2089,7 +2089,7 @@
         </div>
     </div>
 
-    <script>
+   <script>
         // ===== GLOBAL VARIABLES FOR REAL DATA =====
         let residents = [];
         let rooms = [];
@@ -2234,20 +2234,133 @@
         }
 
         // ===== LOAD BOOKING REQUESTS =====
-        function loadBookingRequests() {
-            fetch('Backend/admin/get_all_bookings.php')
-                .then(response => response.json())
-                .then(data => {
-                    if(data.error){
-                        console.error('Error loading bookings:', data.error);
-                        return;
-                    }
-                    bookingRequests = data;
-                    loadBookingRequestsList();
-                    updateDashboardStats();
-                })
-                .catch(error => console.error('Fetch error:', error));
+// ===== LOAD BOOKING REQUESTS =====
+function loadBookingRequests() {
+    console.log('🔄 Loading booking requests...');
+    
+    fetch('Backend/admin/get_all_bookings.php')
+        .then(response => response.json())
+        .then(data => {
+            console.log('📦 Bookings received:', data);
+            
+            // The data is already an array from your API
+            bookingRequests = data;
+            
+            // Update the request count badge
+            const pendingCount = bookingRequests.filter(b => b.status === 'pending').length;
+            const requestBadge = document.getElementById('requestCount');
+            if(requestBadge) requestBadge.textContent = pendingCount;
+            
+            // Load the list
+            loadBookingRequestsList();
+        })
+        .catch(error => {
+            console.error('❌ Error loading bookings:', error);
+            const container = document.getElementById('bookingRequestsList');
+            if(container){
+                container.innerHTML = '<div class="no-data">Error loading bookings</div>';
+            }
+        });
+}
+
+// ===== LOAD BOOKING REQUESTS LIST =====
+function loadBookingRequestsList() {
+    console.log('Loading booking requests list with data:', bookingRequests);
+    
+    const container = document.getElementById('bookingRequestsList');
+    if(!container) {
+        console.error('Container not found!');
+        return;
+    }
+    
+    const filterValue = document.getElementById('bookingStatusFilter')?.value || 'all';
+    console.log('Filter value:', filterValue);
+    
+    let filteredRequests = bookingRequests;
+    
+    // Apply filter
+    if (filterValue !== 'all') {
+        filteredRequests = bookingRequests.filter(r => r.status === filterValue);
+    }
+    
+    console.log('Filtered requests:', filteredRequests.length);
+    
+    if (filteredRequests.length === 0) {
+        container.innerHTML = '<div class="no-data">No booking requests found</div>';
+        return;
+    }
+    
+    container.innerHTML = '';
+    
+    filteredRequests.forEach(request => {
+        console.log('Creating card for:', request.name);
+        
+        const card = document.createElement('div');
+        card.className = `request-card ${request.status}`;
+        
+        const statusClass = request.status === 'pending' ? 'status-pending' : 
+                           request.status === 'confirmed' ? 'status-confirmed' : 
+                           'status-rejected';
+        
+        const statusText = request.status === 'pending' ? 'Pending' : 
+                          request.status === 'confirmed' ? 'Confirmed' : 
+                          'Rejected';
+        
+        let actionButtons = '';
+        if (request.status === 'pending') {
+            actionButtons = `
+                <div class="request-actions">
+                    <button class="btn-confirm" onclick="confirmBooking(${request.id})">
+                        <i class="fas fa-check"></i> Confirm
+                    </button>
+                    <button class="btn-reject" onclick="rejectBooking(${request.id})">
+                        <i class="fas fa-times"></i> Reject
+                    </button>
+                </div>
+            `;
+        } else {
+            actionButtons = `
+                <div class="request-actions">
+                    <button class="btn-primary" onclick="viewBookingDetails(${request.id})" style="flex: 1;">
+                        <i class="fas fa-eye"></i> View Details
+                    </button>
+                </div>
+            `;
         }
+        
+        card.innerHTML = `
+            <div class="request-header">
+                <span class="request-name">${request.name || 'Unknown'}</span>
+                <span class="request-status ${statusClass}">${statusText}</span>
+            </div>
+            <div class="request-details">
+                <div class="detail-row">
+                    <span class="label">Mobile:</span>
+                    <span>${request.mobile || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Email:</span>
+                    <span>${request.email || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Room Preference:</span>
+                    <span>${request.roomPreference || 'N/A'} (${request.roomType || 'N/A'})</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Check-in Date:</span>
+                    <span>${request.checkInDate || 'N/A'}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Rent:</span>
+                    <span>₹${request.price || '0'}</span>
+                </div>
+            </div>
+            ${actionButtons}
+        `;
+        
+        container.appendChild(card);
+    });
+}
 
         // ===== LOAD ACTIVITIES =====
         function loadActivities() {
@@ -2279,7 +2392,7 @@
                 .catch(error => console.error('Fetch error:', error));
         }
 
-        // ===== UPDATE DASHBOARD STATS =====
+        // ===== LOAD DASHBOARD STATS =====
         function loadDashboardStats() {
             fetch('Backend/admin/get_dashboard_stats.php')
                 .then(response => response.json())
@@ -2297,12 +2410,24 @@
                     document.getElementById('pendingBookings').textContent = data.pendingBookings || 0;
                     document.getElementById('requestCount').textContent = data.pendingBookings || 0;
                 })
-                .catch(error => console.error('Fetch error:', error));
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    // Set default values on error
+                    document.getElementById('totalResidents').textContent = '0';
+                    document.getElementById('availableRooms').textContent = '0';
+                    document.getElementById('monthlyRevenue').textContent = '₹0';
+                    document.getElementById('pendingComplaints').textContent = '0';
+                    document.getElementById('todayVisitors').textContent = '0';
+                    document.getElementById('activeEmergencies').textContent = '0';
+                    document.getElementById('pendingBookings').textContent = '0';
+                    document.getElementById('requestCount').textContent = '0';
+                });
         }
 
         // ===== LOAD RESIDENTS TABLE =====
         function loadResidentsTable() {
             const tbody = document.getElementById('residentsTableBody');
+            if(!tbody) return;
             tbody.innerHTML = '';
             
             residents.forEach(resident => {
@@ -2329,6 +2454,7 @@
         // ===== LOAD ROOMS GRID =====
         function loadRoomsGrid() {
             const grid = document.getElementById('roomsGrid');
+            if(!grid) return;
             grid.innerHTML = '';
             
             rooms.forEach(room => {
@@ -2369,6 +2495,7 @@
         // ===== LOAD PAYMENTS TABLE =====
         function loadPaymentsTable() {
             const tbody = document.getElementById('paymentsTableBody');
+            if(!tbody) return;
             tbody.innerHTML = '';
             
             payments.forEach(payment => {
@@ -2376,8 +2503,8 @@
                 row.innerHTML = `
                     <td>${payment.id}</td>
                     <td>${payment.residentName}</td>
-                    <td>${payment.room}</td>
-                    <td>₹${payment.amount.toLocaleString()}</td>
+                    <td>${payment.room || 'N/A'}</td>
+                    <td>₹${parseInt(payment.amount).toLocaleString()}</td>
                     <td>${payment.month}</td>
                     <td>${payment.date}</td>
                     <td>${payment.method || 'cash'}</td>
@@ -2391,21 +2518,22 @@
             });
             
             // Update payment summaries
-            const totalCollected = payments.reduce((sum, p) => sum + p.amount, 0);
+            const totalCollected = payments.reduce((sum, p) => sum + parseInt(p.amount), 0);
             document.getElementById('totalCollected').textContent = `₹${totalCollected.toLocaleString()}`;
             
-            const pendingAmount = dues.reduce((sum, d) => sum + d.amount, 0);
+            const pendingAmount = dues.reduce((sum, d) => sum + parseInt(d.amount), 0);
             document.getElementById('totalPending').textContent = `₹${pendingAmount.toLocaleString()}`;
             
             const thisMonth = payments
-                .filter(p => p.month === new Date().toLocaleString('default', { month: 'long' }))
-                .reduce((sum, p) => sum + p.amount, 0);
+                .filter(p => p.month === new Date().toLocaleString('default', { month: 'long', year: 'numeric' }))
+                .reduce((sum, p) => sum + parseInt(p.amount), 0);
             document.getElementById('thisMonthCollection').textContent = `₹${thisMonth.toLocaleString()}`;
         }
 
         // ===== LOAD COMPLAINTS GRID =====
         function loadComplaintsGrid() {
             const grid = document.getElementById('complaintsGrid');
+            if(!grid) return;
             grid.innerHTML = '';
             
             complaints.forEach(complaint => {
@@ -2467,6 +2595,8 @@
         // ===== LOAD BOOKING REQUESTS LIST =====
         function loadBookingRequestsList() {
             const container = document.getElementById('bookingRequestsList');
+            if(!container) return;
+            
             const filterValue = document.getElementById('bookingStatusFilter')?.value || 'all';
             
             let filteredRequests = bookingRequests;
@@ -2552,18 +2682,27 @@
         // ===== LOAD ACTIVITIES LIST =====
         function loadActivitiesList() {
             const activityList = document.getElementById('activityList');
+            if(!activityList) return;
+            
             activityList.innerHTML = '';
             
             activities.forEach(activity => {
                 const activityItem = document.createElement('div');
                 activityItem.className = 'activity-item';
+                
+                let iconClass = 'checkin';
+                if(activity.type === 'payment') iconClass = 'payment';
+                else if(activity.type === 'complaint') iconClass = 'complaint';
+                else if(activity.type === 'visitor') iconClass = 'visitor';
+                else if(activity.type === 'emergency') iconClass = 'emergency';
+                
                 activityItem.innerHTML = `
-                    <div class="activity-icon ${activity.type}">
+                    <div class="activity-icon ${iconClass}">
                         <i class="fas fa-${activity.type === 'checkin' ? 'user-plus' : activity.type === 'payment' ? 'rupee-sign' : activity.type === 'complaint' ? 'exclamation-triangle' : activity.type === 'visitor' ? 'address-book' : 'ambulance'}"></i>
                     </div>
                     <div class="activity-details">
                         <p>${activity.description}</p>
-                        <small>${activity.time}</small>
+                        <small>${activity.room_info || ''} ${activity.time_ago}</small>
                     </div>
                 `;
                 activityList.appendChild(activityItem);
@@ -2573,6 +2712,8 @@
         // ===== LOAD DUES LIST =====
         function loadDuesList() {
             const duesList = document.getElementById('duesList');
+            if(!duesList) return;
+            
             duesList.innerHTML = '';
             
             dues.forEach(due => {
@@ -2581,7 +2722,7 @@
                 dueItem.innerHTML = `
                     <div class="due-info">
                         <p><strong>${due.residentName}</strong> - Room ${due.room}</p>
-                        <p>Amount: ₹${due.amount.toLocaleString()}</p>
+                        <p>Amount: ₹${parseInt(due.amount).toLocaleString()}</p>
                         <small>Due: ${due.dueDate} (${due.daysOverdue} days overdue)</small>
                     </div>
                     <button class="btn-primary" onclick="collectPayment(${due.id})">Collect</button>
@@ -2589,6 +2730,63 @@
                 duesList.appendChild(dueItem);
             });
         }
+
+        // ===== COLLECT PAYMENT FUNCTION =====
+        // ===== COLLECT PAYMENT FUNCTION (For OFFLINE payments only) =====
+function collectPayment(dueId) {
+    // Get the due item from the list
+    const dueItem = event.target.closest('.due-item');
+    if(!dueItem) return;
+    
+    // Extract resident name and amount
+    const residentName = dueItem.querySelector('.due-info p strong')?.textContent || 'Resident';
+    const amountText = dueItem.querySelector('.due-info p:nth-child(2)')?.textContent || '';
+    const amount = amountText.replace('Amount: ₹', '').replace(',', '');
+    
+    // Ask if this is offline payment
+    if(!confirm(`Record OFFLINE payment of ₹${amount} from ${residentName}?`)) return;
+    
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    btn.disabled = true;
+    
+    // Get next month
+    const month = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+    
+    // Send to server
+    const formData = new FormData();
+    formData.append('user_id', dueId);
+    formData.append('amount', amount);
+    formData.append('month', month);
+    
+    fetch('Backend/admin/record_payment.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        if(data.trim() === 'success'){
+            alert('✅ Offline payment recorded successfully!');
+            dueItem.remove();
+            loadDashboardStats();
+            loadPayments();
+            loadActivities();
+        } else if(data.trim() === 'already_paid') {
+            alert('❌ This user has already paid online!');
+        } else {
+            alert('❌ Error recording payment: ' + data);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Network error');
+    })
+    .finally(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    });
+}
 
         // ===== DISPLAY CURRENT DATE =====
         function displayCurrentDate() {
@@ -2617,26 +2815,32 @@
         }
 
         // ===== SWITCH BETWEEN RESIDENTS TAB AND REQUESTS TAB =====
-        function switchResidentTab(tab) {
-            const tabAll = document.getElementById('tabAll');
-            const tabRequests = document.getElementById('tabRequests');
-            const allUsersContainer = document.getElementById('allUsersContainer');
-            const requestsContainer = document.getElementById('requestsContainer');
-            
-            if (tab === 'all') {
-                tabAll.classList.add('active');
-                tabRequests.classList.remove('active');
-                allUsersContainer.style.display = 'block';
-                requestsContainer.style.display = 'none';
-                loadResidentsTable();
-            } else {
-                tabAll.classList.remove('active');
-                tabRequests.classList.add('active');
-                allUsersContainer.style.display = 'none';
-                requestsContainer.style.display = 'block';
-                loadBookingRequestsList();
-            }
-        }
+       // ===== SWITCH BETWEEN RESIDENTS TAB AND REQUESTS TAB =====
+function switchResidentTab(tab) {
+    console.log('Switching to tab:', tab); // Debug log
+    
+    const tabAll = document.getElementById('tabAll');
+    const tabRequests = document.getElementById('tabRequests');
+    const allUsersContainer = document.getElementById('allUsersContainer');
+    const requestsContainer = document.getElementById('requestsContainer');
+    
+    if (tab === 'all') {
+        tabAll.classList.add('active');
+        tabRequests.classList.remove('active');
+        allUsersContainer.style.display = 'block';
+        requestsContainer.style.display = 'none';
+        loadResidentsTable();
+    } else {
+        tabAll.classList.remove('active');
+        tabRequests.classList.add('active');
+        allUsersContainer.style.display = 'none';
+        requestsContainer.style.display = 'block';
+        
+        // IMPORTANT: Load bookings when switching to requests tab
+        console.log('Loading bookings for requests tab');
+        loadBookingRequests(); // This will fetch and display
+    }
+}
 
         // ===== FILTER BOOKINGS =====
         function filterBookings() {
@@ -2923,7 +3127,7 @@
             let filtered = residents;
             
             if(roomFilter !== 'all'){
-                filtered = filtered.filter(r => r.room === roomFilter);
+                filtered = filtered.filter(r => r.room == roomFilter);
             }
             
             if(statusFilter !== 'all'){
@@ -2959,7 +3163,7 @@
             
             const filtered = residents.filter(resident => 
                 resident.name.toLowerCase().includes(searchTerm) ||
-                (resident.room && resident.room.includes(searchTerm)) ||
+                (resident.room && resident.room.toString().includes(searchTerm)) ||
                 (resident.mobile && resident.mobile.includes(searchTerm))
             );
             
@@ -2994,7 +3198,7 @@
             let filtered = visitors;
             
             if(dateFilter){
-                filtered = filtered.filter(v => v.checkIn.startsWith(dateFilter));
+                filtered = filtered.filter(v => v.checkIn && v.checkIn.startsWith(dateFilter));
             }
             
             if(statusFilter !== 'all'){
@@ -3384,14 +3588,6 @@
 
         function viewEmergency(id) {
             alert('View emergency details - ID: ' + id);
-        }
-
-        function collectPayment(id) {
-            const due = dues.find(d => d.id === id);
-            if (due) {
-                alert(`Collect payment of ₹${due.amount} from ${due.residentName}`);
-                // This would need a backend API
-            }
         }
 
         function generateReport() {

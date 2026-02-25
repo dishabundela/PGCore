@@ -1,8 +1,7 @@
 <?php
-// Backend/create_payment.php
+// Backend/create_payment.php - FIXED VERSION
 include "db.php";
 session_start();
-
 header('Content-Type: text/plain');
 
 if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true){
@@ -18,10 +17,22 @@ if(empty($payment_month)){
     exit;
 }
 
-// Get user's actual rent from their CONFIRMED room
+// Check if payment already exists for this month
+$check_sql = "SELECT payment_id FROM payments WHERE user_id = ? AND payment_month = ?";
+$check_stmt = mysqli_prepare($conn, $check_sql);
+mysqli_stmt_bind_param($check_stmt, "is", $user_id, $payment_month);
+mysqli_stmt_execute($check_stmt);
+mysqli_stmt_store_result($check_stmt);
+
+if(mysqli_stmt_num_rows($check_stmt) > 0){
+    echo "already_paid";
+    exit;
+}
+
+// Get user's room rent from their CONFIRMED booking
 $rent_query = "SELECT r.rent FROM bookings b 
                JOIN rooms r ON b.room_id = r.room_id 
-               WHERE b.user_id = ? AND b.booking_status IN ('confirmed', 'approved')
+               WHERE b.user_id = ? AND b.booking_status = 'confirmed'
                ORDER BY b.booking_date DESC LIMIT 1";
 
 $stmt = mysqli_prepare($conn, $rent_query);
@@ -30,25 +41,10 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
 if($row = mysqli_fetch_assoc($result)){
-    $base_rent = $row['rent']; // Gets actual room rent (6000, 7500, 8000, etc.)
+    $base_rent = $row['rent'];
 } else {
-    // If no confirmed booking, check if they have ANY booking
-    $fallback_query = "SELECT r.rent FROM bookings b 
-                       JOIN rooms r ON b.room_id = r.room_id 
-                       WHERE b.user_id = ? 
-                       ORDER BY b.booking_date DESC LIMIT 1";
-    
-    $stmt2 = mysqli_prepare($conn, $fallback_query);
-    mysqli_stmt_bind_param($stmt2, "i", $user_id);
-    mysqli_stmt_execute($stmt2);
-    $result2 = mysqli_stmt_get_result($stmt2);
-    
-    if($row2 = mysqli_fetch_assoc($result2)){
-        $base_rent = $row2['rent'];
-    } else {
-        // Ultimate fallback (should not happen)
-        $base_rent = 7500;
-    }
+    echo "no_booking";
+    exit;
 }
 
 // Calculate late fee (after 5th of month)
@@ -60,10 +56,10 @@ $total_amount = $base_rent + $late_fee;
 $sql = "INSERT INTO payments (user_id, amount, late_fee, payment_month, payment_date, status) 
         VALUES (?, ?, ?, ?, CURDATE(), 'completed')";
 
-$stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "idds", $user_id, $total_amount, $late_fee, $payment_month);
+$insert_stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($insert_stmt, "idds", $user_id, $total_amount, $late_fee, $payment_month);
 
-if(mysqli_stmt_execute($stmt)){
+if(mysqli_stmt_execute($insert_stmt)){
     echo "success";
 } else {
     echo "error: " . mysqli_error($conn);
