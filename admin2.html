@@ -1542,20 +1542,20 @@
                    
                 </div>
                 
-                <div class="summary-cards">
-                    <div class="summary-card">
-                        <h4>Total Collected</h4>
-                        <p class="amount" id="totalCollected">₹0</p>
-                    </div>
-                    <div class="summary-card">
-                        <h4>Pending</h4>
-                        <p class="amount" id="totalPending">₹0</p>
-                    </div>
-                    <div class="summary-card">
-                        <h4>This Month</h4>
-                        <p class="amount" id="thisMonthCollection">₹0</p>
-                    </div>
-                </div>
+<div class="summary-cards">
+    <div class="summary-card">
+        <h4>Total Collected</h4>
+        <p class="amount" id="totalCollected">₹0</p>
+    </div>
+    <div class="summary-card">
+        <h4>Pending</h4>
+        <p class="amount" id="totalPending">₹0</p>
+    </div>
+    <div class="summary-card">
+        <h4>This Month</h4>
+        <p class="amount" id="thisMonthCollection">₹0</p>
+    </div>
+</div>
                 
                 <div class="table-responsive">
                     <table class="data-table" id="paymentsTable">
@@ -2393,36 +2393,51 @@ function loadBookingRequestsList() {
         }
 
         // ===== LOAD DASHBOARD STATS =====
-        function loadDashboardStats() {
-            fetch('Backend/admin/get_dashboard_stats.php')
-                .then(response => response.json())
-                .then(data => {
-                    if(data.error){
-                        console.error('Error loading stats:', data.error);
-                        return;
-                    }
-                    document.getElementById('totalResidents').textContent = data.totalResidents || 0;
-                    document.getElementById('availableRooms').textContent = data.availableRooms || 0;
-                    document.getElementById('monthlyRevenue').textContent = data.monthlyRevenue || '₹0';
-                    document.getElementById('pendingComplaints').textContent = data.pendingComplaints || 0;
-                    document.getElementById('todayVisitors').textContent = data.todayVisitors || 0;
-                    document.getElementById('activeEmergencies').textContent = data.activeEmergencies || 0;
-                    document.getElementById('pendingBookings').textContent = data.pendingBookings || 0;
-                    document.getElementById('requestCount').textContent = data.pendingBookings || 0;
-                })
-                .catch(error => {
-                    console.error('Fetch error:', error);
-                    // Set default values on error
-                    document.getElementById('totalResidents').textContent = '0';
-                    document.getElementById('availableRooms').textContent = '0';
-                    document.getElementById('monthlyRevenue').textContent = '₹0';
-                    document.getElementById('pendingComplaints').textContent = '0';
-                    document.getElementById('todayVisitors').textContent = '0';
-                    document.getElementById('activeEmergencies').textContent = '0';
-                    document.getElementById('pendingBookings').textContent = '0';
-                    document.getElementById('requestCount').textContent = '0';
-                });
-        }
+        // ===== LOAD DASHBOARD STATS =====
+function loadDashboardStats() {
+    fetch('Backend/admin/get_dashboard_stats.php')
+        .then(response => response.json())
+        .then(data => {
+            if(data.error){
+                console.error('Error loading stats:', data.error);
+                return;
+            }
+            
+            console.log("Dashboard stats received:", data); // Debug log
+            
+            // Update dashboard stats
+            document.getElementById('totalResidents').textContent = data.totalResidents || 0;
+            document.getElementById('availableRooms').textContent = data.availableRooms || 0;
+            document.getElementById('monthlyRevenue').textContent = data.monthlyRevenue || '₹0';
+            document.getElementById('pendingComplaints').textContent = data.pendingComplaints || 0;
+            document.getElementById('todayVisitors').textContent = data.todayVisitors || 0;
+            document.getElementById('activeEmergencies').textContent = data.activeEmergencies || 0;
+            document.getElementById('pendingBookings').textContent = data.pendingBookings || 0;
+            document.getElementById('requestCount').textContent = data.pendingBookings || 0;
+            
+            // Update payment summary cards
+            document.getElementById('totalCollected').textContent = data.totalCollected || '₹0';
+            document.getElementById('totalPending').textContent = data.totalPending || '₹0';
+            document.getElementById('thisMonthCollection').textContent = data.thisMonthCollection || '₹0';
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            // Set default values on error
+            document.getElementById('totalResidents').textContent = '0';
+            document.getElementById('availableRooms').textContent = '0';
+            document.getElementById('monthlyRevenue').textContent = '₹0';
+            document.getElementById('pendingComplaints').textContent = '0';
+            document.getElementById('todayVisitors').textContent = '0';
+            document.getElementById('activeEmergencies').textContent = '0';
+            document.getElementById('pendingBookings').textContent = '0';
+            document.getElementById('requestCount').textContent = '0';
+            
+            // Payment summary defaults
+            document.getElementById('totalCollected').textContent = '₹0';
+            document.getElementById('totalPending').textContent = '₹0';
+            document.getElementById('thisMonthCollection').textContent = '₹0';
+        });
+}
 
         // ===== LOAD RESIDENTS TABLE =====
         function loadResidentsTable() {
@@ -2452,45 +2467,71 @@ function loadBookingRequestsList() {
         }
 
         // ===== LOAD ROOMS GRID =====
-        function loadRoomsGrid() {
-            const grid = document.getElementById('roomsGrid');
-            if(!grid) return;
-            grid.innerHTML = '';
-            
-            rooms.forEach(room => {
-                const roomCard = document.createElement('div');
-                roomCard.className = 'room-card';
-                
-                const occupancyPercentage = ((room.occupants || 0) / (room.capacity || 1)) * 100;
-                const amenitiesList = Array.isArray(room.amenities) ? room.amenities.join(', ') : room.amenities || 'Standard';
-                
-                roomCard.innerHTML = `
-                    <div class="room-header">
-                        <span class="room-number">Room ${room.number}</span>
-                        <span class="room-type">${room.type} Sharing</span>
-                    </div>
-                    <div class="room-details">
-                        <div class="detail-item">
-                            <span>Capacity:</span>
-                            <span>${room.occupants || 0}/${room.capacity}</span>
-                        </div>
-                        <div class="detail-item">
-                            <span>Amenities:</span>
-                            <span>${amenitiesList}</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: ${occupancyPercentage}%"></div>
-                        </div>
-                    </div>
-                    <div class="room-footer">
-                        <span class="rent-amount">₹${room.rent}/month</span>
-                        <span class="status-badge ${room.status === 'available' ? 'status-active' : room.status === 'occupied' ? 'status-pending' : 'status-inactive'}">${room.status}</span>
-                    </div>
-                `;
-                
-                grid.appendChild(roomCard);
+        // ===== LOAD ROOMS GRID WITH OCCUPANTS =====
+function loadRoomsGrid() {
+    const grid = document.getElementById('roomsGrid');
+    if(!grid) return;
+    grid.innerHTML = '';
+    
+    rooms.forEach(room => {
+        const roomCard = document.createElement('div');
+        roomCard.className = 'room-card';
+        
+        const occupancyPercentage = ((room.occupants_count || 0) / (room.capacity || 1)) * 100;
+        const amenitiesList =  'Standard';
+        
+        // Generate occupants HTML
+        let occupantsHtml = '';
+        if(room.occupants && room.occupants.length > 0){
+            occupantsHtml = '<div style="margin-top: 10px; padding: 8px; background: #f0f7fa; border-radius: 8px;">';
+            occupantsHtml += '<strong style="color: #0f3c4c;">Occupants:</strong>';
+            occupantsHtml += '<ul style="margin: 5px 0 0 15px; font-size: 12px;">';
+            room.occupants.forEach(occ => {
+                occupantsHtml += `<li style="color: #333;">${occ}</li>`;
             });
+            occupantsHtml += '</ul></div>';
+        } else {
+            occupantsHtml = '<div style="margin-top: 10px; padding: 8px; background: #e8f5e9; border-radius: 8px; color: #2e7d32;">✓ No occupants yet</div>';
         }
+        
+        // Status badge with better info
+        let statusBadge = '';
+        if(room.status === 'available' || (room.occupants_count === 0)){
+            statusBadge = '<span class="status-badge status-active">Available</span>';
+        } else if(room.status === 'occupied' || room.occupants_count >= room.capacity){
+            statusBadge = '<span class="status-badge status-inactive">Full</span>';
+        } else {
+            statusBadge = '<span class="status-badge status-pending">Partial (' + room.occupants_count + '/' + room.capacity + ')</span>';
+        }
+        
+        roomCard.innerHTML = `
+            <div class="room-header">
+                <span class="room-number">Room ${room.number}</span>
+                <span class="room-type">${room.type}</span>
+            </div>
+            <div class="room-details">
+                <div class="detail-item">
+                    <span>Capacity:</span>
+                    <span>${room.occupants_count || 0}/${room.capacity}</span>
+                </div>
+                <div class="detail-item">
+                    <span>Amenities:</span>
+                    <span>${amenitiesList}</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: ${occupancyPercentage}%"></div>
+                </div>
+                ${occupantsHtml}
+            </div>
+            <div class="room-footer">
+                <span class="rent-amount">₹${room.rent}/month</span>
+                ${statusBadge}
+            </div>
+        `;
+        
+        grid.appendChild(roomCard);
+    });
+}
 
         // ===== LOAD PAYMENTS TABLE =====
         function loadPaymentsTable() {
@@ -2516,19 +2557,24 @@ function loadBookingRequestsList() {
                 `;
                 tbody.appendChild(row);
             });
+        }
             
             // Update payment summaries
-            const totalCollected = payments.reduce((sum, p) => sum + parseInt(p.amount), 0);
-            document.getElementById('totalCollected').textContent = `₹${totalCollected.toLocaleString()}`;
-            
-            const pendingAmount = dues.reduce((sum, d) => sum + parseInt(d.amount), 0);
-            document.getElementById('totalPending').textContent = `₹${pendingAmount.toLocaleString()}`;
-            
-            const thisMonth = payments
-                .filter(p => p.month === new Date().toLocaleString('default', { month: 'long', year: 'numeric' }))
-                .reduce((sum, p) => sum + parseInt(p.amount), 0);
-            document.getElementById('thisMonthCollection').textContent = `₹${thisMonth.toLocaleString()}`;
-        }
+         // Update payment summaries dashboard stats se lo
+if(window.dashboardStats) {
+    document.getElementById('totalCollected').textContent = dashboardStats.totalCollected || '₹0';
+    document.getElementById('totalPending').textContent = dashboardStats.totalPending || '₹0';
+    document.getElementById('thisMonthCollection').textContent = dashboardStats.thisMonthCollection || '₹0';
+} else {
+    // Fallback to old calculation
+    const totalCollected = payments.reduce((sum, p) => sum + parseInt(p.amount), 0);
+    document.getElementById('totalCollected').textContent = `₹${totalCollected.toLocaleString()}`;
+    
+    const thisMonth = payments
+        .filter(p => p.month === new Date().toLocaleString('default', { month: 'long', year: 'numeric' }))
+        .reduce((sum, p) => sum + parseInt(p.amount), 0);
+    document.getElementById('thisMonthCollection').textContent = `₹${thisMonth.toLocaleString()}`;
+}
 
         // ===== LOAD COMPLAINTS GRID =====
         function loadComplaintsGrid() {
@@ -3650,7 +3696,7 @@ function switchResidentTab(tab) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
             }
-        }
+        };
     </script>
 </body>
 </html>

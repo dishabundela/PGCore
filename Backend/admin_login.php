@@ -3,18 +3,15 @@
 include "db.php";
 session_start();
 
-// Add debug line
-error_log("Admin login attempt: " . $_POST['username']);
-
-$username = $_POST['username'] ?? '';
-$password = $_POST['password'] ?? '';
+$username = isset($_POST['username']) ? $_POST['username'] : '';
+$password = isset($_POST['password']) ? $_POST['password'] : '';
 
 if(empty($username) || empty($password)){
     echo "empty";
     exit;
 }
 
-$sql = "SELECT * FROM admin WHERE username=?";
+$sql = "SELECT * FROM admin WHERE username = ?";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "s", $username);
 mysqli_stmt_execute($stmt);
@@ -26,10 +23,13 @@ if($row = mysqli_fetch_assoc($result)){
         $_SESSION['admin_id'] = $row['id'];
         $_SESSION['admin_username'] = $row['username'];
         echo "success";
+        exit;
     } else {
         echo "wrong";
+        exit;
     }
 } else {
     echo "not_found";
+    exit;
 }
 ?>

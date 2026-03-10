@@ -21,11 +21,11 @@ if(empty($room_number) || empty($room_type) || empty($capacity) || empty($rent))
     exit;
 }
 
+// Add capacity to the insert
 $sql = "INSERT INTO rooms (room_number, room_type, capacity, rent, amenities, status) 
         VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "ssiiss", $room_number, $room_type, $capacity, $rent, $amenities, $status);
-
 if(mysqli_stmt_execute($stmt)){
     echo "success";
 } else {

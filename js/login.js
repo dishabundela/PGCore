@@ -301,7 +301,7 @@ function setupAdminForm() {
         
         const username = document.getElementById('adminUsername').value;
         const password = document.getElementById('adminPassword').value;
-        const adminButton = document.querySelector('.admin-login-btn');
+        const adminButton = document.getElementById('adminButton');
         
         if (!username || !password) {
             alert('Please enter both username and password.');
@@ -331,9 +331,8 @@ function setupAdminForm() {
             
             if (result === 'success') {
                 alert('Admin login successful! Redirecting...');
-                // 👇 CHANGE THIS LINE FROM:
-                // window.location.href = 'admin2/dashboard.html';
-                window.location.href = 'admin2.html';
+                // 👈 THIS IS THE ONLY LINE THAT NEEDS TO CHANGE:
+                window.location.href = 'admin2.html';  // NOT admin2/dashboard.html
             } else if (result === 'wrong') {
                 alert('Wrong admin password.');
             } else if (result === 'not_found') {
