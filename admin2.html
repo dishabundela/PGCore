@@ -1283,14 +1283,7 @@
         <i class="fas fa-address-book"></i>
         <span>Visitor Log</span>
     </a>
-    <a href="#emergency" class="nav-item" onclick="showSection('emergency', event)">
-        <i class="fas fa-ambulance"></i>
-        <span>Emergency</span>
-    </a>
-    <a href="#settings" class="nav-item" onclick="showSection('settings', event)">
-        <i class="fas fa-cog"></i>
-        <span>Settings</span>
-    </a>
+   
 </nav>
             
             <div class="sidebar-footer">
@@ -1380,15 +1373,7 @@
                         </div>
                     </div>
                     
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: rgba(214, 48, 49, 0.1); color: #d63031;">
-                            <i class="fas fa-ambulance"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Active Emergencies</h3>
-                            <p class="stat-number" id="activeEmergencies">0</p>
-                        </div>
-                    </div>
+                 
                     
                     <div class="stat-card">
                         <div class="stat-icon" style="background: rgba(255, 159, 67, 0.1); color: #ff9f43;">
@@ -1641,141 +1626,9 @@
                 </div>
             </section>
 
-            <!-- Emergency Section -->
-            <section id="emergency" class="content-section">
-                <div class="section-header">
-                    <h1>Emergency Management</h1>
-                    <button class="btn-emergency" onclick="openAddEmergencyModal()">
-                        <i class="fas fa-plus"></i> Log Emergency
-                    </button>
-                </div>
-                
-                <div class="summary-cards">
-                    <div class="summary-card" style="border-left: 4px solid #d63031;">
-                        <h4>Active Emergencies</h4>
-                        <p class="amount" id="activeEmergencyCount">0</p>
-                    </div>
-                    <div class="summary-card">
-                        <h4>Resolved Today</h4>
-                        <p class="amount" id="resolvedTodayCount">0</p>
-                    </div>
-                    <div class="summary-card">
-                        <h4>Total This Month</h4>
-                        <p class="amount" id="monthlyEmergencyCount">0</p>
-                    </div>
-                </div>
-                
-                <div class="filter-bar">
-                    <div class="filter-group">
-                        <label>Filter by Status:</label>
-                        <select id="emergencyStatusFilter" onchange="filterEmergencies()">
-                            <option value="all">All</option>
-                            <option value="active">Active</option>
-                            <option value="resolved">Resolved</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label>Filter by Type:</label>
-                        <select id="emergencyTypeFilter" onchange="filterEmergencies()">
-                            <option value="all">All Types</option>
-                            <option value="medical">Medical</option>
-                            <option value="security">Security</option>
-                            <option value="fire">Fire</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Users Name</th>
-                                <th>Room No.</th>
-                                <th>Emergency Type</th>
-                                <th>Description</th>
-                                <th>Reported Time</th>
-                                <th>Status</th>
-                                <th>Action Taken</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="emergencyTableBody">
-                            <!-- Emergency data will be added here -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
 
-            <!-- Settings Section -->
-            <section id="settings" class="content-section">
-                <h1>Settings</h1>
-                
-                <div class="settings-grid">
-                    <div class="settings-card">
-                        <h3><i class="fas fa-building"></i> PG Information</h3>
-                        <form id="pgInfoForm">
-                            <div class="form-group">
-                                <label>PG Name</label>
-                                <input type="text" value="PG Core Girls" id="pgName">
-                            </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <textarea id="pgAddress">123, Main Street, City - 400001</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Contact Number</label>
-                                <input type="text" value="+91 98765 43210" id="pgContact">
-                            </div>
-                            <button type="button" class="btn-primary" onclick="savePGInfo()">Save Changes</button>
-                        </form>
-                    </div>
-                    
-                    <div class="settings-card">
-                        <h3><i class="fas fa-rupee-sign"></i> Rent Settings</h3>
-                        <form id="rentSettingsForm">
-                            <div class="form-group">
-                                <label>Single Sharing Rent (per month)</label>
-                                <input type="number" value="12000" id="singleSharingRent">
-                            </div>
-                            <div class="form-group">
-                                <label>Double Sharing Rent (per month)</label>
-                                <input type="number" value="9000" id="doubleSharingRent">
-                            </div>
-                            <div class="form-group">
-                                <label>Triple Sharing Rent (per month)</label>
-                                <input type="number" value="7500" id="tripleSharingRent">
-                            </div>
-                            <div class="form-group">
-                                <label>Due Date (every month)</label>
-                                <input type="number" value="5" id="dueDate" min="1" max="31">
-                            </div>
-                            <button type="button" class="btn-primary" onclick="saveRentSettings()">Save Changes</button>
-                        </form>
-                    </div>
-                    
-                    <div class="settings-card">
-                        <h3><i class="fas fa-shield-alt"></i> Security Settings</h3>
-                        <form id="securityForm">
-                            <div class="form-group">
-                                <label>Current Password</label>
-                                <input type="password" id="currentPassword">
-                            </div>
-                            <div class="form-group">
-                                <label>New Password</label>
-                                <input type="password" id="newPassword">
-                            </div>
-                            <div class="form-group">
-                                <label>Confirm Password</label>
-                                <input type="password" id="confirmPassword">
-                            </div>
-                            <button type="button" class="btn-primary" onclick="changePassword()">Change Password</button>
-                        </form>
-                    </div>
-                </div>
-            </section>
+
+  
         </div>
     </div>
 
@@ -1973,55 +1826,6 @@
         </div>
     </div>
 
-    <!-- Add Emergency Modal -->
-    <div id="addEmergencyModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Log Emergency</h2>
-                <span class="close" onclick="closeModal('addEmergencyModal')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="addEmergencyForm">
-                    <div class="form-group">
-                        <label>Resident Name *</label>
-                        <select id="emergencyResident" required>
-                            <option value="">Select Resident</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Emergency Type *</label>
-                        <select id="emergencyType" required>
-                            <option value="">Select Type</option>
-                            <option value="medical">Medical Emergency</option>
-                            <option value="security">Security Concern</option>
-                            <option value="fire">Fire Emergency</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Description *</label>
-                        <textarea id="emergencyDescription" rows="4" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Action Taken</label>
-                        <textarea id="emergencyAction" rows="3"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Reported By</label>
-                        <input type="text" id="emergencyReportedBy">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="closeModal('addEmergencyModal')">Cancel</button>
-                <button class="btn-emergency" onclick="saveEmergency()">Log Emergency</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Check Out Visitor Modal -->
     <div id="checkOutVisitorModal" class="modal">
@@ -2411,7 +2215,7 @@ function loadDashboardStats() {
             document.getElementById('monthlyRevenue').textContent = data.monthlyRevenue || '₹0';
             document.getElementById('pendingComplaints').textContent = data.pendingComplaints || 0;
             document.getElementById('todayVisitors').textContent = data.todayVisitors || 0;
-            document.getElementById('activeEmergencies').textContent = data.activeEmergencies || 0;
+        
             document.getElementById('pendingBookings').textContent = data.pendingBookings || 0;
             document.getElementById('requestCount').textContent = data.pendingBookings || 0;
             
@@ -3518,81 +3322,7 @@ function switchResidentTab(tab) {
             }
         }
 
-        function resolveEmergency() {
-            const emergencyId = parseInt(document.getElementById('resolveEmergencyId').value);
-            const resolution = document.getElementById('emergencyResolution').value;
-            const resolvedBy = document.getElementById('emergencyResolvedBy').value;
-            
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const resolvedTime = `${year}-${month}-${day}T${hours}:${minutes}`;
-            
-            const emergency = emergencies.find(e => e.id === emergencyId);
-            if (emergency) {
-                emergency.status = 'resolved';
-                emergency.resolution = resolution;
-                emergency.resolvedBy = resolvedBy;
-                emergency.resolvedTime = resolvedTime;
-                
-                loadEmergencyTable();
-                closeModal('resolveEmergencyModal');
-                loadDashboardStats();
-                
-                alert('Emergency resolved successfully!');
-            }
-        }
-
-        // ===== LOAD EMERGENCY TABLE =====
-        function loadEmergencyTable() {
-            const tbody = document.getElementById('emergencyTableBody');
-            if (!tbody) return;
-            
-            tbody.innerHTML = '';
-            
-            // Update summary counts
-            const activeCount = emergencies.filter(e => e.status === 'active').length;
-            document.getElementById('activeEmergencyCount').textContent = activeCount;
-            
-            const today = new Date().toISOString().split('T')[0];
-            const resolvedToday = emergencies.filter(e => 
-                e.status === 'resolved' && e.resolvedTime && e.resolvedTime.startsWith(today)
-            ).length;
-            document.getElementById('resolvedTodayCount').textContent = resolvedToday;
-            
-            const thisMonth = emergencies.filter(e => {
-                const month = e.reportedTime.substring(0, 7);
-                const currentMonth = new Date().toISOString().substring(0, 7);
-                return month === currentMonth;
-            }).length;
-            document.getElementById('monthlyEmergencyCount').textContent = thisMonth;
-            
-            emergencies.forEach(emergency => {
-                const row = document.createElement('tr');
-                const statusClass = emergency.status === 'active' ? 'status-emergency' : 'status-resolved';
-                
-                row.innerHTML = `
-                    <td>${emergency.id}</td>
-                    <td>${emergency.residentName}</td>
-                    <td>${emergency.room}</td>
-                    <td><span class="emergency-type">${emergency.type}</span></td>
-                    <td>${emergency.description.substring(0, 30)}${emergency.description.length > 30 ? '...' : ''}</td>
-                    <td>${formatDateTime(emergency.reportedTime)}</td>
-                    <td><span class="status-badge ${statusClass}">${emergency.status}</span></td>
-                    <td>${emergency.actionTaken || '-'}</td>
-                    <td>
-                        ${emergency.status === 'active' ? 
-                            `<button class="action-btn" onclick="openResolveEmergencyModal(${emergency.id})" style="color: #00b894;" title="Resolve"><i class="fas fa-check-circle"></i></button>` : 
-                            ''}
-                        <button class="action-btn" onclick="viewEmergency(${emergency.id})"><i class="fas fa-eye"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
+       
 
         // ===== PAGINATION FUNCTIONS =====
         function previousPage(section) {
