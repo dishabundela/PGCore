@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGCore | Bookings Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .report-header {
+            background: #0f3c4c;
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .report-header h1 {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .report-header h1 i {
+            font-size: 28px;
+        }
+
+        .date-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+        }
+
+        .chart-container {
+            padding: 30px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 0 30px 30px 30px;
+        }
+
+        .stat-box {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #0f3c4c;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f3c4c;
+        }
+
+        .stat-trend {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .trend-up {
+            color: #10b981;
+            background: #d1fae5;
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        .trend-down {
+            color: #ef4444;
+            background: #fee2e2;
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        .footer-actions {
+            padding: 20px 30px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: #fafcff;
+        }
+
+        .btn-refresh {
+            background: #0f3c4c;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-refresh:hover {
+            background: #1a5a6e;
+        }
+
+        .btn-print {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-print:hover {
+            background: #475569;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .chart-wrapper {
+                height: 280px;
+            }
+        }
+
+        @media print {
+            .btn-refresh, .btn-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-card">
+    <div class="report-header">
+        <h1>
+            <i class="fas fa-chart-line"></i>
+            Booking Performance Report
+        </h1>
+        <div class="date-badge">
+            <i class="far fa-calendar-alt"></i>
+            <span id="currentDate"></span>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-wrapper">
+            <canvas id="bookingsChart"></canvas>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="stat-label">TOTAL BOOKINGS</div>
+            <div class="stat-value" id="totalBookings">--</div>
+            <div class="stat-trend" id="trendText">Loading...</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">AVG DAILY</div>
+            <div class="stat-value" id="avgDaily">--</div>
+            <div class="stat-trend">last 7 days</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">PEAK DAY</div>
+            <div class="stat-value" id="peakValue">--</div>
+            <div class="stat-trend" id="peakDay">-</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">CONVERSION RATE</div>
+            <div class="stat-value" id="conversionRate">--</div>
+            <div class="stat-trend">inquiries → booking</div>
+        </div>
+    </div>
+
+    <div class="footer-actions">
+        <button class="btn-refresh" onclick="loadReportData()">
+            <i class="fas fa-sync-alt"></i> Refresh Data
+        </button>
+        <button class="btn-print" onclick="window.print()">
+            <i class="fas fa-print"></i> Print Report
+        </button>
+    </div>
+</div>
+
+<script>
+    let bookingsChart = null;
+
+    async function loadReportData() {
+        const refreshBtn = document.querySelector('.btn-refresh');
+        const originalText = refreshBtn.innerHTML;
+        
+        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+        refreshBtn.disabled = true;
+        
+        try {
+            // Use the correct path for your setup
+            const response = await fetch('http://localhost/Girls/PGCore/Backend/admin/get_booking_stats.php');
+            const data = await response.json();
+            
+            console.log('API Response:', data);
+            
+            if(data.error) {
+                alert('Error: ' + data.error);
+                return;
+            }
+            
+            // Update stats
+            document.getElementById('totalBookings').innerText = data.total_bookings || 0;
+            document.getElementById('avgDaily').innerText = data.avg_daily || 0;
+            document.getElementById('peakValue').innerText = data.peak_value || 0;
+            document.getElementById('peakDay').innerHTML = (data.peak_day_name || 'Monday') + ' 🔥';
+            document.getElementById('conversionRate').innerText = (data.conversion_rate || 14.2) + '%';
+            
+            // Update trend
+            const change = data.percent_change || 0;
+            const trendSpan = document.getElementById('trendText');
+            if(change > 0) {
+                trendSpan.innerHTML = `<span class="trend-up"><i class="fas fa-arrow-up"></i> +${change}% vs prev week</span>`;
+            } else if(change < 0) {
+                trendSpan.innerHTML = `<span class="trend-down"><i class="fas fa-arrow-down"></i> ${change}% vs prev week</span>`;
+            } else {
+                trendSpan.innerHTML = `Same as prev week`;
+            }
+            
+            // Update chart - use the data from API
+            const labels = data.labels || ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const chartData = data.bookings_data || [0, 0, 0, 0, 0, 0, 0, 0];
+            
+            updateChart(labels, chartData);
+            
+        } catch(error) {
+            console.error('Error:', error);
+            alert('Failed to load data: ' + error.message);
+        } finally {
+            refreshBtn.innerHTML = originalText;
+            refreshBtn.disabled = false;
+        }
+    }
+    
+    function updateChart(labels, data) {
+        const ctx = document.getElementById('bookingsChart').getContext('2d');
+        
+        if(bookingsChart) {
+            bookingsChart.destroy();
+        }
+        
+        bookingsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Confirmed Bookings',
+                    data: data,
+                    backgroundColor: '#0f3c4c',
+                    borderRadius: 8,
+                    barPercentage: 0.65
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: { weight: '600', size: 12 },
+                            color: '#0f3c4c'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f3c4c',
+                        callbacks: {
+                            label: function(context) {
+                                return `📊 ${context.raw} bookings`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Bookings',
+                            font: { weight: '600', size: 12 },
+                            color: '#0f3c4c'
+                        },
+                        ticks: {
+                            stepSize: 1,
+                            precision: 0
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Day of Week',
+                            font: { weight: '600', size: 12 },
+                            color: '#0f3c4c'
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    function setCurrentDate() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').innerText = now.toLocaleDateString('en-US', options);
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        setCurrentDate();
+        loadReportData();
+    });
+</script>
+</body>
+</html>

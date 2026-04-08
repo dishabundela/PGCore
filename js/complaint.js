@@ -1,196 +1,85 @@
-// ===== LOAD COMPLAINTS ON PAGE LOAD =====
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Complaints page loaded');
-    loadUserComplaints();
-    
-    // Set today's date
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('date').value = today;
-    
-    // Add event listener to button
-    const btn = document.getElementById('submitBtn');
-    if(btn) {
-        btn.addEventListener('click', submitComplaint);
-    }
+    loadComplaints();
+    document.getElementById('date').value = new Date().toISOString().split('T')[0];
+    document.getElementById('submitBtn').addEventListener('click', submitComplaint);
 });
 
-// ===== SUBMIT COMPLAINT =====
 function submitComplaint() {
     const title = document.getElementById('title').value.trim();
     const category = document.getElementById('category').value;
     const room = document.getElementById('room').value.trim();
-    const date = document.getElementById('date').value;
-    const description = document.getElementById('desc').value.trim();
+    const desc = document.getElementById('desc').value.trim();
     
-    console.log('Submitting complaint:', {title, category, room, date, description});
-    
-    // Validation
-    if(!title || !category || !room || !date || !description) {
-        alert('❌ Please fill all fields');
-        return;
-    }
+    if(!title || !room || !desc) return alert('Fill all fields');
     
     const btn = document.getElementById('submitBtn');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SUBMITTING...';
+    btn.innerHTML = 'Submitting...';
     btn.disabled = true;
     
-    // Create form data
-    const formData = new URLSearchParams();
+    const formData = new FormData();
     formData.append('title', title);
     formData.append('category', category);
     formData.append('room_no', room);
-    formData.append('description', description);
+    formData.append('description', desc);
     
-    fetch('Backend/create_complaint.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: formData.toString()
-    })
-    .then(response => response.text())
+    fetch('Backend/create_complaint.php', { method: 'POST', body: formData })
+    .then(r => r.text())
     .then(data => {
-        data = data.trim();
-        console.log('Server response:', data);
-        
-        if(data === 'success') {
-            // Show success message
-            const msg = document.getElementById('successMsg');
-            msg.style.display = 'block';
-            msg.innerHTML = '✅ Complaint submitted successfully!';
-            
-            setTimeout(() => {
-                msg.style.display = 'none';
-            }, 3000);
-            
-            // Clear form (keep date and room)
+        if(data.trim() === 'success') {
+            alert('Complaint submitted');
             document.getElementById('title').value = '';
             document.getElementById('desc').value = '';
-            // Keep room number as is
-            // Keep category as default
-            
-            // Reload complaints list
-            loadUserComplaints();
-            
-        } else if(data === 'not_logged_in') {
-            alert('Please login first');
-            window.location.href = 'login.html';
-            
-        } else if(data === 'empty') {
-            alert('Please fill all fields');
-            
-        } else {
-            // Show error message with the actual error
-            const errorMsg = document.getElementById('errorMsg');
-            errorMsg.style.display = 'block';
-            errorMsg.innerHTML = '❌ Error: ' + data;
-            setTimeout(() => {
-                errorMsg.style.display = 'none';
-            }, 5000);
-        }
+            loadComplaints();
+        } else alert('Error');
     })
-    .catch(error => {
-        console.error('Network error:', error);
-        alert('Network error. Please check your connection.');
-    })
+    .catch(() => alert('Network error'))
     .finally(() => {
-        btn.innerHTML = originalText;
+        btn.innerHTML = 'Submit Complaint';
         btn.disabled = false;
     });
 }
 
-// ===== LOAD USER COMPLAINTS =====
-function loadUserComplaints() {
-    console.log('Loading complaints...');
-    const complaintList = document.getElementById('complaintList');
-    
-    if(!complaintList) {
-        console.error('complaintList element not found!');
-        return;
-    }
-    
-    complaintList.innerHTML = '<p class="no-data"><i class="fas fa-spinner fa-spin"></i> Loading complaints...</p>';
+function loadComplaints() {
+    const container = document.getElementById('complaintList');
+    container.innerHTML = '<div class="loading">Loading...</div>';
     
     fetch('Backend/get_user_complaints.php')
-    .then(response => response.json())
-    .then(complaints => {
-        console.log('Complaints loaded:', complaints);
-        
-        if(complaints.error) {
-            if(complaints.error === 'not_logged_in') {
-                window.location.href = 'login.html';
-                return;
-            }
-            complaintList.innerHTML = `<p class="no-data"><i class="fas fa-exclamation-triangle"></i> ${complaints.error}</p>`;
-            return;
-        }
-        
-        if(!complaints || complaints.length === 0) {
-            complaintList.innerHTML = `
-                <p class="no-data">
-                    <i class="fas fa-info-circle"></i> No complaints yet. Submit your first complaint above.
-                </p>
-            `;
+    .then(r => r.json())
+    .then(data => {
+        if(!data || data.length === 0) {
+            container.innerHTML = '<div class="no-data">No complaints yet</div>';
             return;
         }
         
         let html = '';
-        complaints.forEach(complaint => {
-            // Determine status class and icon
-            let statusClass, statusIcon;
-            const status = (complaint.status || 'pending').toLowerCase();
-            
-            switch(status) {
-                case 'pending':
-                    statusClass = 'status-pending';
-                    statusIcon = '⏳';
-                    break;
-                case 'resolved':
-                    statusClass = 'status-resolved';
-                    statusIcon = '✅';
-                    break;
-                case 'in-progress':
-                case 'in progress':
-                    statusClass = 'status-progress';
-                    statusIcon = '🔄';
-                    break;
-                default:
-                    statusClass = 'status-pending';
-                    statusIcon = '⏳';
+        for(let c of data) {
+            let date = c.complaint_date || 'N/A';
+            if(date !== 'N/A' && date !== '0000-00-00') {
+                let parts = date.split('-');
+                if(parts.length === 3) date = parts[2] + '-' + parts[1] + '-' + parts[0];
             }
             
             html += `
                 <div class="complaint-card">
-                    <div class="complaint-header">
-                        <span class="complaint-date">
-                            <i class="far fa-calendar-alt"></i> ${complaint.complaint_date || 'N/A'}
-                        </span>
-                        <span class="complaint-status ${statusClass}">
-                            ${statusIcon} ${complaint.status || 'Pending'}
-                        </span>
-                    </div>
-                    <div class="complaint-text">
-                        <strong>[${complaint.category || 'General'}] ${complaint.title || 'No Title'}</strong>
-                        <br>
-                        <span style="color: #0f3c4c; font-size: 13px;">
-                            <i class="fas fa-door-open"></i> Room: ${complaint.room_no || 'N/A'}
-                        </span>
-                        <br><br>
-                        ${complaint.description || complaint.complaint_text || 'No description provided'}
-                    </div>
+                    <div class="complaint-date"><i class="far fa-calendar-alt"></i> ${date}</div>
+                    <div class="complaint-category"><i class="fas fa-tag"></i> ${c.category || 'General'}</div>
+                    <div class="complaint-title">${escapeHtml(c.title || 'No Title')}</div>
+                    <div class="complaint-room"><i class="fas fa-door-open"></i> Room: ${c.room_no || 'N/A'}</div>
+                    <div class="complaint-description">${escapeHtml(c.description || c.complaint_text || 'No description')}</div>
                 </div>
             `;
-        });
-        
-        complaintList.innerHTML = html;
+        }
+        container.innerHTML = html;
     })
-    .catch(error => {
-        console.error('Error loading complaints:', error);
-        complaintList.innerHTML = `
-            <p class="no-data">
-                <i class="fas fa-exclamation-triangle"></i> Error loading complaints. Please try again.
-            </p>
-        `;
+    .catch(() => container.innerHTML = '<div class="no-data">Error loading</div>');
+}
+
+function escapeHtml(text) {
+    if(!text) return '';
+    return text.replace(/[&<>]/g, function(m) {
+        if(m === '&') return '&amp;';
+        if(m === '<') return '&lt;';
+        if(m === '>') return '&gt;';
+        return m;
     });
 }

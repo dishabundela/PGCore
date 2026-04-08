@@ -1252,39 +1252,41 @@
     <div class="admin-container">
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
-    <div class="logo">
-   
-    <span>PG Core</span>
-    <img src="images/logo.png" alt="PG Logo" class="pg-logo">
-</div>
+            <div class="logo">
+                <span>PG Core</span>
+                <img src="images/logo.png" alt="PG Logo" class="pg-logo">
+            </div>
             
-        <nav class="nav-menu">
-    <a href="#dashboard" class="nav-item active" onclick="showSection('dashboard', event)">
-        <i class="fas fa-tachometer-alt"></i>
-        <span>Dashboard</span>
-    </a>
-    <a href="#residents" class="nav-item" onclick="showSection('residents', event)">
-        <i class="fas fa-users"></i>
-        <span>Users</span>
-    </a>
-    <a href="#rooms" class="nav-item" onclick="showSection('rooms', event)">
-        <i class="fas fa-bed"></i>
-        <span>Rooms</span>
-    </a>
-    <a href="#payments" class="nav-item" onclick="showSection('payments', event)">
-        <i class="fas fa-rupee-sign"></i>
-        <span>Payments</span>
-    </a>
-    <a href="#complaints" class="nav-item" onclick="showSection('complaints', event)">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span>Complaints</span>
-    </a>
-    <a href="#visitors" class="nav-item" onclick="showSection('visitors', event)">
-        <i class="fas fa-address-book"></i>
-        <span>Visitor Log</span>
-    </a>
-   
-</nav>
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" onclick="showSection('dashboard', event)">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#residents" class="nav-item" onclick="showSection('residents', event)">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="#rooms" class="nav-item" onclick="showSection('rooms', event)">
+                    <i class="fas fa-bed"></i>
+                    <span>Rooms</span>
+                </a>
+                <a href="#payments" class="nav-item" onclick="showSection('payments', event)">
+                    <i class="fas fa-rupee-sign"></i>
+                    <span>Payments</span>
+                </a>
+                <a href="#complaints" class="nav-item" onclick="showSection('complaints', event)">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Complaints</span>
+                </a>
+                <a href="#visitors" class="nav-item" onclick="showSection('visitors', event)">
+                    <i class="fas fa-address-book"></i>
+                    <span>Visitor Log</span>
+                </a>
+                <a href="#report" class="nav-item" onclick="showSection('report', event)">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+            </nav>
             
             <div class="sidebar-footer">
                 <div class="admin-info">
@@ -1340,15 +1342,7 @@
                         </div>
                     </div>
                     
-                    <div class="stat-card">
-                        <div class="stat-icon orange">
-                            <i class="fas fa-rupee-sign"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Monthly Revenue</h3>
-                            <p class="stat-number" id="monthlyRevenue">₹0</p>
-                        </div>
-                    </div>
+                   
                     
                     <div class="stat-card">
                         <div class="stat-icon red">
@@ -1373,8 +1367,6 @@
                         </div>
                     </div>
                     
-                 
-                    
                     <div class="stat-card">
                         <div class="stat-icon" style="background: rgba(255, 159, 67, 0.1); color: #ff9f43;">
                             <i class="fas fa-clock"></i>
@@ -1388,25 +1380,19 @@
 
                 <!-- Activities and Dues -->
                 <div class="dashboard-grid">
-                    <!-- Recent Activities Card -->
                     <div class="recent-activities">
                         <h3>Recent Activities</h3>
-                        <div class="activity-list" id="activityList">
-                            <!-- Activities will be added here dynamically -->
-                        </div>
+                        <div class="activity-list" id="activityList"></div>
                     </div>
                     
-                    <!-- Upcoming Rent Dues Card -->
-                   <!-- Upcoming Rent Dues Card -->
-<div class="upcoming-dues">
-    <h3>Upcoming Rent Dues</h3>
-    <div class="dues-list" id="duesList">
-        <!-- Dues will be added here dynamically -->
-    </div>
-</div>
+                    <div class="upcoming-dues">
+                        <h3>Upcoming Rent Dues</h3>
+                        <div class="dues-list" id="duesList"></div>
+                    </div>
+                </div>
             </section>
 
-            <!-- Residents Section with Booking Requests -->
+            <!-- Residents Section -->
             <section id="residents" class="content-section">
                 <div class="section-header">
                     <h1>Users Management</h1>
@@ -1415,7 +1401,6 @@
                     </button>
                 </div>
                 
-                <!-- Tab Navigation -->
                 <div class="tab-container">
                     <button class="tab-btn active" onclick="switchResidentTab('all')" id="tabAll">All Users</button>
                     <button class="tab-btn" onclick="switchResidentTab('requests')" id="tabRequests">
@@ -1424,7 +1409,6 @@
                     </button>
                 </div>
                 
-                <!-- All Users Tab Content -->
                 <div id="allUsersContainer">
                     <div class="filter-bar">
                         <div class="filter-group">
@@ -1468,9 +1452,7 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="residentsTableBody">
-                                <!-- Residents data will be added here -->
-                            </tbody>
+                            <tbody id="residentsTableBody"></tbody>
                         </table>
                     </div>
                     
@@ -1481,7 +1463,6 @@
                     </div>
                 </div>
                 
-                <!-- Booking Requests Tab Content -->
                 <div id="requestsContainer" style="display: none;">
                     <div class="filter-bar">
                         <div class="filter-group">
@@ -1500,9 +1481,7 @@
                         </div>
                     </div>
                     
-                    <div class="requests-container" id="bookingRequestsList">
-                        <!-- Booking requests will be loaded here -->
-                    </div>
+                    <div class="requests-container" id="bookingRequestsList"></div>
                 </div>
             </section>
 
@@ -1515,32 +1494,29 @@
                     </button>
                 </div>
                 
-                <div class="rooms-grid" id="roomsGrid">
-                    <!-- Rooms will be displayed here -->
-                </div>
+                <div class="rooms-grid" id="roomsGrid"></div>
             </section>
 
             <!-- Payments Section -->
             <section id="payments" class="content-section">
                 <div class="section-header">
                     <h1>Payments Management</h1>
-                   
                 </div>
                 
-<div class="summary-cards">
-    <div class="summary-card">
-        <h4>Total Collected</h4>
-        <p class="amount" id="totalCollected">₹0</p>
-    </div>
-    <div class="summary-card">
-        <h4>Pending</h4>
-        <p class="amount" id="totalPending">₹0</p>
-    </div>
-    <div class="summary-card">
-        <h4>This Month</h4>
-        <p class="amount" id="thisMonthCollection">₹0</p>
-    </div>
-</div>
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <h4>Total Collected</h4>
+                        <p class="amount" id="totalCollected">₹0</p>
+                    </div>
+                    <div class="summary-card">
+                        <h4>Pending</h4>
+                        <p class="amount" id="totalPending">₹0</p>
+                    </div>
+                    <div class="summary-card">
+                        <h4>This Month</h4>
+                        <p class="amount" id="thisMonthCollection">₹0</p>
+                    </div>
+                </div>
                 
                 <div class="table-responsive">
                     <table class="data-table" id="paymentsTable">
@@ -1557,9 +1533,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="paymentsTableBody">
-                            <!-- Payments data will be added here -->
-                        </tbody>
+                        <tbody id="paymentsTableBody"></tbody>
                     </table>
                 </div>
             </section>
@@ -1568,9 +1542,7 @@
             <section id="complaints" class="content-section">
                 <h1>Complaints Management</h1>
                 
-                <div class="complaints-grid" id="complaintsGrid">
-                    <!-- Complaints will be displayed here -->
-                </div>
+                <div class="complaints-grid" id="complaintsGrid"></div>
             </section>
 
             <!-- Visitor Log Section -->
@@ -1619,16 +1591,16 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="visitorsTableBody">
-                            <!-- Visitor data will be added here -->
-                        </tbody>
+                        <tbody id="visitorsTableBody"></tbody>
                     </table>
                 </div>
             </section>
 
+            <!-- Report Section -->
+            <section id="report" class="content-section">
+                <iframe src="report.html" style="width: 100%; height: calc(100vh - 100px); border: none; border-radius: 15px;"></iframe>
+            </section>
 
-
-  
         </div>
     </div>
 
@@ -1826,7 +1798,6 @@
         </div>
     </div>
 
-
     <!-- Check Out Visitor Modal -->
     <div id="checkOutVisitorModal" class="modal">
         <div class="modal-content">
@@ -1860,79 +1831,19 @@
         </div>
     </div>
 
-    <!-- Resolve Emergency Modal -->
-    <div id="resolveEmergencyModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Resolve Emergency</h2>
-                <span class="close" onclick="closeModal('resolveEmergencyModal')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="resolveEmergencyForm">
-                    <input type="hidden" id="resolveEmergencyId">
-                    <div class="form-group">
-                        <label>Emergency Details</label>
-                        <p id="resolveEmergencyDetails" style="padding: 10px; background: #f5f6fa; border-radius: 8px;"></p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Resolution Details *</label>
-                        <textarea id="emergencyResolution" rows="4" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Resolved By</label>
-                        <input type="text" id="emergencyResolvedBy" value="Admin">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="closeModal('resolveEmergencyModal')">Cancel</button>
-                <button class="btn-primary" onclick="resolveEmergency()">Mark Resolved</button>
-            </div>
-        </div>
-    </div>
-
-   <script>
+    <script>
         // ===== GLOBAL VARIABLES FOR REAL DATA =====
         let residents = [];
         let rooms = [];
         let payments = [];
         let complaints = [];
         let visitors = [];
-        let emergencies = [
-            {
-                id: 1,
-                residentName: "Riya Gupta",
-                room: "103",
-                type: "medical",
-                description: "High fever and severe headache",
-                reportedTime: "2024-02-15T09:15",
-                status: "active",
-                actionTaken: "Doctor has been called",
-                reportedBy: "Riya Gupta"
-            },
-            {
-                id: 2,
-                residentName: "Neha Patel",
-                room: "102",
-                type: "security",
-                description: "Suspicious person at the gate",
-                reportedTime: "2024-02-14T22:30",
-                status: "resolved",
-                actionTaken: "Security checked and cleared",
-                reportedBy: "Security Guard",
-                resolvedTime: "2024-02-14T23:00",
-                resolvedBy: "Admin"
-            }
-        ];
         let bookingRequests = [];
         let activities = [];
         let dues = [];
 
         // ===== INITIALIZE DASHBOARD - FETCH REAL DATA =====
         document.addEventListener('DOMContentLoaded', function() {
-            // First check if admin is logged in
             fetch('Backend/admin/check_admin_session.php')
                 .then(response => response.json())
                 .then(data => {
@@ -1940,11 +1851,9 @@
                         window.location.href = 'login.html';
                         return;
                     }
-                    // Set admin name
                     if(data.username){
                         document.querySelector('.admin-info p').textContent = data.username;
                     }
-                    // Load all data
                     loadDashboardStats();
                     loadResidents();
                     loadRooms();
@@ -1962,7 +1871,7 @@
                 });
         });
 
-        // ===== LOAD RESIDENTS =====
+        // ===== LOAD FUNCTIONS =====
         function loadResidents() {
             fetch('Backend/admin/get_all_users.php')
                 .then(response => response.json())
@@ -1977,7 +1886,6 @@
                 .catch(error => console.error('Fetch error:', error));
         }
 
-        // ===== LOAD ROOMS =====
         function loadRooms() {
             fetch('Backend/admin/get_all_rooms.php')
                 .then(response => response.json())
@@ -1992,7 +1900,6 @@
                 .catch(error => console.error('Fetch error:', error));
         }
 
-        // ===== LOAD PAYMENTS =====
         function loadPayments() {
             fetch('Backend/admin/get_all_payments.php')
                 .then(response => response.json())
@@ -2007,7 +1914,6 @@
                 .catch(error => console.error('Fetch error:', error));
         }
 
-        // ===== LOAD COMPLAINTS =====
         function loadComplaints() {
             fetch('Backend/admin/get_all_complaints.php')
                 .then(response => response.json())
@@ -2022,7 +1928,6 @@
                 .catch(error => console.error('Fetch error:', error));
         }
 
-        // ===== LOAD VISITORS =====
         function loadVisitors() {
             fetch('Backend/admin/get_all_visitors.php')
                 .then(response => response.json())
@@ -2037,136 +1942,19 @@
                 .catch(error => console.error('Fetch error:', error));
         }
 
-        // ===== LOAD BOOKING REQUESTS =====
-// ===== LOAD BOOKING REQUESTS =====
-function loadBookingRequests() {
-    console.log('🔄 Loading booking requests...');
-    
-    fetch('Backend/admin/get_all_bookings.php')
-        .then(response => response.json())
-        .then(data => {
-            console.log('📦 Bookings received:', data);
-            
-            // The data is already an array from your API
-            bookingRequests = data;
-            
-            // Update the request count badge
-            const pendingCount = bookingRequests.filter(b => b.status === 'pending').length;
-            const requestBadge = document.getElementById('requestCount');
-            if(requestBadge) requestBadge.textContent = pendingCount;
-            
-            // Load the list
-            loadBookingRequestsList();
-        })
-        .catch(error => {
-            console.error('❌ Error loading bookings:', error);
-            const container = document.getElementById('bookingRequestsList');
-            if(container){
-                container.innerHTML = '<div class="no-data">Error loading bookings</div>';
-            }
-        });
-}
-
-// ===== LOAD BOOKING REQUESTS LIST =====
-function loadBookingRequestsList() {
-    console.log('Loading booking requests list with data:', bookingRequests);
-    
-    const container = document.getElementById('bookingRequestsList');
-    if(!container) {
-        console.error('Container not found!');
-        return;
-    }
-    
-    const filterValue = document.getElementById('bookingStatusFilter')?.value || 'all';
-    console.log('Filter value:', filterValue);
-    
-    let filteredRequests = bookingRequests;
-    
-    // Apply filter
-    if (filterValue !== 'all') {
-        filteredRequests = bookingRequests.filter(r => r.status === filterValue);
-    }
-    
-    console.log('Filtered requests:', filteredRequests.length);
-    
-    if (filteredRequests.length === 0) {
-        container.innerHTML = '<div class="no-data">No booking requests found</div>';
-        return;
-    }
-    
-    container.innerHTML = '';
-    
-    filteredRequests.forEach(request => {
-        console.log('Creating card for:', request.name);
-        
-        const card = document.createElement('div');
-        card.className = `request-card ${request.status}`;
-        
-        const statusClass = request.status === 'pending' ? 'status-pending' : 
-                           request.status === 'confirmed' ? 'status-confirmed' : 
-                           'status-rejected';
-        
-        const statusText = request.status === 'pending' ? 'Pending' : 
-                          request.status === 'confirmed' ? 'Confirmed' : 
-                          'Rejected';
-        
-        let actionButtons = '';
-        if (request.status === 'pending') {
-            actionButtons = `
-                <div class="request-actions">
-                    <button class="btn-confirm" onclick="confirmBooking(${request.id})">
-                        <i class="fas fa-check"></i> Confirm
-                    </button>
-                    <button class="btn-reject" onclick="rejectBooking(${request.id})">
-                        <i class="fas fa-times"></i> Reject
-                    </button>
-                </div>
-            `;
-        } else {
-            actionButtons = `
-                <div class="request-actions">
-                    <button class="btn-primary" onclick="viewBookingDetails(${request.id})" style="flex: 1;">
-                        <i class="fas fa-eye"></i> View Details
-                    </button>
-                </div>
-            `;
+        function loadBookingRequests() {
+            fetch('Backend/admin/get_all_bookings.php')
+                .then(response => response.json())
+                .then(data => {
+                    bookingRequests = data;
+                    const pendingCount = bookingRequests.filter(b => b.status === 'pending').length;
+                    const requestBadge = document.getElementById('requestCount');
+                    if(requestBadge) requestBadge.textContent = pendingCount;
+                    loadBookingRequestsList();
+                })
+                .catch(error => console.error('Error loading bookings:', error));
         }
-        
-        card.innerHTML = `
-            <div class="request-header">
-                <span class="request-name">${request.name || 'Unknown'}</span>
-                <span class="request-status ${statusClass}">${statusText}</span>
-            </div>
-            <div class="request-details">
-                <div class="detail-row">
-                    <span class="label">Mobile:</span>
-                    <span>${request.mobile || 'N/A'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="label">Email:</span>
-                    <span>${request.email || 'N/A'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="label">Room Preference:</span>
-                    <span>${request.roomPreference || 'N/A'} (${request.roomType || 'N/A'})</span>
-                </div>
-                <div class="detail-row">
-                    <span class="label">Check-in Date:</span>
-                    <span>${request.checkInDate || 'N/A'}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="label">Rent:</span>
-                    <span>₹${request.price || '0'}</span>
-                </div>
-            </div>
-            ${actionButtons}
-        `;
-        
-        container.appendChild(card);
-    });
-}
 
-        // ===== LOAD ACTIVITIES =====
         function loadActivities() {
             fetch('Backend/admin/get_recent_activities.php')
                 .then(response => response.json())
@@ -2181,7 +1969,6 @@ function loadBookingRequestsList() {
                 .catch(error => console.error('Fetch error:', error));
         }
 
-        // ===== LOAD DUES =====
         function loadDues() {
             fetch('Backend/admin/get_upcoming_dues.php')
                 .then(response => response.json())
@@ -2196,9 +1983,7 @@ function loadBookingRequestsList() {
                 .catch(error => console.error('Fetch error:', error));
         }
 
-        // ===== LOAD DASHBOARD STATS =====
-        // ===== LOAD DASHBOARD STATS =====
-function loadDashboardStats() {
+        function loadDashboardStats() {
     fetch('Backend/admin/get_dashboard_stats.php')
         .then(response => response.json())
         .then(data => {
@@ -2207,15 +1992,13 @@ function loadDashboardStats() {
                 return;
             }
             
-            console.log("Dashboard stats received:", data); // Debug log
+            console.log("Dashboard stats received:", data);
             
             // Update dashboard stats
             document.getElementById('totalResidents').textContent = data.totalResidents || 0;
             document.getElementById('availableRooms').textContent = data.availableRooms || 0;
-            document.getElementById('monthlyRevenue').textContent = data.monthlyRevenue || '₹0';
             document.getElementById('pendingComplaints').textContent = data.pendingComplaints || 0;
             document.getElementById('todayVisitors').textContent = data.todayVisitors || 0;
-        
             document.getElementById('pendingBookings').textContent = data.pendingBookings || 0;
             document.getElementById('requestCount').textContent = data.pendingBookings || 0;
             
@@ -2229,10 +2012,8 @@ function loadDashboardStats() {
             // Set default values on error
             document.getElementById('totalResidents').textContent = '0';
             document.getElementById('availableRooms').textContent = '0';
-            document.getElementById('monthlyRevenue').textContent = '₹0';
             document.getElementById('pendingComplaints').textContent = '0';
             document.getElementById('todayVisitors').textContent = '0';
-            document.getElementById('activeEmergencies').textContent = '0';
             document.getElementById('pendingBookings').textContent = '0';
             document.getElementById('requestCount').textContent = '0';
             
@@ -2242,13 +2023,10 @@ function loadDashboardStats() {
             document.getElementById('thisMonthCollection').textContent = '₹0';
         });
 }
-
-        // ===== LOAD RESIDENTS TABLE =====
         function loadResidentsTable() {
             const tbody = document.getElementById('residentsTableBody');
             if(!tbody) return;
             tbody.innerHTML = '';
-            
             residents.forEach(resident => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -2270,79 +2048,66 @@ function loadDashboardStats() {
             });
         }
 
-        // ===== LOAD ROOMS GRID =====
-        // ===== LOAD ROOMS GRID WITH OCCUPANTS =====
-function loadRoomsGrid() {
-    const grid = document.getElementById('roomsGrid');
-    if(!grid) return;
-    grid.innerHTML = '';
-    
-    rooms.forEach(room => {
-        const roomCard = document.createElement('div');
-        roomCard.className = 'room-card';
-        
-        const occupancyPercentage = ((room.occupants_count || 0) / (room.capacity || 1)) * 100;
-        const amenitiesList =  'Standard';
-        
-        // Generate occupants HTML
-        let occupantsHtml = '';
-        if(room.occupants && room.occupants.length > 0){
-            occupantsHtml = '<div style="margin-top: 10px; padding: 8px; background: #f0f7fa; border-radius: 8px;">';
-            occupantsHtml += '<strong style="color: #0f3c4c;">Occupants:</strong>';
-            occupantsHtml += '<ul style="margin: 5px 0 0 15px; font-size: 12px;">';
-            room.occupants.forEach(occ => {
-                occupantsHtml += `<li style="color: #333;">${occ}</li>`;
+        function loadRoomsGrid() {
+            const grid = document.getElementById('roomsGrid');
+            if(!grid) return;
+            grid.innerHTML = '';
+            rooms.forEach(room => {
+                const roomCard = document.createElement('div');
+                roomCard.className = 'room-card';
+                const occupancyPercentage = ((room.occupants_count || 0) / (room.capacity || 1)) * 100;
+                let occupantsHtml = '';
+                if(room.occupants && room.occupants.length > 0){
+                    occupantsHtml = '<div style="margin-top: 10px; padding: 8px; background: #f0f7fa; border-radius: 8px;">';
+                    occupantsHtml += '<strong style="color: #0f3c4c;">Occupants:</strong>';
+                    occupantsHtml += '<ul style="margin: 5px 0 0 15px; font-size: 12px;">';
+                    room.occupants.forEach(occ => {
+                        occupantsHtml += `<li style="color: #333;">${occ}</li>`;
+                    });
+                    occupantsHtml += '</ul></div>';
+                } else {
+                    occupantsHtml = '<div style="margin-top: 10px; padding: 8px; background: #e8f5e9; border-radius: 8px; color: #2e7d32;">✓ No occupants yet</div>';
+                }
+                let statusBadge = '';
+                if(room.status === 'available' || (room.occupants_count === 0)){
+                    statusBadge = '<span class="status-badge status-active">Available</span>';
+                } else if(room.status === 'occupied' || room.occupants_count >= room.capacity){
+                    statusBadge = '<span class="status-badge status-inactive">Full</span>';
+                } else {
+                    statusBadge = '<span class="status-badge status-pending">Partial (' + room.occupants_count + '/' + room.capacity + ')</span>';
+                }
+                roomCard.innerHTML = `
+                    <div class="room-header">
+                        <span class="room-number">Room ${room.number}</span>
+                        <span class="room-type">${room.type}</span>
+                    </div>
+                    <div class="room-details">
+                        <div class="detail-item">
+                            <span>Capacity:</span>
+                            <span>${room.occupants_count || 0}/${room.capacity}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Amenities:</span>
+                            <span>Standard</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: ${occupancyPercentage}%"></div>
+                        </div>
+                        ${occupantsHtml}
+                    </div>
+                    <div class="room-footer">
+                        <span class="rent-amount">₹${room.rent}/month</span>
+                        ${statusBadge}
+                    </div>
+                `;
+                grid.appendChild(roomCard);
             });
-            occupantsHtml += '</ul></div>';
-        } else {
-            occupantsHtml = '<div style="margin-top: 10px; padding: 8px; background: #e8f5e9; border-radius: 8px; color: #2e7d32;">✓ No occupants yet</div>';
         }
-        
-        // Status badge with better info
-        let statusBadge = '';
-        if(room.status === 'available' || (room.occupants_count === 0)){
-            statusBadge = '<span class="status-badge status-active">Available</span>';
-        } else if(room.status === 'occupied' || room.occupants_count >= room.capacity){
-            statusBadge = '<span class="status-badge status-inactive">Full</span>';
-        } else {
-            statusBadge = '<span class="status-badge status-pending">Partial (' + room.occupants_count + '/' + room.capacity + ')</span>';
-        }
-        
-        roomCard.innerHTML = `
-            <div class="room-header">
-                <span class="room-number">Room ${room.number}</span>
-                <span class="room-type">${room.type}</span>
-            </div>
-            <div class="room-details">
-                <div class="detail-item">
-                    <span>Capacity:</span>
-                    <span>${room.occupants_count || 0}/${room.capacity}</span>
-                </div>
-                <div class="detail-item">
-                    <span>Amenities:</span>
-                    <span>${amenitiesList}</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: ${occupancyPercentage}%"></div>
-                </div>
-                ${occupantsHtml}
-            </div>
-            <div class="room-footer">
-                <span class="rent-amount">₹${room.rent}/month</span>
-                ${statusBadge}
-            </div>
-        `;
-        
-        grid.appendChild(roomCard);
-    });
-}
 
-        // ===== LOAD PAYMENTS TABLE =====
         function loadPaymentsTable() {
             const tbody = document.getElementById('paymentsTableBody');
             if(!tbody) return;
             tbody.innerHTML = '';
-            
             payments.forEach(payment => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -2362,30 +2127,11 @@ function loadRoomsGrid() {
                 tbody.appendChild(row);
             });
         }
-            
-            // Update payment summaries
-         // Update payment summaries dashboard stats se lo
-if(window.dashboardStats) {
-    document.getElementById('totalCollected').textContent = dashboardStats.totalCollected || '₹0';
-    document.getElementById('totalPending').textContent = dashboardStats.totalPending || '₹0';
-    document.getElementById('thisMonthCollection').textContent = dashboardStats.thisMonthCollection || '₹0';
-} else {
-    // Fallback to old calculation
-    const totalCollected = payments.reduce((sum, p) => sum + parseInt(p.amount), 0);
-    document.getElementById('totalCollected').textContent = `₹${totalCollected.toLocaleString()}`;
-    
-    const thisMonth = payments
-        .filter(p => p.month === new Date().toLocaleString('default', { month: 'long', year: 'numeric' }))
-        .reduce((sum, p) => sum + parseInt(p.amount), 0);
-    document.getElementById('thisMonthCollection').textContent = `₹${thisMonth.toLocaleString()}`;
-}
 
-        // ===== LOAD COMPLAINTS GRID =====
         function loadComplaintsGrid() {
             const grid = document.getElementById('complaintsGrid');
             if(!grid) return;
             grid.innerHTML = '';
-            
             complaints.forEach(complaint => {
                 const complaintCard = document.createElement('div');
                 complaintCard.className = 'complaint-card';
@@ -2409,18 +2155,13 @@ if(window.dashboardStats) {
             });
         }
 
-        // ===== LOAD VISITORS TABLE =====
         function loadVisitorsTable() {
             const tbody = document.getElementById('visitorsTableBody');
             if (!tbody) return;
-            
             tbody.innerHTML = '';
-            
             visitors.forEach(visitor => {
                 const row = document.createElement('tr');
-                const checkOutTime = visitor.checkOut ? visitor.checkOut : '-';
                 const statusClass = visitor.status === 'checked-in' ? 'status-active' : 'status-inactive';
-                
                 row.innerHTML = `
                     <td>${visitor.id}</td>
                     <td>${visitor.name}</td>
@@ -2442,38 +2183,28 @@ if(window.dashboardStats) {
             });
         }
 
-        // ===== LOAD BOOKING REQUESTS LIST =====
         function loadBookingRequestsList() {
             const container = document.getElementById('bookingRequestsList');
             if(!container) return;
-            
             const filterValue = document.getElementById('bookingStatusFilter')?.value || 'all';
-            
             let filteredRequests = bookingRequests;
-            
-            // Apply filter
             if (filterValue !== 'all') {
                 filteredRequests = bookingRequests.filter(r => r.status === filterValue);
             }
-            
             if (filteredRequests.length === 0) {
                 container.innerHTML = '<div class="no-data">No booking requests found</div>';
                 return;
             }
-            
             container.innerHTML = '';
             filteredRequests.forEach(request => {
                 const card = document.createElement('div');
                 card.className = `request-card ${request.status}`;
-                
                 const statusClass = request.status === 'pending' ? 'status-pending' : 
                                    request.status === 'confirmed' ? 'status-confirmed' : 
                                    'status-rejected';
-                
                 const statusText = request.status === 'pending' ? 'Pending' : 
                                   request.status === 'confirmed' ? 'Confirmed' : 
                                   'Rejected';
-                
                 let actionButtons = '';
                 if (request.status === 'pending') {
                     actionButtons = `
@@ -2495,32 +2226,31 @@ if(window.dashboardStats) {
                         </div>
                     `;
                 }
-                
                 card.innerHTML = `
                     <div class="request-header">
-                        <span class="request-name">${request.name}</span>
+                        <span class="request-name">${request.name || 'Unknown'}</span>
                         <span class="request-status ${statusClass}">${statusText}</span>
                     </div>
                     <div class="request-details">
                         <div class="detail-row">
                             <span class="label">Mobile:</span>
-                            <span>${request.mobile}</span>
+                            <span>${request.mobile || 'N/A'}</span>
                         </div>
                         <div class="detail-row">
                             <span class="label">Email:</span>
-                            <span>${request.email}</span>
+                            <span>${request.email || 'N/A'}</span>
                         </div>
                         <div class="detail-row">
                             <span class="label">Room Preference:</span>
-                            <span>${request.roomPreference} (${request.roomType})</span>
+                            <span>${request.roomPreference || 'N/A'} (${request.roomType || 'N/A'})</span>
                         </div>
                         <div class="detail-row">
                             <span class="label">Check-in Date:</span>
-                            <span>${request.checkInDate}</span>
+                            <span>${request.checkInDate || 'N/A'}</span>
                         </div>
                         <div class="detail-row">
-                            <span class="label">Occupation:</span>
-                            <span>${request.occupation || 'N/A'}</span>
+                            <span class="label">Rent:</span>
+                            <span>₹${request.price || '0'}</span>
                         </div>
                     </div>
                     ${actionButtons}
@@ -2529,26 +2259,20 @@ if(window.dashboardStats) {
             });
         }
 
-        // ===== LOAD ACTIVITIES LIST =====
         function loadActivitiesList() {
             const activityList = document.getElementById('activityList');
             if(!activityList) return;
-            
             activityList.innerHTML = '';
-            
             activities.forEach(activity => {
                 const activityItem = document.createElement('div');
                 activityItem.className = 'activity-item';
-                
                 let iconClass = 'checkin';
                 if(activity.type === 'payment') iconClass = 'payment';
                 else if(activity.type === 'complaint') iconClass = 'complaint';
                 else if(activity.type === 'visitor') iconClass = 'visitor';
-                else if(activity.type === 'emergency') iconClass = 'emergency';
-                
                 activityItem.innerHTML = `
                     <div class="activity-icon ${iconClass}">
-                        <i class="fas fa-${activity.type === 'checkin' ? 'user-plus' : activity.type === 'payment' ? 'rupee-sign' : activity.type === 'complaint' ? 'exclamation-triangle' : activity.type === 'visitor' ? 'address-book' : 'ambulance'}"></i>
+                        <i class="fas fa-${activity.type === 'checkin' ? 'user-plus' : activity.type === 'payment' ? 'rupee-sign' : activity.type === 'complaint' ? 'exclamation-triangle' : 'address-book'}"></i>
                     </div>
                     <div class="activity-details">
                         <p>${activity.description}</p>
@@ -2559,13 +2283,10 @@ if(window.dashboardStats) {
             });
         }
 
-        // ===== LOAD DUES LIST =====
         function loadDuesList() {
             const duesList = document.getElementById('duesList');
             if(!duesList) return;
-            
             duesList.innerHTML = '';
-            
             dues.forEach(due => {
                 const dueItem = document.createElement('div');
                 dueItem.className = 'due-item';
@@ -2581,159 +2302,80 @@ if(window.dashboardStats) {
             });
         }
 
-        // ===== COLLECT PAYMENT FUNCTION =====
-        // ===== COLLECT PAYMENT FUNCTION (For OFFLINE payments only) =====
-function collectPayment(dueId) {
-    // Get the due item from the list
-    const dueItem = event.target.closest('.due-item');
-    if(!dueItem) return;
-    
-    // Extract resident name and amount
-    const residentName = dueItem.querySelector('.due-info p strong')?.textContent || 'Resident';
-    const amountText = dueItem.querySelector('.due-info p:nth-child(2)')?.textContent || '';
-    const amount = amountText.replace('Amount: ₹', '').replace(',', '');
-    
-    // Ask if this is offline payment
-    if(!confirm(`Record OFFLINE payment of ₹${amount} from ${residentName}?`)) return;
-    
-    const btn = event.target;
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-    btn.disabled = true;
-    
-    // Get next month
-    const month = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
-    
-    // Send to server
-    const formData = new FormData();
-    formData.append('user_id', dueId);
-    formData.append('amount', amount);
-    formData.append('month', month);
-    
-    fetch('Backend/admin/record_payment.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        if(data.trim() === 'success'){
-            alert('✅ Offline payment recorded successfully!');
-            dueItem.remove();
-            loadDashboardStats();
-            loadPayments();
-            loadActivities();
-        } else if(data.trim() === 'already_paid') {
-            alert('❌ This user has already paid online!');
-        } else {
-            alert('❌ Error recording payment: ' + data);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Network error');
-    })
-    .finally(() => {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-    });
-}
-
-        // ===== DISPLAY CURRENT DATE =====
+        // ===== HELPER FUNCTIONS =====
         function displayCurrentDate() {
             const date = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             document.getElementById('currentDate').textContent = date.toLocaleDateString('en-US', options);
         }
 
-        // ===== TOGGLE SIDEBAR =====
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('collapsed');
         }
 
-        // ===== SHOW SECTION =====
         function showSection(sectionId, event) {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            
             document.getElementById(sectionId).classList.add('active');
-            
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
             event.currentTarget.classList.add('active');
         }
 
-        // ===== SWITCH BETWEEN RESIDENTS TAB AND REQUESTS TAB =====
-       // ===== SWITCH BETWEEN RESIDENTS TAB AND REQUESTS TAB =====
-function switchResidentTab(tab) {
-    console.log('Switching to tab:', tab); // Debug log
-    
-    const tabAll = document.getElementById('tabAll');
-    const tabRequests = document.getElementById('tabRequests');
-    const allUsersContainer = document.getElementById('allUsersContainer');
-    const requestsContainer = document.getElementById('requestsContainer');
-    
-    if (tab === 'all') {
-        tabAll.classList.add('active');
-        tabRequests.classList.remove('active');
-        allUsersContainer.style.display = 'block';
-        requestsContainer.style.display = 'none';
-        loadResidentsTable();
-    } else {
-        tabAll.classList.remove('active');
-        tabRequests.classList.add('active');
-        allUsersContainer.style.display = 'none';
-        requestsContainer.style.display = 'block';
-        
-        // IMPORTANT: Load bookings when switching to requests tab
-        console.log('Loading bookings for requests tab');
-        loadBookingRequests(); // This will fetch and display
-    }
-}
+        function switchResidentTab(tab) {
+            const tabAll = document.getElementById('tabAll');
+            const tabRequests = document.getElementById('tabRequests');
+            const allUsersContainer = document.getElementById('allUsersContainer');
+            const requestsContainer = document.getElementById('requestsContainer');
+            if (tab === 'all') {
+                tabAll.classList.add('active');
+                tabRequests.classList.remove('active');
+                allUsersContainer.style.display = 'block';
+                requestsContainer.style.display = 'none';
+                loadResidentsTable();
+            } else {
+                tabAll.classList.remove('active');
+                tabRequests.classList.add('active');
+                allUsersContainer.style.display = 'none';
+                requestsContainer.style.display = 'block';
+                loadBookingRequests();
+            }
+        }
 
-        // ===== FILTER BOOKINGS =====
         function filterBookings() {
             loadBookingRequestsList();
         }
 
-        // ===== SEARCH BOOKINGS =====
         function searchBookings() {
             const searchTerm = document.getElementById('bookingSearch').value.toLowerCase();
             const filterValue = document.getElementById('bookingStatusFilter').value;
             const container = document.getElementById('bookingRequestsList');
-            
             let filtered = bookingRequests;
-            
             if (filterValue !== 'all') {
                 filtered = bookingRequests.filter(r => r.status === filterValue);
             }
-            
             const searched = filtered.filter(request => 
                 request.name.toLowerCase().includes(searchTerm) ||
                 request.mobile.includes(searchTerm) ||
                 request.email.toLowerCase().includes(searchTerm) ||
                 request.roomPreference.includes(searchTerm)
             );
-            
             if (searched.length === 0) {
                 container.innerHTML = '<div class="no-data">No matching bookings found</div>';
                 return;
             }
-            
             container.innerHTML = '';
             searched.forEach(request => {
                 const card = document.createElement('div');
                 card.className = `request-card ${request.status}`;
-                
                 const statusClass = request.status === 'pending' ? 'status-pending' : 
                                    request.status === 'confirmed' ? 'status-confirmed' : 
                                    'status-rejected';
-                
                 const statusText = request.status === 'pending' ? 'Pending' : 
                                   request.status === 'confirmed' ? 'Confirmed' : 
                                   'Rejected';
-                
                 let actionButtons = '';
                 if (request.status === 'pending') {
                     actionButtons = `
@@ -2755,7 +2397,6 @@ function switchResidentTab(tab) {
                         </div>
                     `;
                 }
-                
                 card.innerHTML = `
                     <div class="request-header">
                         <span class="request-name">${request.name}</span>
@@ -2785,14 +2426,11 @@ function switchResidentTab(tab) {
             });
         }
 
-        // ===== CONFIRM BOOKING =====
         function confirmBooking(requestId) {
             if(!confirm('Are you sure you want to confirm this booking?')) return;
-            
             const formData = new FormData();
             formData.append('booking_id', requestId);
             formData.append('status', 'confirmed');
-            
             fetch('Backend/admin/update_booking_status.php', {
                 method: 'POST',
                 body: formData
@@ -2811,14 +2449,11 @@ function switchResidentTab(tab) {
             .catch(error => console.error('Error:', error));
         }
 
-        // ===== REJECT BOOKING =====
         function rejectBooking(requestId) {
             if(!confirm('Are you sure you want to reject this booking?')) return;
-            
             const formData = new FormData();
             formData.append('booking_id', requestId);
             formData.append('status', 'rejected');
-            
             fetch('Backend/admin/update_booking_status.php', {
                 method: 'POST',
                 body: formData
@@ -2836,18 +2471,15 @@ function switchResidentTab(tab) {
             .catch(error => console.error('Error:', error));
         }
 
-        // ===== VIEW BOOKING DETAILS =====
         function viewBookingDetails(requestId) {
             const request = bookingRequests.find(r => r.id === requestId);
             alert(`Booking Details:\nName: ${request.name}\nStatus: ${request.status}\nRoom: ${request.roomPreference}\nCheck-in: ${request.checkInDate}\nMessage: ${request.message || 'No message'}`);
         }
 
-        // ===== UPDATE COMPLAINT STATUS =====
         function updateComplaintStatus(complaintId, status) {
             const formData = new FormData();
             formData.append('complaint_id', complaintId);
             formData.append('status', status);
-            
             fetch('Backend/admin/update_complaint_status.php', {
                 method: 'POST',
                 body: formData
@@ -2865,7 +2497,6 @@ function switchResidentTab(tab) {
             .catch(error => console.error('Error:', error));
         }
 
-        // ===== FORMAT DATETIME =====
         function formatDateTime(datetime) {
             if (!datetime) return '-';
             const date = new Date(datetime);
@@ -2878,115 +2509,62 @@ function switchResidentTab(tab) {
             });
         }
 
-        // ===== POPULATE RESIDENT DROPDOWNS =====
-        function populateResidentDropdowns() {
-            const visitorResidentSelect = document.getElementById('visitorResident');
-            const emergencyResidentSelect = document.getElementById('emergencyResident');
-            
-            if (visitorResidentSelect) {
-                visitorResidentSelect.innerHTML = '<option value="">Select Resident</option>';
-                residents.filter(r => r.status === 'active').forEach(resident => {
-                    const option = document.createElement('option');
-                    option.value = resident.id;
-                    option.textContent = `${resident.name} (Room ${resident.room})`;
-                    visitorResidentSelect.appendChild(option);
-                });
-            }
-            
-            if (emergencyResidentSelect) {
-                emergencyResidentSelect.innerHTML = '<option value="">Select Resident</option>';
-                residents.forEach(resident => {
-                    const option = document.createElement('option');
-                    option.value = resident.id;
-                    option.textContent = `${resident.name} (Room ${resident.room})`;
-                    emergencyResidentSelect.appendChild(option);
-                });
-            }
+        function collectPayment(dueId) {
+            const dueItem = event.target.closest('.due-item');
+            if(!dueItem) return;
+            const residentName = dueItem.querySelector('.due-info p strong')?.textContent || 'Resident';
+            const amountText = dueItem.querySelector('.due-info p:nth-child(2)')?.textContent || '';
+            const amount = amountText.replace('Amount: ₹', '').replace(',', '');
+            if(!confirm(`Record OFFLINE payment of ₹${amount} from ${residentName}?`)) return;
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+            const month = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+            const formData = new FormData();
+            formData.append('user_id', dueId);
+            formData.append('amount', amount);
+            formData.append('month', month);
+            fetch('Backend/admin/record_payment.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if(data.trim() === 'success'){
+                    alert('✅ Offline payment recorded successfully!');
+                    dueItem.remove();
+                    loadDashboardStats();
+                    loadPayments();
+                    loadActivities();
+                } else if(data.trim() === 'already_paid') {
+                    alert('❌ This user has already paid online!');
+                } else {
+                    alert('❌ Error recording payment: ' + data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Network error');
+            })
+            .finally(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
         }
 
-        // ===== MODAL FUNCTIONS =====
-        function openAddResidentModal() {
-            document.getElementById('addResidentModal').style.display = 'block';
-        }
-
-        function openAddRoomModal() {
-            document.getElementById('addRoomModal').style.display = 'block';
-        }
-
-        function openAddVisitorModal() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('visitorCheckIn').value = `${year}-${month}-${day}T${hours}:${minutes}`;
-            
-            // Populate resident dropdown
-            populateResidentDropdowns();
-            
-            document.getElementById('addVisitorModal').style.display = 'block';
-        }
-
-        function openAddEmergencyModal() {
-            populateResidentDropdowns();
-            document.getElementById('addEmergencyModal').style.display = 'block';
-        }
-
-        function openCheckOutModal(visitorId) {
-            const visitor = visitors.find(v => v.id === visitorId);
-            if (visitor) {
-                document.getElementById('checkOutVisitorId').value = visitor.id;
-                document.getElementById('checkOutVisitorNameDisplay').textContent = visitor.name;
-                
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = String(now.getMonth() + 1).padStart(2, '0');
-                const day = String(now.getDate()).padStart(2, '0');
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                document.getElementById('visitorCheckOut').value = `${year}-${month}-${day}T${hours}:${minutes}`;
-                
-                document.getElementById('checkOutVisitorModal').style.display = 'block';
-            }
-        }
-
-        function openResolveEmergencyModal(emergencyId) {
-            const emergency = emergencies.find(e => e.id === emergencyId);
-            if (emergency) {
-                document.getElementById('resolveEmergencyId').value = emergency.id;
-                document.getElementById('resolveEmergencyDetails').innerHTML = `
-                    <strong>Resident:</strong> ${emergency.residentName}<br>
-                    <strong>Type:</strong> ${emergency.type}<br>
-                    <strong>Description:</strong> ${emergency.description}
-                `;
-                
-                document.getElementById('resolveEmergencyModal').style.display = 'block';
-            }
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // ===== FILTER FUNCTIONS =====
         function filterResidents() {
             const roomFilter = document.getElementById('roomFilter').value;
             const statusFilter = document.getElementById('statusFilter').value;
-            
             let filtered = residents;
-            
             if(roomFilter !== 'all'){
                 filtered = filtered.filter(r => r.room == roomFilter);
             }
-            
             if(statusFilter !== 'all'){
                 filtered = filtered.filter(r => r.status === statusFilter);
             }
-            
             const tbody = document.getElementById('residentsTableBody');
             tbody.innerHTML = '';
-            
             filtered.forEach(resident => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -3010,16 +2588,13 @@ function switchResidentTab(tab) {
 
         function searchResidents() {
             const searchTerm = document.getElementById('residentSearch').value.toLowerCase();
-            
             const filtered = residents.filter(resident => 
                 resident.name.toLowerCase().includes(searchTerm) ||
                 (resident.room && resident.room.toString().includes(searchTerm)) ||
                 (resident.mobile && resident.mobile.includes(searchTerm))
             );
-            
             const tbody = document.getElementById('residentsTableBody');
             tbody.innerHTML = '';
-            
             filtered.forEach(resident => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -3044,25 +2619,18 @@ function switchResidentTab(tab) {
         function filterVisitors() {
             const dateFilter = document.getElementById('visitorDateFilter').value;
             const statusFilter = document.getElementById('visitorStatusFilter').value;
-            
             let filtered = visitors;
-            
             if(dateFilter){
                 filtered = filtered.filter(v => v.checkIn && v.checkIn.startsWith(dateFilter));
             }
-            
             if(statusFilter !== 'all'){
                 filtered = filtered.filter(v => v.status === statusFilter);
             }
-            
             const tbody = document.getElementById('visitorsTableBody');
             tbody.innerHTML = '';
-            
             filtered.forEach(visitor => {
                 const row = document.createElement('tr');
-                const checkOutTime = visitor.checkOut ? visitor.checkOut : '-';
                 const statusClass = visitor.status === 'checked-in' ? 'status-active' : 'status-inactive';
-                
                 row.innerHTML = `
                     <td>${visitor.id}</td>
                     <td>${visitor.name}</td>
@@ -3086,21 +2654,16 @@ function switchResidentTab(tab) {
 
         function searchVisitors() {
             const searchTerm = document.getElementById('visitorSearch').value.toLowerCase();
-            
             const filtered = visitors.filter(visitor => 
                 visitor.name.toLowerCase().includes(searchTerm) ||
                 (visitor.contact && visitor.contact.includes(searchTerm)) ||
                 visitor.residentName.toLowerCase().includes(searchTerm)
             );
-            
             const tbody = document.getElementById('visitorsTableBody');
             tbody.innerHTML = '';
-            
             filtered.forEach(visitor => {
                 const row = document.createElement('tr');
-                const checkOutTime = visitor.checkOut ? visitor.checkOut : '-';
                 const statusClass = visitor.status === 'checked-in' ? 'status-active' : 'status-inactive';
-                
                 row.innerHTML = `
                     <td>${visitor.id}</td>
                     <td>${visitor.name}</td>
@@ -3122,48 +2685,60 @@ function switchResidentTab(tab) {
             });
         }
 
-        function filterEmergencies() {
-            const statusFilter = document.getElementById('emergencyStatusFilter').value;
-            const typeFilter = document.getElementById('emergencyTypeFilter').value;
-            
-            let filtered = emergencies;
-            
-            if(statusFilter !== 'all'){
-                filtered = filtered.filter(e => e.status === statusFilter);
-            }
-            
-            if(typeFilter !== 'all'){
-                filtered = filtered.filter(e => e.type === typeFilter);
-            }
-            
-            const tbody = document.getElementById('emergencyTableBody');
-            tbody.innerHTML = '';
-            
-            filtered.forEach(emergency => {
-                const row = document.createElement('tr');
-                const statusClass = emergency.status === 'active' ? 'status-emergency' : 'status-resolved';
-                
-                row.innerHTML = `
-                    <td>${emergency.id}</td>
-                    <td>${emergency.residentName}</td>
-                    <td>${emergency.room}</td>
-                    <td><span class="emergency-type">${emergency.type}</span></td>
-                    <td>${emergency.description.substring(0, 30)}${emergency.description.length > 30 ? '...' : ''}</td>
-                    <td>${formatDateTime(emergency.reportedTime)}</td>
-                    <td><span class="status-badge ${statusClass}">${emergency.status}</span></td>
-                    <td>${emergency.actionTaken || '-'}</td>
-                    <td>
-                        ${emergency.status === 'active' ? 
-                            `<button class="action-btn" onclick="openResolveEmergencyModal(${emergency.id})" style="color: #00b894;" title="Resolve"><i class="fas fa-check-circle"></i></button>` : 
-                            ''}
-                        <button class="action-btn" onclick="viewEmergency(${emergency.id})"><i class="fas fa-eye"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
+        // ===== MODAL FUNCTIONS =====
+        function openAddResidentModal() {
+            document.getElementById('addResidentModal').style.display = 'block';
         }
 
-        // ===== SAVE FUNCTIONS =====
+        function openAddRoomModal() {
+            document.getElementById('addRoomModal').style.display = 'block';
+        }
+
+        function openAddVisitorModal() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('visitorCheckIn').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+            populateResidentDropdowns();
+            document.getElementById('addVisitorModal').style.display = 'block';
+        }
+
+        function openCheckOutModal(visitorId) {
+            const visitor = visitors.find(v => v.id === visitorId);
+            if (visitor) {
+                document.getElementById('checkOutVisitorId').value = visitor.id;
+                document.getElementById('checkOutVisitorNameDisplay').textContent = visitor.name;
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                document.getElementById('visitorCheckOut').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+                document.getElementById('checkOutVisitorModal').style.display = 'block';
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function populateResidentDropdowns() {
+            const visitorResidentSelect = document.getElementById('visitorResident');
+            if (visitorResidentSelect) {
+                visitorResidentSelect.innerHTML = '<option value="">Select Resident</option>';
+                residents.filter(r => r.status === 'active').forEach(resident => {
+                    const option = document.createElement('option');
+                    option.value = resident.id;
+                    option.textContent = `${resident.name} (Room ${resident.room})`;
+                    visitorResidentSelect.appendChild(option);
+                });
+            }
+        }
+
         function saveResident() {
             const formData = new FormData();
             formData.append('name', document.getElementById('residentName').value);
@@ -3171,7 +2746,6 @@ function switchResidentTab(tab) {
             formData.append('mobile', document.getElementById('residentMobile').value);
             formData.append('email', document.getElementById('residentEmail').value);
             formData.append('checkinDate', document.getElementById('checkinDate').value);
-            
             fetch('Backend/admin/add_user.php', {
                 method: 'POST',
                 body: formData
@@ -3195,7 +2769,6 @@ function switchResidentTab(tab) {
 
         function saveRoom() {
             const amenities = Array.from(document.querySelectorAll('#addRoomForm .checkbox-group input:checked')).map(cb => cb.value);
-            
             const formData = new FormData();
             formData.append('room_number', document.getElementById('roomNumber').value);
             formData.append('room_type', document.getElementById('roomType').value);
@@ -3203,7 +2776,6 @@ function switchResidentTab(tab) {
             formData.append('rent', document.getElementById('roomRent').value);
             formData.append('amenities', JSON.stringify(amenities));
             formData.append('status', document.getElementById('roomStatus').value);
-            
             fetch('Backend/admin/add_room.php', {
                 method: 'POST',
                 body: formData
@@ -3228,12 +2800,10 @@ function switchResidentTab(tab) {
             const residentSelect = document.getElementById('visitorResident');
             const selectedResidentId = parseInt(residentSelect.value);
             const resident = residents.find(r => r.id === selectedResidentId);
-            
             if(!resident){
                 alert('Please select a resident');
                 return;
             }
-            
             const formData = new FormData();
             formData.append('visitor_name', document.getElementById('visitorName').value);
             formData.append('relation', document.getElementById('visitorPurpose').value);
@@ -3241,7 +2811,6 @@ function switchResidentTab(tab) {
             formData.append('room_no', resident.room);
             formData.append('visit_date', new Date().toISOString().split('T')[0]);
             formData.append('in_time', new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }));
-            
             fetch('Backend/add_visitor.php', {
                 method: 'POST',
                 headers: {
@@ -3266,65 +2835,21 @@ function switchResidentTab(tab) {
             });
         }
 
-        function saveEmergency() {
-            const residentSelect = document.getElementById('emergencyResident');
-            const selectedResidentId = parseInt(residentSelect.value);
-            const resident = residents.find(r => r.id === selectedResidentId);
-            
-            if(!resident){
-                alert('Please select a resident');
-                return;
-            }
-            
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const reportedTime = `${year}-${month}-${day}T${hours}:${minutes}`;
-            
-            const newEmergency = {
-                id: emergencies.length + 1,
-                residentName: resident.name,
-                room: resident.room,
-                type: document.getElementById('emergencyType').value,
-                description: document.getElementById('emergencyDescription').value,
-                reportedTime: reportedTime,
-                status: 'active',
-                actionTaken: document.getElementById('emergencyAction').value || 'Pending',
-                reportedBy: document.getElementById('emergencyReportedBy').value || 'Admin'
-            };
-            
-            emergencies.push(newEmergency);
-            loadEmergencyTable();
-            closeModal('addEmergencyModal');
-            loadDashboardStats();
-            
-            alert('Emergency logged successfully!');
-        }
-
         function checkOutVisitor() {
             const visitorId = parseInt(document.getElementById('checkOutVisitorId').value);
             const checkOutTime = document.getElementById('visitorCheckOut').value;
             const remarks = document.getElementById('checkOutRemarks').value;
-            
             const visitor = visitors.find(v => v.id === visitorId);
             if (visitor) {
                 visitor.checkOut = checkOutTime;
                 visitor.status = 'checked-out';
                 visitor.checkOutRemarks = remarks;
-                
                 loadVisitorsTable();
                 closeModal('checkOutVisitorModal');
-                
                 alert('Visitor checked out successfully!');
             }
         }
 
-       
-
-        // ===== PAGINATION FUNCTIONS =====
         function previousPage(section) {
             console.log('Previous page for', section);
         }
@@ -3333,7 +2858,6 @@ function switchResidentTab(tab) {
             console.log('Next page for', section);
         }
 
-        // ===== ACTION FUNCTIONS =====
         function editResident(id) {
             alert('Edit functionality for resident ID: ' + id + ' (coming soon)');
         }
@@ -3345,7 +2869,6 @@ function switchResidentTab(tab) {
 
         function deleteResident(id) {
             if (confirm('Are you sure you want to delete this resident?')) {
-                // This would need a backend API
                 alert('Delete functionality coming soon');
             }
         }
@@ -3362,53 +2885,6 @@ function switchResidentTab(tab) {
             alert('View visitor details - ID: ' + id);
         }
 
-        function viewEmergency(id) {
-            alert('View emergency details - ID: ' + id);
-        }
-
-        function generateReport() {
-            alert('Generating payment report...');
-        }
-
-        // ===== SETTINGS FUNCTIONS =====
-        function savePGInfo() {
-            const pgName = document.getElementById('pgName').value;
-            const pgAddress = document.getElementById('pgAddress').value;
-            const pgContact = document.getElementById('pgContact').value;
-            
-            console.log('Saving PG Info:', { pgName, pgAddress, pgContact });
-            alert('PG information saved successfully!');
-        }
-
-        function saveRentSettings() {
-            const singleRent = document.getElementById('singleSharingRent').value;
-            const doubleRent = document.getElementById('doubleSharingRent').value;
-            const tripleRent = document.getElementById('tripleSharingRent').value;
-            const dueDate = document.getElementById('dueDate').value;
-            
-            console.log('Saving rent settings:', { singleRent, doubleRent, tripleRent, dueDate });
-            alert('Rent settings saved successfully!');
-        }
-
-        function changePassword() {
-            const currentPass = document.getElementById('currentPassword').value;
-            const newPass = document.getElementById('newPassword').value;
-            const confirmPass = document.getElementById('confirmPassword').value;
-            
-            if (!currentPass || !newPass || !confirmPass) {
-                alert('Please fill in all password fields');
-                return;
-            }
-            
-            if (newPass !== confirmPass) {
-                alert('New password and confirm password do not match');
-                return;
-            }
-            
-            alert('Password changed successfully!');
-        }
-
-        // ===== LOGOUT FUNCTION =====
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
                 fetch('Backend/admin_logout.php')
@@ -3421,7 +2897,6 @@ function switchResidentTab(tab) {
             }
         }
 
-        // ===== CLICK OUTSIDE MODAL TO CLOSE =====
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
