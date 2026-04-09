@@ -3,65 +3,440 @@
 <head>
     <meta charset="UTF-8">
     <title>PGCore | Complaints</title>
-    <link rel="stylesheet" href="css/complaint.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        .complaint-module {
+            background: transparent;
+        }
+        
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .form-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #0f3c4c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #4a5568;
+        }
+        
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #0f3c4c;
+        }
+        
+        .btn-submit {
+            background: #0f3c4c;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .btn-submit:hover {
+            background: #1a5a6e;
+        }
+        
+        .history-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .history-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #eef2f6;
+            color: #0f3c4c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .complaint-row {
+            padding: 16px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        
+        .complaint-row:last-child {
+            border-bottom: none;
+        }
+        
+        .row-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .title-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .complaint-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a2c3e;
+        }
+        
+        .category-badge {
+            background: #eef2ff;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #1e4a76;
+        }
+        
+        .complaint-date {
+            font-size: 11px;
+            color: #555;
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        
+        .room-info {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .desc-text {
+            font-size: 13px;
+            color: #475569;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 5px;
+            line-height: 1.45;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: #888;
+        }
+        
+        .loading-state {
+            text-align: center;
+            padding: 50px;
+            color: #0f3c4c;
+        }
+        
+        .success-msg {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        .error-msg {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+            font-size: 13px;
+        }
+    </style>
 </head>
 <body>
-    <div class="main-content">
-        <section class="content active">
-            <h2><i class="fas fa-exclamation-circle"></i> Register Complaint</h2>
-            
-            <div class="form-box">
-                <div class="form-row">
-                    <label><i class="fas fa-tag"></i> Complaint Title</label>
-                    <input type="text" id="title" placeholder="Ex: Water Leakage, Electricity Issue">
-                </div>
-                
-                <div class="form-row">
-                    <label><i class="fas fa-list"></i> Category</label>
-                    <select id="category">
-                        <option>Electricity</option>
-                        <option>Water</option>
-                        <option>Food</option>
-                        <option>Room Cleaning</option>
-                        <option>Internet</option>
-                        <option>Security</option>
-                        <option>Other</option>
-                    </select>
-                </div>
-                
-                <div class="form-row">
-                    <label><i class="fas fa-door-open"></i> Room Number</label>
-                    <input type="text" id="room" placeholder="Ex: 101">
-                </div>
-                
-                <div class="form-row">
-                    <label><i class="fas fa-calendar"></i> Date</label>
-                    <input type="date" id="date">
-                </div>
-                
-                <div class="form-row">
-                    <label><i class="fas fa-align-left"></i> Complaint Description</label>
-                    <textarea id="desc" rows="4" placeholder="Explain your problem clearly..."></textarea>
-                </div>
-                
-                <button id="submitBtn">Submit Complaint</button>
-                
-                <div class="success" id="successMsg">✔ Complaint submitted successfully!</div>
-                <div class="error" id="errorMsg">✖ Error submitting complaint!</div>
-            </div>
-            
-            <div class="complaints-history">
-                <h3><i class="fas fa-history"></i> Your Complaint History</h3>
-                <div id="complaintList"></div>
-            </div>
-        </section>
+<div class="complaint-module">
+    <!-- Complaint Form -->
+    <div class="form-card">
+        <div class="form-title">
+         <h3>   <i class="fas fa-exclamation-circle"></i> Register Complaint
+       </h3> </div>
+        <div class="input-group">
+            <label><i class="fas fa-tag"></i> Complaint Title</label>
+            <input type="text" id="title" placeholder="Ex: Water Leakage, Electricity Issue">
+        </div>
+        <div class="input-group">
+            <label><i class="fas fa-list"></i> Category</label>
+            <select id="category">
+                <option>Electricity</option>
+                <option>Water</option>
+                <option>Food</option>
+                <option>Room Cleaning</option>
+                <option>Internet</option>
+                <option>Security</option>
+                <option>Other</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label><i class="fas fa-door-open"></i> Room Number</label>
+            <input type="text" id="room" placeholder="Ex: 101">
+        </div>
+        <div class="input-group">
+            <label><i class="fas fa-calendar"></i> Date</label>
+            <input type="date" id="date">
+        </div>
+        <div class="input-group">
+            <label><i class="fas fa-align-left"></i> Complaint Description</label>
+            <textarea id="desc" rows="4" placeholder="Explain your problem clearly..."></textarea>
+        </div>
+        <button class="btn-submit" id="submitBtn">Submit Complaint</button>
+        <div class="success-msg" id="successMsg">✔ Complaint submitted successfully!</div>
+        <div class="error-msg" id="errorMsg">✖ Error submitting complaint!</div>
     </div>
     
-    <footer>
-        © 2026 PGCore | Safe Living for Every Girl
-    </footer>
+    <!-- Complaint History -->
+    <div class="history-card">
+        <div class="history-title">
+            <i class="fas fa-history"></i> Your Complaint History
+        </div>
+        <div id="complaintList">
+            <div class="loading-state"><i class="fas fa-spinner fa-pulse"></i> Loading complaints...</div>
+        </div>
+    </div>
+</div>
 
-    <script src="js/complaint.js"></script>
+<script>
+    // Helper: Format date & time nicely
+    function formatDateTime(dateTimeString) {
+        if (!dateTimeString || dateTimeString === 'N/A' || dateTimeString === '0000-00-00') {
+            return 'Date not available';
+        }
+        
+        let datePart = '';
+        let timePart = '';
+        
+        if (dateTimeString.includes(' ')) {
+            const parts = dateTimeString.split(' ');
+            datePart = parts[0];
+            timePart = parts[1];
+        } else {
+            datePart = dateTimeString;
+        }
+        
+        let formattedDate = datePart;
+        if (datePart && datePart !== 'N/A') {
+            const dateObj = datePart.split('-');
+            if (dateObj.length === 3) {
+                formattedDate = `${dateObj[2]}-${dateObj[1]}-${dateObj[0]}`;
+            }
+        }
+        
+        let formattedTime = '';
+        if (timePart) {
+            const timeObj = timePart.split(':');
+            if (timeObj.length >= 2) {
+                let hours = parseInt(timeObj[0], 10);
+                const minutes = timeObj[1];
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12 || 12;
+                formattedTime = `${hours}:${minutes} ${ampm}`;
+            }
+        }
+        
+        if (formattedTime) {
+            return `${formattedDate} at ${formattedTime}`;
+        }
+        return formattedDate;
+    }
+    
+    // Load complaints - NO hardcoded user_id, backend uses session
+    function loadComplaints() {
+        const container = document.getElementById('complaintList');
+        container.innerHTML = '<div class="loading-state"><i class="fas fa-spinner fa-pulse"></i> Loading complaints...</div>';
+        
+        fetch('Backend/get_user_complaints.php')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Complaints from DB:', data);
+                
+                if(data.error) {
+                    container.innerHTML = `<div class="empty-state"><i class="fas fa-database"></i> ${data.error}</div>`;
+                    return;
+                }
+                
+                if(!data || data.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i> No complaints yet. Submit your first complaint above.</div>';
+                    return;
+                }
+                
+                let html = '';
+                for(let i = 0; i < data.length; i++) {
+                    const c = data[i];
+                    const displayDateTime = formatDateTime(c.complaint_date);
+                    
+                    let title = c.title || 'No Title';
+                    let category = c.category || 'General';
+                    let description = c.description || 'No description';
+                    let roomNo = c.room_no || 'N/A';
+                    
+                    let icon = 'fa-clipboard-list';
+                    if(category === 'Electricity') icon = 'fa-bolt';
+                    else if(category === 'Water') icon = 'fa-tint';
+                    else if(category === 'Food') icon = 'fa-utensils';
+                    else if(category === 'Room Cleaning') icon = 'fa-broom';
+                    else if(category === 'Internet') icon = 'fa-wifi';
+                    else if(category === 'Security') icon = 'fa-shield-alt';
+                    
+                    let status = c.status || 'pending';
+                    let statusColor = status === 'resolved' ? '#10b981' : '#f59e0b';
+                    let statusText = status === 'resolved' ? 'Resolved' : 'Pending';
+                    
+                    html += `
+                        <div class="complaint-row">
+                            <div class="row-top">
+                                <div class="title-area">
+                                    <i class="fas ${icon}" style="color:#0f3c4c;"></i>
+                                    <span class="complaint-title">${escapeHtml(title)}</span>
+                                    <span class="category-badge">${escapeHtml(category)}</span>
+                                </div>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <span class="complaint-date"><i class="far fa-calendar-alt"></i> ${escapeHtml(displayDateTime)}</span>
+                                    <span style="font-size: 10px; background: ${statusColor}20; color: ${statusColor}; padding: 3px 10px; border-radius: 20px;">${statusText}</span>
+                                </div>
+                            </div>
+                            <div class="room-info">
+                                <i class="fas fa-door-open"></i> Room: ${escapeHtml(roomNo)}
+                            </div>
+                            <div class="desc-text">
+                                ${escapeHtml(description)}
+                            </div>
+                        </div>
+                    `;
+                }
+                container.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading complaints:', error);
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-database"></i> Error connecting to database.</div>';
+            });
+    }
+    
+    // Submit complaint - NO user_id sent, backend uses session
+    function submitComplaint() {
+        const title = document.getElementById('title').value.trim();
+        const category = document.getElementById('category').value;
+        const room = document.getElementById('room').value.trim();
+        const desc = document.getElementById('desc').value.trim();
+        
+        if(!title || !room || !desc) {
+            showMessage('errorMsg', 'Please fill all fields');
+            return;
+        }
+        
+        const btn = document.getElementById('submitBtn');
+        btn.innerHTML = 'Submitting...';
+        btn.disabled = true;
+        
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('category', category);
+        formData.append('room_no', room);
+        formData.append('description', desc);
+        
+        fetch('Backend/create_complaint.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Server response:', data);
+            
+            if(data.trim() === 'success') {
+                document.getElementById('title').value = '';
+                document.getElementById('desc').value = '';
+                loadComplaints();
+                showMessage('successMsg', '✅ Complaint submitted successfully!');
+            } else {
+                showMessage('errorMsg', 'Error: ' + data);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showMessage('errorMsg', 'Network error. Please try again.');
+        })
+        .finally(() => {
+            btn.innerHTML = 'Submit Complaint';
+            btn.disabled = false;
+        });
+    }
+    
+    function showMessage(elementId, message) {
+        const msgDiv = document.getElementById(elementId);
+        msgDiv.textContent = message;
+        msgDiv.style.display = 'block';
+        setTimeout(() => {
+            msgDiv.style.display = 'none';
+        }, 3000);
+    }
+    
+    function escapeHtml(text) {
+        if(!text) return '';
+        return text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('date').value = new Date().toISOString().split('T')[0];
+        document.getElementById('submitBtn').addEventListener('click', submitComplaint);
+        loadComplaints();
+    });
+</script>
 </body>
 </html>

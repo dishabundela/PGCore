@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST - Complaint History</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f0f2f5;
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #0f3c4c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eef2f6;
+        }
+        /* COMPACT COMPLAINT ROW - NO GAPS */
+        .complaint-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eef2f6;
+        }
+        .complaint-item:last-child {
+            border-bottom: none;
+        }
+        .complaint-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .complaint-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #1a2c3e;
+        }
+        .complaint-category {
+            background: #eef2ff;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #1e4a76;
+        }
+        .complaint-date {
+            font-size: 12px;
+            color: #888;
+        }
+        .complaint-room {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .complaint-desc {
+            font-size: 14px;
+            color: #555;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+        .test-data {
+            background: #e6f7e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>📋 Complaint History Test</h2>
+    
+    <div class="test-data">
+        ✅ If you see THIS message with green background - CSS is working.<br>
+        ✅ Below are SAMPLE complaints (not from database).
+    </div>
+
+    <!-- SAMPLE DATA TO TEST LAYOUT -->
+    <div class="complaint-item">
+        <div class="complaint-header">
+            <span class="complaint-title">Lights not working</span>
+            <span class="complaint-category">⚡ Electricity</span>
+            <span class="complaint-date">📅 2026-04-09</span>
+        </div>
+        <div class="complaint-room">🚪 Room: 102</div>
+        <div class="complaint-desc">Main ceiling light and bedside lamp flickering / completely dead</div>
+    </div>
+
+    <div class="complaint-item">
+        <div class="complaint-header">
+            <span class="complaint-title">Water leakage in bathroom</span>
+            <span class="complaint-category">💧 Water</span>
+            <span class="complaint-date">📅 2026-04-08</span>
+        </div>
+        <div class="complaint-room">🚪 Room: 102</div>
+        <div class="complaint-desc">Pipe is leaking under the sink, water spreading on floor</div>
+    </div>
+
+    <div class="complaint-item">
+        <div class="complaint-header">
+            <span class="complaint-title">Food quality issue</span>
+            <span class="complaint-category">🍔 Food</span>
+            <span class="complaint-date">📅 2026-04-07</span>
+        </div>
+        <div class="complaint-room">🚪 Room: 102</div>
+        <div class="complaint-desc">Dinner was cold and undercooked</div>
+    </div>
+</div>
+
+<script>
+    console.log("Test page loaded - CSS is working correctly");
+</script>
+</body>
+</html>

@@ -1,57 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>PGCore | Booking Status</title>
-
-<!-- ✅ CSS LINK -->
-<link rel="stylesheet" href="css/bookstatus.css">
+    <meta charset="UTF-8">
+    <title>PGCore | Complaints</title>
+    <link rel="stylesheet" href="css/complaint.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
+    <div class="main-content">
+        <section class="content active">
+            <h2><i class="fas fa-exclamation-circle"></i> Register Complaint</h2>
+            
+            <div class="form-box">
+                <div class="form-row">
+                    <label><i class="fas fa-tag"></i> Complaint Title</label>
+                    <input type="text" id="title" placeholder="Ex: Water Leakage, Electricity Issue">
+                </div>
+                
+                <div class="form-row">
+                    <label><i class="fas fa-list"></i> Category</label>
+                    <select id="category">
+                        <option>Electricity</option>
+                        <option>Water</option>
+                        <option>Food</option>
+                        <option>Room Cleaning</option>
+                        <option>Internet</option>
+                        <option>Security</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <label><i class="fas fa-door-open"></i> Room Number</label>
+                    <input type="text" id="room" placeholder="Ex: 101">
+                </div>
+                
+                <div class="form-row">
+                    <label><i class="fas fa-calendar"></i> Date</label>
+                    <input type="date" id="date">
+                </div>
+                
+                <div class="form-row">
+                    <label><i class="fas fa-align-left"></i> Complaint Description</label>
+                    <textarea id="desc" rows="4" placeholder="Explain your problem clearly..."></textarea>
+                </div>
+                
+                <button id="submitBtn">Submit Complaint</button>
+                
+                <div class="success" id="successMsg">✔ Complaint submitted successfully!</div>
+                <div class="error" id="errorMsg">✖ Error submitting complaint!</div>
+            </div>
+            
+            <div class="complaints-history">
+                <h3><i class="fas fa-history"></i> Your Complaint History</h3>
+                <div id="complaintList"></div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        © 2026 PGCore | Safe Living for Every Girl
+    </footer>
 
-<div class="main-content">
-<section class="content active">
-
-<div class="page-title">Booking Status</div>
-<div class="page-desc">
-This section shows your room booking details, current status, and confirmation timeline.
-Please contact PG management for any booking related issues.
-</div>
-
-<div class="box">
-<h3>Booking Information</h3><br>
-
-<div class="info-grid">
-  <div class="info-card"><b>Booking ID</b>BK102</div>
-  <div class="info-card"><b>Room Number</b>101</div>
-  <div class="info-card"><b>Room Type</b>Double Sharing</div>
-  <div class="info-card"><b>Booking Date</b>01 Jan 2025</div>
-  <div class="info-card"><b>Move-in Date</b>10 Jan 2025</div>
-  <div class="info-card"><b>Payment Status</b>Paid</div>
-  <div class="info-card"><b>Booking Status</b><span class="confirmed">Confirmed</span></div>
-  <div class="info-card"><b>Security Deposit</b>₹5000</div>
-</div>
-</div>
-
-<div class="box">
-<h3>Booking Timeline</h3><br>
-
-<div class="timeline">
-  <div class="step"><b>✔ Booking Requested</b>01 Jan 2025</div>
-  <div class="step"><b>✔ Payment Completed</b>02 Jan 2025</div>
-  <div class="step"><b>✔ Booking Confirmed</b>03 Jan 2025</div>
-  <div class="step"><b>✔ Room Allocated</b>05 Jan 2025</div>
-  <div class="step"><b>✔ Move-in Completed</b>10 Jan 2025</div>
-</div>
-</div>
-
-</section>
-</div>
-<footer>
-    © 2026 PGCore | Safe Living for Every Girl
-</footer>
-<!-- ✅ JS LINK -->
-<script src="js/bookstatus.js"></script>
+    <script src="js/complaint.js"></script>
 </body>
 </html>
