@@ -1,5 +1,5 @@
 <?php
-// Backend/create_payment.php - FIXED VERSION
+// Backend/create_payment.php - FIXED VERSION (adds payment_method = 'online')
 include "db.php";
 session_start();
 header('Content-Type: text/plain');
@@ -52,9 +52,9 @@ $current_day = date('j');
 $late_fee = ($current_day > 5) ? 800 : 0;
 $total_amount = $base_rent + $late_fee;
 
-// Insert payment
-$sql = "INSERT INTO payments (user_id, amount, late_fee, payment_month, payment_date, status) 
-        VALUES (?, ?, ?, ?, CURDATE(), 'completed')";
+// ===== FIX: Added payment_method = 'online' =====
+$sql = "INSERT INTO payments (user_id, amount, late_fee, payment_month, payment_date, payment_method, status) 
+        VALUES (?, ?, ?, ?, CURDATE(), 'online', 'completed')";
 
 $insert_stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($insert_stmt, "idds", $user_id, $total_amount, $late_fee, $payment_month);

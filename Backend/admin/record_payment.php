@@ -1,5 +1,5 @@
 <?php
-// Backend/admin/record_payment.php - For OFFLINE payments only
+// Backend/admin/record_payment.php - For OFFLINE payments only (Admin Collect button)
 include "../db.php";
 session_start();
 header('Content-Type: text/plain');
@@ -30,13 +30,16 @@ if(mysqli_stmt_num_rows($check_stmt) > 0){
     exit;
 }
 
-// Insert offline payment
+// Insert OFFLINE payment (admin collected cash)
 $payment_date = date('Y-m-d');
-$sql = "INSERT INTO payments (user_id, amount, payment_month, payment_date, status, payment_method) 
-        VALUES (?, ?, ?, ?, 'completed', 'cash')";
+$payment_method = 'cash';  // Admin collecting cash = 'cash'
+$status = 'completed';
+
+$sql = "INSERT INTO payments (user_id, amount, payment_month, payment_date, payment_method, status) 
+        VALUES (?, ?, ?, ?, ?, ?)";
 
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "idss", $user_id, $amount, $month, $payment_date);
+mysqli_stmt_bind_param($stmt, "idssss", $user_id, $amount, $month, $payment_date, $payment_method, $status);
 
 if(mysqli_stmt_execute($stmt)){
     echo "success";

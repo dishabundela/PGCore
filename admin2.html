@@ -2117,7 +2117,7 @@
                     <td>₹${parseInt(payment.amount).toLocaleString()}</td>
                     <td>${payment.month}</td>
                     <td>${payment.date}</td>
-                    <td>${payment.method || 'cash'}</td>
+                    <td>${payment.method === 'online' ? '<span style="color:#2e7d32;">🌐 Online</span>' : '<span style="color:#e65100;">💵 Cash</span>'}</td>
                     <td><span class="status-badge status-active">${payment.status}</span></td>
                     <td>
                         <button class="action-btn" onclick="viewPayment(${payment.id})"><i class="fas fa-eye"></i></button>
@@ -2509,50 +2509,64 @@
             });
         }
 
-        function collectPayment(dueId) {
-            const dueItem = event.target.closest('.due-item');
-            if(!dueItem) return;
-            const residentName = dueItem.querySelector('.due-info p strong')?.textContent || 'Resident';
-            const amountText = dueItem.querySelector('.due-info p:nth-child(2)')?.textContent || '';
-            const amount = amountText.replace('Amount: ₹', '').replace(',', '');
-            if(!confirm(`Record OFFLINE payment of ₹${amount} from ${residentName}?`)) return;
-            const btn = event.target;
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            btn.disabled = true;
-            const month = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
-            const formData = new FormData();
-            formData.append('user_id', dueId);
-            formData.append('amount', amount);
-            formData.append('month', month);
-            fetch('Backend/admin/record_payment.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                if(data.trim() === 'success'){
-                    alert('✅ Offline payment recorded successfully!');
-                    dueItem.remove();
-                    loadDashboardStats();
-                    loadPayments();
-                    loadActivities();
-                } else if(data.trim() === 'already_paid') {
-                    alert('❌ This user has already paid online!');
-                } else {
-                    alert('❌ Error recording payment: ' + data);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Network error');
-            })
-            .finally(() => {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            });
+function collectPayment(dueId) {
+    const dueItem = event.target.closest('.due-item');
+    if(!dueItem) return;
+    
+    // Find the due object by its id
+    const due = dues.find(d => d.id === dueId);
+    if(!due) {
+        alert('Error: Could not find user information');
+        return;
+    }
+    
+    const residentName = due.residentName;
+    const amount = due.amount;
+    const userId = due.user_id;  // This is the key fix!
+    
+    console.log('Collecting for:', { userId, residentName, amount });
+    
+    if(!confirm(`Record OFFLINE payment of ₹${amount} from ${residentName}?`)) return;
+    
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    btn.disabled = true;
+    
+    const month = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+    const formData = new FormData();
+    formData.append('user_id', userId);  // Use due.user_id
+    formData.append('amount', amount);
+    formData.append('month', month);
+    
+    fetch('Backend/admin/record_payment.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        if(data.trim() === 'success'){
+            alert('✅ Offline payment recorded successfully!');
+            dueItem.remove();
+            loadDashboardStats();
+            loadPayments();
+            loadActivities();
+            loadDues();
+        } else if(data.trim() === 'already_paid') {
+            alert('❌ This user has already paid for this month!');
+        } else {
+            alert('❌ Error recording payment: ' + data);
         }
-
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Network error');
+    })
+    .finally(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    });
+}
         function filterResidents() {
             const roomFilter = document.getElementById('roomFilter').value;
             const statusFilter = document.getElementById('statusFilter').value;

@@ -14,6 +14,7 @@ $current_month = date('F Y');
 
 // Get all confirmed residents who haven't paid for current month
 $sql = "SELECT 
+            u.id as user_id,
             u.id,
             u.fullname as residentName,
             r.room_number as room,
@@ -38,7 +39,15 @@ $result = mysqli_stmt_get_result($stmt);
 
 $dues = [];
 while($row = mysqli_fetch_assoc($result)){
-    $dues[] = $row;
+    $dues[] = [
+        'id' => $row['user_id'],           // For the button onclick
+        'user_id' => $row['user_id'],      // For the payment insert
+        'residentName' => $row['residentName'],
+        'room' => $row['room'],
+        'amount' => $row['amount'],
+        'dueDate' => $row['dueDate'],
+        'daysOverdue' => $row['daysOverdue']
+    ];
 }
 
 echo json_encode($dues);

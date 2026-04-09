@@ -16,10 +16,7 @@ $sql = "SELECT
             p.amount, 
             p.payment_month as month, 
             DATE_FORMAT(p.payment_date, '%d-%m-%Y') as date,
-            CASE 
-                WHEN p.late_fee > 0 THEN 'online (late)'
-                ELSE 'online'
-            END as method,
+            p.payment_method as method,
             p.status
         FROM payments p
         JOIN users u ON p.user_id = u.id
@@ -36,6 +33,12 @@ if(!$result){
 
 $payments = [];
 while($row = mysqli_fetch_assoc($result)){
+    // Format method for display
+    if($row['method'] == 'online'){
+        $row['method_display'] = '🌐 Online';
+    } else {
+        $row['method_display'] = '💵 Cash';
+    }
     $payments[] = $row;
 }
 
