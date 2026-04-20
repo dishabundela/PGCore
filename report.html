@@ -25,7 +25,7 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             overflow: hidden;
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -58,13 +58,28 @@
             font-size: 14px;
         }
 
+        .month-selector {
+            background: rgba(255,255,255,0.15);
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .month-selector option {
+            background: #0f3c4c;
+            color: white;
+        }
+
         .chart-container {
             padding: 30px;
         }
 
         .chart-wrapper {
             position: relative;
-            height: 400px;
+            height: 450px;
             width: 100%;
         }
 
@@ -163,17 +178,28 @@
             background: #475569;
         }
 
+        .month-info {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
         @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             .chart-wrapper {
-                height: 280px;
+                height: 350px;
+            }
+            .chart-container {
+                padding: 20px;
+                overflow-x: auto;
             }
         }
 
         @media print {
-            .btn-refresh, .btn-print {
+            .btn-refresh, .btn-print, .month-selector {
                 display: none;
             }
         }
@@ -187,10 +213,19 @@
             <i class="fas fa-chart-line"></i>
             Booking Performance Report
         </h1>
-        <div class="date-badge">
-            <i class="far fa-calendar-alt"></i>
-            <span id="currentDate"></span>
+        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+            <select id="monthSelector" class="month-selector" onchange="changeMonth()">
+                <!-- Months will be populated by JavaScript -->
+            </select>
+            <div class="date-badge">
+                <i class="far fa-calendar-alt"></i>
+                <span id="currentDate"></span>
+            </div>
         </div>
+    </div>
+
+    <div class="month-info" id="monthInfo">
+        Loading report data...
     </div>
 
     <div class="chart-container">
@@ -208,7 +243,7 @@
         <div class="stat-box">
             <div class="stat-label">AVG DAILY</div>
             <div class="stat-value" id="avgDaily">--</div>
-            <div class="stat-trend">last 7 days</div>
+            <div class="stat-trend">per day this month</div>
         </div>
         <div class="stat-box">
             <div class="stat-label">PEAK DAY</div>
@@ -234,8 +269,38 @@
 
 <script>
     let bookingsChart = null;
+    let currentChartData = null;
 
-    async function loadReportData() {
+    // Populate month selector with last 12 months
+    function populateMonthSelector() {
+        const selector = document.getElementById('monthSelector');
+        const now = new Date();
+        
+        for(let i = 0; i < 12; i++) {
+            const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const monthName = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+            
+            const option = document.createElement('option');
+            option.value = `${year}-${month}`;
+            option.textContent = monthName;
+            
+            if(i === 0) {
+                option.selected = true;
+            }
+            
+            selector.appendChild(option);
+        }
+    }
+
+    // Change month when selector changes
+    function changeMonth() {
+        const selectedMonth = document.getElementById('monthSelector').value;
+        loadReportData(selectedMonth);
+    }
+
+    async function loadReportData(selectedMonth = null) {
         const refreshBtn = document.querySelector('.btn-refresh');
         const originalText = refreshBtn.innerHTML;
         
@@ -243,43 +308,59 @@
         refreshBtn.disabled = true;
         
         try {
-            // Use the correct path for your setup
-            const response = await fetch('http://localhost/Girls/PGCore/Backend/admin/get_booking_stats.php');
+            let url = 'Backend/admin/get_booking_stats.php';
+            if(selectedMonth) {
+                url += `?month=${selectedMonth}`;
+            }
+            
+            const response = await fetch(url);
             const data = await response.json();
             
             console.log('API Response:', data);
             
             if(data.error) {
-                alert('Error: ' + data.error);
+                document.getElementById('monthInfo').innerHTML = `<span style="color:red;">❌ Error: ${data.error}</span>`;
                 return;
+            }
+            
+            // Update month info
+            if(data.current_month) {
+                document.getElementById('monthInfo').innerHTML = `<i class="fas fa-calendar-alt"></i> Showing data for <strong>${data.current_month}</strong> (${data.days_in_month} days)`;
             }
             
             // Update stats
             document.getElementById('totalBookings').innerText = data.total_bookings || 0;
             document.getElementById('avgDaily').innerText = data.avg_daily || 0;
             document.getElementById('peakValue').innerText = data.peak_value || 0;
-            document.getElementById('peakDay').innerHTML = (data.peak_day_name || 'Monday') + ' 🔥';
+            
+            let peakDisplay = data.peak_date ? `${data.peak_day_name} (${data.peak_date})` : data.peak_day_name;
+            document.getElementById('peakDay').innerHTML = `${peakDisplay} 🔥`;
             document.getElementById('conversionRate').innerText = (data.conversion_rate || 14.2) + '%';
             
             // Update trend
             const change = data.percent_change || 0;
             const trendSpan = document.getElementById('trendText');
             if(change > 0) {
-                trendSpan.innerHTML = `<span class="trend-up"><i class="fas fa-arrow-up"></i> +${change}% vs prev week</span>`;
+                trendSpan.innerHTML = `<span class="trend-up"><i class="fas fa-arrow-up"></i> +${change}% vs last month</span>`;
             } else if(change < 0) {
-                trendSpan.innerHTML = `<span class="trend-down"><i class="fas fa-arrow-down"></i> ${change}% vs prev week</span>`;
+                trendSpan.innerHTML = `<span class="trend-down"><i class="fas fa-arrow-down"></i> ${change}% vs last month</span>`;
             } else {
-                trendSpan.innerHTML = `Same as prev week`;
+                trendSpan.innerHTML = `Same as last month`;
             }
             
-            // Update chart - use the data from API
-            const labels = data.labels || ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-            const chartData = data.bookings_data || [0, 0, 0, 0, 0, 0, 0, 0];
+            // Store current chart data
+            currentChartData = {
+                labels: data.labels,
+                bookings_data: data.bookings_data,
+                current_month: data.current_month
+            };
             
-            updateChart(labels, chartData);
+            // Update chart
+            updateChart(data.labels, data.bookings_data, data.current_month);
             
         } catch(error) {
             console.error('Error:', error);
+            document.getElementById('monthInfo').innerHTML = '<span style="color:red;">❌ Failed to load data</span>';
             alert('Failed to load data: ' + error.message);
         } finally {
             refreshBtn.innerHTML = originalText;
@@ -287,23 +368,40 @@
         }
     }
     
-    function updateChart(labels, data) {
+    function updateChart(labels, data, monthName) {
         const ctx = document.getElementById('bookingsChart').getContext('2d');
         
         if(bookingsChart) {
             bookingsChart.destroy();
         }
         
+        // For better visibility, only show every nth label if there are too many days
+        let displayLabels = labels;
+        let displayData = data;
+        
+        if(labels.length > 31) {
+            // Show every 3rd day for long months
+            displayLabels = [];
+            displayData = [];
+            for(let i = 0; i < labels.length; i++) {
+                if(i % 3 === 0 || i === labels.length - 1) {
+                    displayLabels.push(labels[i]);
+                    displayData.push(data[i]);
+                }
+            }
+        }
+        
         bookingsChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: labels,
+                labels: displayLabels,
                 datasets: [{
-                    label: 'Confirmed Bookings',
-                    data: data,
+                    label: `Confirmed Bookings (${monthName || 'Current Month'})`,
+                    data: displayData,
                     backgroundColor: '#0f3c4c',
-                    borderRadius: 8,
-                    barPercentage: 0.65
+                    borderRadius: 6,
+                    barPercentage: 0.7,
+                    categoryPercentage: 0.9
                 }]
             },
             options: {
@@ -343,9 +441,15 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Day of Week',
+                            text: 'Date',
                             font: { weight: '600', size: 12 },
                             color: '#0f3c4c'
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45,
+                            autoSkip: true,
+                            maxTicksLimit: 15
                         }
                     }
                 }
@@ -361,6 +465,7 @@
     
     document.addEventListener('DOMContentLoaded', () => {
         setCurrentDate();
+        populateMonthSelector();
         loadReportData();
     });
 </script>
